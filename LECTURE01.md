@@ -20,9 +20,9 @@ MIE 402 · Fall 2026 · September 9 · 50 minutes
 
 **0–8 min.** Course organization and the laboratory workflow
 
-**8–20 min.** Six experiments and the evidence each produces
+**8–23 min.** Six experiments, apparatus, measurements, and analysis
 
-**20–42 min.** Report structure, figures, comparison, and uncertainty
+**23–42 min.** Report structure, figures, comparison, and uncertainty
 
 **42–48 min.** Policies and a short report exercise
 
@@ -70,73 +70,85 @@ MIE 402 · Fall 2026 · September 9 · 50 minutes
 
 ## 08. Lab 1: Sampling and frequency analysis
 
-**Question.** How can the same sound produce different sampled signals?
+**Apparatus.** Moku:Go data logger, microphone, speaker, and sound sources such as a tuning fork.
 
-**Measurement.** Record microphone voltage and the sampling rate. Compare time traces and spectra.
+**Data collection.** Record at least one second at several rates relative to the source frequency, then replay and save each data file.
 
-**Report evidence.** Show how sample rate and record duration affect the inferred frequency. Identify aliasing.
+**Analysis.** Compare time histories and FFT spectra. Identify the fundamental frequency, aliasing, and the effect of record length.
+
+**Report focus.** Explain why sampling rate controls representation while record duration controls frequency resolution.
 
 fₛ > 2 fmax      Δf = fₛ / N = 1 / Trecord
 
-*The Nyquist condition assumes a band-limited input. Practical acquisition needs filtering and margin.*
+*The procedure includes rates such as 100f, 10f, 3f, 1.4f, and 1f. Record the actual settings for every run.*
 
 ## 09. Lab 2: Single pendulum
 
-**Question.** When does a small-angle model predict the measured motion?
+**Apparatus.** Single pendulum, high-speed camera at the assigned frame rate, scale reference, and the MATLAB tracking app.
 
-**Measurement.** Track angle from video. Record geometry, mass properties, frame rate, and release angle.
+**Data collection.** Release from rest at small, medium, and large initial angles. Record the angle, geometry, masses, and video settings.
 
-**Report evidence.** Compare measured and predicted angle histories and periods for small and larger releases.
+**Analysis.** Convert tracked coordinates to angle and angular velocity. Compare time histories, spectra, period, and numerical prediction.
+
+**Report focus.** Explain when the small-angle model works and how inertia, damping, calibration, and release angle affect agreement.
 
 Iₚ θ̈ + m g d sin θ = 0      Tsmall = 2π √(Iₚ / m g d)
 
-*Iₚ is inertia about the pivot. d is the pivot-to-center-of-mass distance. The model neglects losses.*
+*The procedure uses releases below 10°, from 10° to 90°, and from 90° to 180°. Match simulation and experiment initial conditions.*
 
 ## 10. Lab 3: Double pendulum
 
-**Question.** How does coupling change the motion of two connected bodies?
+**Apparatus.** Two-link pendulum, high-speed camera, scale reference, and image tracking for both moving masses.
 
-**Measurement.** Track both angles and record both initial angles and release conditions.
+**Data collection.** Record a small-angle release and at least three large-angle cases. Save both initial angles and release conditions.
 
-**Report evidence.** Overlay measured and simulated angle histories. Compare small and large motions and their spectra.
+**Analysis.** Compute both angles and angular velocities, then compare time histories and spectra with the coupled numerical model.
 
-*Trajectory divergence alone does not establish chaos. Check initial conditions, tracking, and model assumptions.*
+**Report focus.** Discuss coupling, sensitivity to initial conditions, tracking error, and where measured and simulated trajectories begin to diverge.
+
+*A complicated or diverging trajectory alone does not establish chaos. First verify initial conditions, time alignment, and tracking.*
 
 ## 11. Lab 4: Free response of a 1-DOF system
 
-**Question.** What do oscillation period and amplitude decay reveal about the system?
+**Apparatus.** Vernier cart and position sensor, force sensor, springs, added masses, and eddy-current dampers.
 
-**Measurement.** Displace the cart and release it. Measure mass, effective stiffness, and displacement versus time.
+**Data collection.** Measure mass and spring stiffness. Displace the cart, release it, and repeat with changed mass, stiffness, and damping.
 
-**Report evidence.** Estimate natural frequency and damping. Compare cases with changed mass, springs, or damping.
+**Analysis.** Use displacement histories, peak decay, and spectra to estimate damped frequency, natural frequency, and damping ratio.
+
+**Report focus.** Relate each controlled change to the model and document effective stiffness, initial displacement, sampling rate, and peak selection.
 
 m ẍ + c ẋ + k x = 0      ωn = √(k / m)      ζ = c / (2√(k m))
 
-*For an underdamped viscous model, ωd = ωn √(1 − ζ²). Natural and damped frequency differ.*
+*The procedure uses a base case plus variations in mass, springs, and dampers. Verify each exported CSV before leaving.*
 
 ## 12. Lab 5: Forced response of a 1-DOF system
 
-**Question.** How does excitation frequency affect response amplitude and phase?
+**Apparatus.** Vernier cart, springs, motor-driven input, magnetic dampers, tachometer, and Graphical Analysis software.
 
-**Measurement.** Apply the assigned impulse and harmonic inputs. Record input motion or force and the cart response.
+**Data collection.** Record three impulse cases, then harmonic steady-state responses below and above resonance while avoiding prolonged resonance.
 
-**Report evidence.** Separate the transient from the periodic response. Plot amplitude or gain against excitation frequency.
+**Analysis.** Separate transient and steady motion. Compute output-to-input magnitude and compare the experimental Bode plot with the model.
+
+**Report focus.** Use measured input amplitude and frequency for every point. Connect Lab 4 parameter estimates to the forced-response prediction.
 
 m ẍ + c ẋ + k x = F(t)
 
-*This is the force-input model. A moving spring attachment requires the corresponding base-motion input model.*
+*Let the response settle before measuring amplitude. Convert tachometer RPM to rad/s and document any configuration changes.*
 
 ## 13. Lab 6: Radiometer rotation
 
-**Question.** How does illumination relate to measured rotation over a controlled time window?
+**Apparatus.** Crookes radiometer, LED light, lux meter, fixed camera, matte black background, ruler, and optional IR thermometer.
 
-**Measurement.** Track cumulative angle from video. Record illuminance, light position, and thermal history.
+**Data collection.** Record a clear 60–90 s video at a close safe light distance. Keep geometry fixed and note lux and thermal history.
 
-**Report evidence.** Fit angle versus time to estimate RPM. Compare identical measurement windows and discuss warming.
+**Analysis.** Track the vane within an annulus, unwrap cumulative angle, fit its slope for average RPM, and inspect interval RPM for slowdown.
+
+**Report focus.** Connect rotation to rarefied-gas thermal transport. Explain why lux is an imperfect heat-input measure and why warming matters.
 
 θ(t) ≈ θ₀ + ωavg t      RPM = (60 / 2π) ωavg
 
-*ωavg is in rad/s. Lux measures illuminance, not absorbed heating power.*
+*A practical start is about 15 cm from the light with the background 20–30 cm behind the bulb. Follow the released safety limits.*
 
 ## 14. The structure of a laboratory report
 
