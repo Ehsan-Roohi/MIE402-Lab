@@ -32,7 +32,7 @@ MIE 402 · Fall 2026 · September 9 · 50 minutes
 
 **Instructor.** Prof. Ehsan Roohi · roohie@umass.edu · Gunness Laboratory, Room 1
 
-**Graduate teaching assistants.** Yuyuan Zhang, Ryan Cameron, Nazila Emamdoost
+**Graduate teaching assistants.** Yuyuan Zhang and Nazila Emamdoost
 
 **Theory.** Monday, 12:20–1:10 PM · Hasbrouck Laboratory 134
 

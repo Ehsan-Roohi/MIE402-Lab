@@ -6,8 +6,6 @@ Prof. Ehsan Roohi · Gunness Laboratory, Room 1 · [roohie@umass.edu](mailto:roo
 
 ## Open for class
 
-**[Open the course website](https://ehsan-roohi.github.io/MIE402-Lab/)**
-
 **[Syllabus](SYLLABUS.md)** · **[Syllabus PDF](site/docs/Syllabus_MIE402_Fall26_6Labs.pdf)** · **[Lecture 01](LECTURE01.md)** · **[PowerPoint](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pptx)** · **[Lecture PDF](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pdf)** · **[Report template](site/docs/MIE402_Report_Template.docx)**
 
 Lecture 01 covers orientation and laboratory report writing in a 50-minute class. It includes all six experiment introductions, report section purposes and page allocations, quantitative examples, figures, uncertainty, the report rubric, and a short class exercise. Its 31 slides include detailed speaker notes.
@@ -27,9 +25,9 @@ Fall 2026 uses the sequence above. Detailed procedures and pre-labs are released
 
 ## Course website
 
-The `site` directory contains a complete static website, including a syllabus, lecture reading and presentation views, report guide, and downloadable materials. It opens locally through `site/index.html` without installing dependencies.
+The live course website is [ehsan-roohi.github.io/MIE402-Lab](https://ehsan-roohi.github.io/MIE402-Lab/). The `site` directory contains its static source, including a syllabus, lecture reading and presentation views, report guide, and downloadable materials.
 
-GitHub Pages publishes it using the included `pages.yml` workflow. Pushes to `main` update the website. The workflow publishes only `site`.
+GitHub Pages publishes the `site` directory through the included `pages.yml` workflow whenever `main` changes.
 
 ## Submissions and updates
 

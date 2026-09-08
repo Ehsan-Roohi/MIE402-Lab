@@ -8,7 +8,7 @@ Fall 2026
 
 | Instructor | Prof. Ehsan Roohi  |  roohie@umass.edu  |  Office: Gunness Laboratory room 1 |
 | --- | --- |
-| Graduate Teaching Assistants | Yuyuan Zhang; Ryan Cameron; Nazila Emamdoost (emails listed with lab sections below) |
+| Graduate Teaching Assistants | Yuyuan Zhang; Nazila Emamdoost (emails listed with lab sections below) |
 | Theory Meeting | Mon. 12:20-1:10 PM  /  Hasbrouck Laboratory room 134 |
 | Friday Office Hours | Fri. 12:20-1:10 PM  /  Gunness Laboratory room 1 |
 
