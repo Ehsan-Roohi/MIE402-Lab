@@ -21,7 +21,7 @@ Lecture 01 covers orientation and laboratory report writing in a 50-minute class
 | 5 | 1-DOF system: forced response | Labs 4 + 5 |
 | 6 | Radiometer | Lab 6 |
 
-Fall 2026 uses the sequence above. The student notebook for Pre-Lab 1 is available here for preview and download; official release and submission remain on Canvas.
+Fall 2026 uses the sequence above. The Pre-Lab 1 notebook provides prepared Python cells and graded data-analysis questions; students do not write code. Official release and submission remain on Canvas.
 
 ## Course website
 
