@@ -8,7 +8,7 @@ Prof. Ehsan Roohi · Gunness Laboratory, Room 1 · [roohie@umass.edu](mailto:roo
 
 **[Syllabus](SYLLABUS.md)** · **[Syllabus PDF](site/docs/Syllabus_MIE402_Fall26_6Labs.pdf)** · **[Lecture 01](LECTURE01.md)** · **[PowerPoint](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pptx)** · **[Lecture PDF](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pdf)** · **[Report template](site/docs/MIE402_Report_Template.docx)**
 
-Lecture 01 covers orientation and laboratory report writing in a 50-minute class. It includes all six experiment introductions, report section purposes and page allocations, quantitative examples, figures, uncertainty, the report rubric, and a short class exercise. Its 31 slides include detailed speaker notes.
+Lecture 01 covers orientation and laboratory report writing in a 50-minute class. Each of the six experiments has equipment photographs from the course files and plain-English explanations of the procedure, analysis, and report. Its 37 slides include detailed speaker notes, report examples, and a short class exercise.
 
 ## Six experiments
 

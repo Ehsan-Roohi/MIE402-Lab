@@ -68,89 +68,127 @@ MIE 402 · Fall 2026 · September 9 · 50 minutes
 | 5 | 1-DOF system: forced response | Labs 4 + 5 |
 | 6 | Radiometer | Lab 6 |
 
-## 08. Lab 1: Sampling and frequency analysis
+## 08. Lab 1: Recording sound
 
-**Apparatus.** Moku:Go data logger, microphone, speaker, and sound sources such as a tuning fork.
+![Moku:Go data logger connected to a microphone](site/assets/lab1-moku.jpg)
 
-**Data collection.** Record at least one second at several rates relative to the source frequency, then replay and save each data file.
+**The question.** How often must we measure a sound to record its frequency correctly?
 
-**Analysis.** Compare time histories and FFT spectra. Identify the fundamental frequency, aliasing, and the effect of record length.
+**The equipment.** The microphone turns sound into voltage. Moku:Go records that voltage as numbers.
 
-**Report focus.** Explain why sampling rate controls representation while record duration controls frequency resolution.
+**What you do.** Record several sounds. For a steady tone, repeat the recording at different sampling rates.
 
-fₛ > 2 fmax      Δf = fₛ / N = 1 / Trecord
+## 09. Lab 1: A recording can show the wrong frequency
 
-*The procedure includes rates such as 100f, 10f, 3f, 1.4f, and 1f. Record the actual settings for every run.*
+**Two useful plots.** A waveform shows voltage versus time. A frequency spectrum shows which frequencies are present; MATLAB can calculate it with an FFT.
 
-## 09. Lab 2: Single pendulum
+**What to look for.** With too few samples per cycle, the signal can appear to have a lower frequency. This is called aliasing.
 
-**Apparatus.** Single pendulum, high-speed camera at the assigned frame rate, scale reference, and the MATLAB tracking app.
+**What goes in the report.** Compare recordings with their actual sampling rates and durations. Explain which settings gave a reliable frequency estimate.
 
-**Data collection.** Release from rest at small, medium, and large initial angles. Record the angle, geometry, masses, and video settings.
+*Saving as MAT makes the measurements easy to load in MATLAB. Changing the file format does not fix a poor recording.*
 
-**Analysis.** Convert tracked coordinates to angle and angular velocity. Compare time histories, spectra, period, and numerical prediction.
+## 10. Lab 2: One pendulum
 
-**Report focus.** Explain when the small-angle model works and how inertia, damping, calibration, and release angle affect agreement.
+![Single pendulum recorded by the high-speed camera](site/assets/lab2-pendulum.jpg)
 
-Iₚ θ̈ + m g d sin θ = 0      Tsmall = 2π √(Iₚ / m g d)
+**The question.** Does a pendulum take the same time to swing when we release it from a larger angle?
 
-*The procedure uses releases below 10°, from 10° to 90°, and from 90° to 180°. Match simulation and experiment initial conditions.*
+**The equipment.** A pendulum, a high-speed camera, lighting, and a length reference. The camera records the moving rod.
 
-## 10. Lab 3: Double pendulum
+**What you do.** Release it without pushing. Record small, medium, and large starting angles. Track its position in MATLAB.
 
-**Apparatus.** Two-link pendulum, high-speed camera, scale reference, and image tracking for both moving masses.
+## 11. Lab 2: Comparing the swing with a model
 
-**Data collection.** Record a small-angle release and at least three large-angle cases. Save both initial angles and release conditions.
+**The measurements.** Plot angle versus time. Measure the period over several swings and check whether the swing size decreases.
 
-**Analysis.** Compute both angles and angular velocities, then compare time histories and spectra with the coupled numerical model.
+**The model.** The small-angle model simplifies the equation of motion. Compare it with the full model as the release angle increases.
 
-**Report focus.** Discuss coupling, sensitivity to initial conditions, tracking error, and where measured and simulated trajectories begin to diverge.
+**What goes in the report.** Overlay measured and predicted angles. Compare their periods and explain how the starting angle changes the agreement.
 
-*A complicated or diverging trajectory alone does not establish chaos. First verify initial conditions, time alignment, and tracking.*
+*Use the same starting angle, angle direction, and time origin in the measurement and simulation.*
 
-## 11. Lab 4: Free response of a 1-DOF system
+## 12. Lab 3: Two connected pendulums
 
-**Apparatus.** Vernier cart and position sensor, force sensor, springs, added masses, and eddy-current dampers.
+![Two-link pendulum during release](site/assets/lab3-pendulum.jpg)
 
-**Data collection.** Measure mass and spring stiffness. Displace the cart, release it, and repeat with changed mass, stiffness, and damping.
+**The question.** How does adding a second moving link change the motion and our ability to predict it?
 
-**Analysis.** Use displacement histories, peak decay, and spectra to estimate damped frequency, natural frequency, and damping ratio.
+**The equipment.** Two connected links, a high-speed camera, and a tracking app that follows both moving joints.
 
-**Report focus.** Relate each controlled change to the model and document effective stiffness, initial displacement, sampling rate, and peak selection.
+**What you do.** Record one small-angle case and at least three large-angle cases. Write down both starting angles before each release.
 
-m ẍ + c ẋ + k x = 0      ωn = √(k / m)      ζ = c / (2√(k m))
+## 13. Lab 3: Two angle records to explain
 
-*The procedure uses a base case plus variations in mass, springs, and dampers. Verify each exported CSV before leaving.*
+**The measurements.** Plot each link’s angle versus time. Notice how the two links speed up, slow down, and influence one another.
 
-## 12. Lab 5: Forced response of a 1-DOF system
+**The comparison.** Start the simulation with the measured angles. Compare both links over the same time interval.
 
-**Apparatus.** Vernier cart, springs, motor-driven input, magnetic dampers, tachometer, and Graphical Analysis software.
+**What goes in the report.** Show where the predictions agree and where they separate from the measurements. Check release conditions and tracking before explaining the difference.
 
-**Data collection.** Record three impulse cases, then harmonic steady-state responses below and above resonance while avoiding prolonged resonance.
+*A small difference at release can grow during large motion. An irregular-looking trajectory alone does not prove chaos.*
 
-**Analysis.** Separate transient and steady motion. Compute output-to-input magnitude and compare the experimental Bode plot with the model.
+## 14. Lab 4: A cart released between springs
 
-**Report focus.** Use measured input amplitude and frequency for every point. Connect Lab 4 parameter estimates to the forced-response prediction.
+![Vernier carts with added masses](site/assets/lab4-carts.jpg)
 
-m ẍ + c ẋ + k x = F(t)
+**The question.** What controls how fast the cart moves back and forth, and how quickly that motion dies away?
 
-*Let the response settle before measuring amplitude. Convert tachometer RPM to rad/s and document any configuration changes.*
+**The equipment.** A cart on a track, springs, added masses, and magnetic brakes. A sensor records the cart position.
 
-## 13. Lab 6: Radiometer rotation
+**What you do.** Measure mass and spring stiffness. Pull the cart away from rest and let go. Repeat after changing one setting at a time.
 
-**Apparatus.** Crookes radiometer, LED light, lux meter, fixed camera, matte black background, ruler, and optional IR thermometer.
+## 15. Lab 4: Swing time and fading motion
 
-**Data collection.** Record a clear 60–90 s video at a close safe light distance. Keep geometry fixed and note lux and thermal history.
+**Two features of the plot.** Peak spacing gives the period. The decrease in peak height shows how quickly the motion dies away.
 
-**Analysis.** Track the vane within an annulus, unwrap cumulative angle, fit its slope for average RPM, and inspect interval RPM for slowdown.
+**Expected trends.** More mass usually gives slower motion. Stiffer springs give faster motion. More damping makes the peaks decrease faster.
 
-**Report focus.** Connect rotation to rarefied-gas thermal transport. Explain why lux is an imperfect heat-input measure and why warming matters.
+**What goes in the report.** Compare the cases using measured frequency and damping. State exactly what changed and connect each trend to the model.
 
-θ(t) ≈ θ₀ + ωavg t      RPM = (60 / 2π) ωavg
+*Keep other settings fixed when making a comparison. Include the mass of added brake parts in the total moving mass.*
 
-*A practical start is about 15 cm from the light with the background 20–30 cm behind the bulb. Follow the released safety limits.*
+## 16. Lab 5: A cart driven by a motor
 
-## 14. The structure of a laboratory report
+![Motor and spring drive from an earlier course setup](site/assets/lab5-motor.jpg)
+
+**The question.** Why can the cart move much farther at some driving speeds than at others?
+
+**The equipment.** A motor moves one spring end back and forth. The cart records position; a tachometer measures motor speed.
+
+**What you do.** Compare three brief pushes. Then drive the cart at several speeds below and above its strongest response.
+
+## 17. Lab 5: Response at different driving speeds
+
+**After each speed change.** Wait until the motion settles into a repeating pattern. Measure the spring-end motion and the cart motion.
+
+**The main graph.** Plot cart amplitude divided by input amplitude against driving frequency. A peak indicates resonance.
+
+**What goes in the report.** Compare the measured curve with the model. Explain how mass, spring stiffness, and damping affect the response.
+
+*Amplitude means the distance from the middle position to a peak. Keep peak and peak-to-peak measurements consistent.*
+
+## 18. Lab 6: A radiometer under light
+
+![Radiometer and light meter; green rings mark the tracking region](site/assets/lab6-radiometer.jpg)
+
+**The question.** How fast do the vanes turn under the light, and does that speed change as the device warms?
+
+**The equipment.** A glass radiometer, LED light, light meter, fixed camera, and dark background.
+
+**What you do.** Keep the setup still. Record a clear 60–90 second video and note light level, distance, and whether the device is already warm.
+
+## 19. Lab 6: Rotation speed from video
+
+**The measurement.** The program follows the vanes and adds up their rotation angle. The slope of angle versus time gives average speed.
+
+**The useful comparison.** Compare the early and late parts of the same recording. Check whether the rotation speeds up, slows down, or stays nearly steady.
+
+**What goes in the report.** Report speed in revolutions per minute (RPM), show the angle plot, and explain how lighting, warming, and tracking affect the result.
+
+*Compare the same time window in each trial. Lux measures visible light level; it does not directly measure the heat absorbed.*
+
+## 20. The structure of a laboratory report
 
 **Required sections.** Abstract, Introduction, Method, Results, Comparison, Discussion, Conclusions, and References
 
@@ -158,7 +196,7 @@ m ẍ + c ẋ + k x = F(t)
 
 **Reader.** Write for an engineering student who has completed Dynamics and Fluid Mechanics.
 
-## 15. Report length and section purpose
+## 21. Report length and section purpose
 
 | Section | Template allocation | Main purpose |
 | --- | --- | --- |
@@ -172,17 +210,17 @@ m ẍ + c ẋ + k x = F(t)
 
 *References and optional appendices have no stated page limit. Follow any assignment-specific limit on Canvas.*
 
-## 16. Introduction and reproducible method
+## 22. Introduction and method
 
-**Introduction.** State a testable objective. Give the governing equation, define symbols, and explain assumptions.
+**Introduction.** Explain what you want to test, why it matters, and which equation predicts the result. Define every symbol.
 
-**Method.** Describe the actual apparatus, calibration, sampling settings, initial conditions, and repeated runs.
+**Method.** Describe the equipment, calibration, recording settings, and what you changed between trials.
 
-**Analysis record.** Explain processing choices, fitting intervals, and parameter sources so another person can repeat the analysis.
+**Data processing.** Explain how you turned the raw measurements into your final numbers and plots. Another group should be able to repeat the steps.
 
 *Example objective: test how release angle changes agreement with the small-angle pendulum model.*
 
-## 17. A concise, quantitative abstract
+## 23. An abstract with a clear numerical result
 
 **Purpose and method.** We tested a small-angle pendulum prediction using angle histories from video.
 
@@ -192,17 +230,17 @@ m ẍ + c ẋ + k x = F(t)
 
 *Illustrative wording and invented teaching values. An actual abstract must use your own results. Maximum 10 lines.*
 
-## 18. Results: the measured behavior
+## 24. Results: what the measurements show
 
-**Observation.** Describe what the measurements show, with quantities and units.
+**Observation.** Describe the measured trend. Give the important values and their units.
 
-**Evidence.** Use figures or tables that answer the experimental question. Identify conditions and repeated runs.
+**Evidence.** Use a figure or table that answers the question. State the test conditions and identify repeated trials.
 
-**Traceability.** Distinguish measured data, processed measurements, and simulation predictions.
+**Origin of each curve.** Label measurements and simulations clearly. Explain any processing that changes the measured values.
 
 *Example observation: successive positive displacement peaks decrease over time.*
 
-## 19. Readable, exported figures
+## 25. Readable, exported figures
 
 **Figure requirements.** Numbered figure, descriptive caption, axis labels with units, legible text, and clear legend.
 
@@ -210,47 +248,47 @@ m ẍ + c ẋ + k x = F(t)
 
 **Final check.** Inspect the submitted PDF at the size the reader will use.
 
-## 20. A figure that supports a comparison
+## 26. A figure that supports a comparison
 
 ![Illustrative comparison](site/assets/comparison.svg)
 
 *Figure 1. Illustrative angle histories: undamped model and synthetic decaying signal, 5° initial angle, 50 samples/s.*
 
-## 21. Comparison: a fair test of the model
+## 27. Comparison: a fair test of the model
 
-**Same basis.** Use matching units, initial conditions, time origin, and system parameters. Explain the theoretical solution.
+**Same conditions.** Use the same units, starting conditions, and time origin. State the model parameters.
 
-**Quantitative comparison.** Compare period, frequency, amplitude, phase, damping, or another quantity relevant to the objective.
+**Useful numbers.** Compare a relevant quantity, such as period, frequency, or amplitude. Also show the curves together when useful.
 
-**Parameter honesty.** State which parameters you measured, assumed, or fitted. A fit to the same data is not independent validation.
+**Where parameters came from.** State which values you measured, assumed, or adjusted to match the data. Test adjusted values on another trial when possible.
 
 Relative discrepancy = | measured − predicted | / | predicted | × 100%
 
 *Use an appropriate absolute or scaled metric when the predicted value is zero or very small.*
 
-## 22. Uncertainty and acceptable agreement
+## 28. How close is close enough?
 
-**Measurement uncertainty.** Consider calibration, resolution, repeatability, timing, and tracking choices.
+**Limits of the measurements.** A camera time setting, ruler scale, or tracking position can be slightly wrong. Repeated trials can also give different results.
 
-**Model uncertainty.** Consider uncertain parameters and omitted physics, such as friction or large-angle effects.
+**Limits of the model.** Mass or spring stiffness may be uncertain. A simple model may leave out friction or large-angle effects.
 
-**A justified conclusion.** Report what each uncertainty means. Compare the discrepancy with a consistent uncertainty estimate.
+**A supported conclusion.** A 2% difference alone does not tell us whether the agreement is good. Compare it with the size of the measurement and model uncertainties.
 
-T = Δt / ncycles      uT ≈ uΔt / ncycles
+Period = elapsed time / number of complete cycles
 
-*Simplified timing example with exact cycle count. Longer timing intervals do not remove calibration bias.*
+*Timing several cycles reduces the effect of choosing one peak slightly early or late.*
 
-## 23. Discussion: explanations tied to evidence
+## 29. Discussion: explanations tied to evidence
 
-**Observed difference.** The measured oscillation envelope decays while the undamped prediction keeps constant amplitude.
+**What you observed.** The measured swing gets smaller over time, while the model keeps the same swing size.
 
-**Plausible mechanism.** Friction or drag could dissipate energy. The present comparison does not identify their separate contributions.
+**A possible explanation.** Friction or air resistance could remove energy. This plot alone does not tell us how much each one contributes.
 
-**Discriminating check.** Compare decay across configurations and test whether the chosen damping model describes the envelope.
+**A useful check.** Compare how quickly the motion fades in different setups. Test whether adding damping improves the prediction.
 
 *Replace “human error” with a specific mechanism, its expected effect, and a way to check it.*
 
-## 24. Conclusions, references, and appendices
+## 30. Conclusions, references, and appendices
 
 **Conclusions.** Answer the objective with the key numerical result, supported limitation, and a useful improvement.
 
@@ -258,7 +296,7 @@ T = Δt / ncycles      uT ≈ uΔt / ncycles
 
 **Appendices.** Add supporting calculations or extra data only when needed. Keep essential evidence in the main text.
 
-## 25. Combined reports connect related experiments
+## 31. Combined reports connect related experiments
 
 **Labs 2 and 3.** Compare one angle with two coupled angles. Discuss model assumptions, initial conditions, and the limits of prediction.
 
@@ -268,7 +306,7 @@ T = Δt / ncycles      uT ≈ uΔt / ncycles
 
 *Suggested organization within the required template. Do not assume the page allowance doubles.*
 
-## 26. The report rubric: ten equal criteria
+## 32. The report rubric: ten equal criteria
 
 | Each criterion is 10% of the report grade | What to check |
 | --- | --- |
@@ -280,7 +318,7 @@ T = Δt / ncycles      uT ≈ uΔt / ncycles
 
 *This table groups the ten original rubric criteria into pairs. Each individual criterion remains worth 10%.*
 
-## 27. Submission and integrity policies
+## 33. Submission and integrity policies
 
 **Pre-labs.** Due on Canvas before your own section starts. Late pre-labs are not accepted.
 
@@ -288,7 +326,7 @@ T = Δt / ncycles      uT ≈ uΔt / ncycles
 
 **Integrity and verification.** Discuss approaches, but do not copy solutions or share MATLAB, Python, or Simulink source files. Be ready to explain your submitted work.
 
-## 28. Three-minute report exercise
+## 34. Three-minute report exercise
 
 **Draft sentence.** “The frequency was 1.47. Theory was 1.50. The error was small because of human error.”
 
@@ -298,7 +336,7 @@ T = Δt / ncycles      uT ≈ uΔt / ncycles
 
 *Invented teaching values. No submission is required for this in-class discussion.*
 
-## 29. Exercise debrief
+## 35. Exercise debrief
 
 **Results and comparison.** The measured frequency was 1.47 Hz and the predicted frequency was 1.50 Hz. Their difference was 0.03 Hz, or 2.0% of the prediction.
 
@@ -308,7 +346,7 @@ T = Δt / ncycles      uT ≈ uΔt / ncycles
 
 *Other specific, evidence-based checks can also be valid.*
 
-## 30. The first dates
+## 36. The first dates
 
 **September 9.** One-time Wednesday orientation. No laboratory in Weeks 1–2.
 
@@ -318,7 +356,7 @@ T = Δt / ncycles      uT ≈ uΔt / ncycles
 
 **October 5.** Lab 1 report due on Canvas at 11:59 PM
 
-## 31. Preparation for Lab 1
+## 37. Preparation for Lab 1
 
 **Before Week 3.** Confirm your lab section and GTA. Arrange MATLAB and Simulink access. Read the released Lab 1 and pre-lab instructions.
 
