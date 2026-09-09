@@ -6,7 +6,7 @@ Prof. Ehsan Roohi · Gunness Laboratory, Room 1 · [roohie@umass.edu](mailto:roo
 
 ## Open for class
 
-**[Syllabus](SYLLABUS.md)** · **[Syllabus PDF](site/docs/Syllabus_MIE402_Fall26_6Labs.pdf)** · **[Lecture 01](LECTURE01.md)** · **[PowerPoint](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pptx)** · **[Lecture PDF](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pdf)** · **[Report template](site/docs/MIE402_Report_Template.docx)** · **[Pre-Lab 1 notebook](site/docs/MIE402_PreLab1_Fall2026_Student.ipynb)** · **[Pre-Lab 1 package](site/docs/MIE402_PreLab1_Fall2026_Student_Canvas.zip)**
+**[Syllabus](SYLLABUS.md)** · **[Syllabus PDF](site/docs/Syllabus_MIE402_Fall26_6Labs.pdf)** · **[Lecture 01](LECTURE01.md)** · **[PowerPoint](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pptx)** · **[Lecture PDF](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pdf)** · **[Report template](site/docs/MIE402_Report_Template.docx)** · **[Pre-Lab 1 notebook](site/docs/MIE402_PreLab1_Fall2026_Student.ipynb)** · **[Pre-Lab 1 package](site/docs/MIE402_PreLab1_Fall2026_Student_Canvas.zip)** · **[Open Pre-Lab 1 in Colab](https://colab.research.google.com/github/Ehsan-Roohi/MIE402-Lab/blob/main/site/docs/MIE402_PreLab1_Fall2026_Student.ipynb)** · **[Lecture 02 PowerPoint](site/docs/MIE402_Lecture02_Sampling_Jupyter_PreLab1_Fall2026.pptx)** · **[Lecture 02 PDF](site/docs/MIE402_Lecture02_Sampling_Jupyter_PreLab1_Fall2026.pdf)**
 
 Lecture 01 covers orientation and laboratory report writing in a 50-minute class. Each of the six experiments has equipment photographs from the course files and plain-English explanations of the procedure, analysis, and report. Its 37 slides include detailed speaker notes, report examples, and a short class exercise.
 
