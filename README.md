@@ -6,7 +6,7 @@ Prof. Ehsan Roohi · Gunness Laboratory, Room 1 · [roohie@umass.edu](mailto:roo
 
 ## Open for class
 
-**[Syllabus](SYLLABUS.md)** · **[Syllabus PDF](site/docs/Syllabus_MIE402_Fall26_6Labs.pdf)** · **[Lecture 01](LECTURE01.md)** · **[PowerPoint](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pptx)** · **[Lecture PDF](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pdf)** · **[Report template](site/docs/MIE402_Report_Template.docx)**
+**[Syllabus](SYLLABUS.md)** · **[Syllabus PDF](site/docs/Syllabus_MIE402_Fall26_6Labs.pdf)** · **[Lecture 01](LECTURE01.md)** · **[PowerPoint](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pptx)** · **[Lecture PDF](site/docs/MIE402_Lecture01_Report_Writing_Fall2026_v1.pdf)** · **[Report template](site/docs/MIE402_Report_Template.docx)** · **[Pre-Lab 1 notebook](site/docs/MIE402_PreLab1_Fall2026_Student.ipynb)** · **[Pre-Lab 1 package](site/docs/MIE402_PreLab1_Fall2026_Student_Canvas.zip)**
 
 Lecture 01 covers orientation and laboratory report writing in a 50-minute class. Each of the six experiments has equipment photographs from the course files and plain-English explanations of the procedure, analysis, and report. Its 37 slides include detailed speaker notes, report examples, and a short class exercise.
 
@@ -21,7 +21,7 @@ Lecture 01 covers orientation and laboratory report writing in a 50-minute class
 | 5 | 1-DOF system: forced response | Labs 4 + 5 |
 | 6 | Radiometer | Lab 6 |
 
-Fall 2026 uses the sequence above. Detailed procedures and pre-labs are released on Canvas.
+Fall 2026 uses the sequence above. The student notebook for Pre-Lab 1 is available here for preview and download; official release and submission remain on Canvas.
 
 ## Course website
 
@@ -31,7 +31,7 @@ GitHub Pages publishes the `site` directory through the included `pages.yml` wor
 
 ## Submissions and updates
 
-Use Canvas for announcements, section-specific changes, assignment submissions, and grades. No student submissions or pre-lab solutions are included in this repository.
+Use Canvas for announcements, section-specific changes, assignment submissions, and grades. No student submissions or instructor pre-lab solutions are included in this repository.
 
 ## Source materials
 
