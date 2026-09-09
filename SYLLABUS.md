@@ -64,7 +64,7 @@ Meaningful results: 10%
 
 ## Course policies
 
-Each pre-lab assignment is due on Canvas before the student's own laboratory section begins. Solutions may be posted after the final section for that experiment; late pre-labs will not be accepted.
+Pre-lab assignments are normally posted on Canvas on the Monday before the corresponding laboratory. Each assignment is due before the student's own laboratory section begins. Because laboratory sections meet Tuesday through Friday, due times differ by section. Solutions may be posted after the final section for that experiment; late pre-labs will not be accepted.
 
 Reports are due on Canvas at 11:59 PM on the dates listed in the tentative course schedule. A report grade will be reduced by 25% for each day or partial day it is late.
 
@@ -156,7 +156,7 @@ Dates follow the UMass Amherst Fall 2026 calendar. Theory meets Mondays, Fridays
 | 14 | Dec. 7-11 | - | Mon: No classFri: office hours | No laboratory |
 | 15 | Dec. 14-15 | Lab 6 report: Mon Dec. 14 | Mon: final office hourClasses end Tue Dec. 15 | No laboratory |
 
-Important scheduling note. Pre-labs are due before each student's section. Section-specific changes or make-ups will be announced on Canvas.
+Important scheduling note. Pre-labs are normally posted on Canvas on the Monday before the corresponding laboratory and are due before each student's own section. Section-specific changes or make-ups will be announced on Canvas.
 
 Official academic calendar: UMass Amherst Registrar
 

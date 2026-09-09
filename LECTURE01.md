@@ -320,7 +320,7 @@ Period = elapsed time / number of complete cycles
 
 ## 33. Submission and integrity policies
 
-**Pre-labs.** Due on Canvas before your own section starts. Late pre-labs are not accepted.
+**Pre-labs.** Normally posted on Canvas on the Monday before the laboratory. Due before your own section starts; late pre-labs are not accepted.
 
 **Reports.** Due on Canvas at 11:59 PM. A report grade loses 25% for each day or partial day late.
 
