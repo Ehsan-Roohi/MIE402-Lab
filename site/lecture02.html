@@ -6,12 +6,180 @@
 <a class="brand" href="index.html">MIE 402 <span>UMass Amherst</span></a><nav aria-label="Course navigation"><a href="index.html">Overview</a><a href="syllabus.html">Syllabus</a><a href="lecture01.html">Lecture 01</a><a href="lecture02.html">Lecture 02</a><a href="report-guide.html">Report guide</a><a href="report-template.html">Report template</a></nav>
 </div></header><main id="main"><p class="eyebrow">Fall 2026 · 50-minute class</p><h1>Sampling, FFT, and the<br>Pre-Lab 1 notebook</h1>
 <p class="lede">Theory and guided data analysis for the first laboratory. All Python code is provided. Students calculate, predict, compare, and explain the results.</p>
-<div class="resources"><div class="resource"><div><h3>Lecture files</h3><p>Twenty-four slides with detailed instructor notes</p></div><div class="links"><a href="docs/MIE402_Lecture02_Sampling_Jupyter_PreLab1_Fall2026.pptx" download>PowerPoint</a><a href="docs/MIE402_Lecture02_Sampling_Jupyter_PreLab1_Fall2026.pdf">PDF</a></div></div>
+<div class="resources"><div class="resource"><div><h3>Lecture files</h3><p>31 slides with detailed teaching notes, worked examples, and seven editable charts</p></div><div class="links"><a href="docs/MIE402_Lecture02_Sampling_Jupyter_PreLab1_Fall2026.pptx" download>PowerPoint</a><a href="docs/MIE402_Lecture02_Sampling_Jupyter_PreLab1_Fall2026.pdf">PDF</a></div></div>
 <div class="resource"><div><h3>Pre-Lab 1 notebook</h3><p>Prepared analysis cells and a 20-point data-analysis assignment</p></div><div class="links"><a href="https://colab.research.google.com/github/Ehsan-Roohi/MIE402-Lab/blob/main/site/docs/MIE402_PreLab1_Fall2026_Student.ipynb" target="_blank" rel="noopener">Open in Colab</a><a href="docs/MIE402_PreLab1_Fall2026_Student.ipynb" download>Download</a></div></div></div>
-<h2>Theory for this pre-lab</h2><h3>From sound to a voltage signal</h3><p>A microphone converts changing sound pressure into changing voltage. Moku:Go stores that voltage at selected times. A waveform plots voltage versus time; a spectrum shows which frequencies are present.</p><h3>Amplitude, frequency, and phase</h3><p>For <em>x</em><sub>1</sub>(<em>t</em>) = <em>A</em><sub>1</sub> sin(2π<em>f</em><sub>1</sub><em>t</em> + φ<sub>1</sub>), <em>A</em><sub>1</sub> is the peak voltage measured from zero, <em>f</em><sub>1</sub> is the number of cycles per second, and φ<sub>1</sub> sets the wave's position at <em>t</em> = 0. The subscript 1 identifies tone 1; the same meanings apply to tone 2.</p><img class="plot" src="assets/lecture02-period.png" alt="Amplitude from zero to the 1.20 V peak. Period measured between consecutive peaks at 10.03 and 65.59 milliseconds."><h3>Phase compared with a reference wave</h3><p>Compare the blue wave with a sine wave of zero phase at the same amplitude and frequency. A positive phase of 25 degrees advances the peak by 25/(360 × 18) seconds = 3.86 milliseconds. Phase changes the timing of the cycle, while amplitude and frequency stay the same.</p><img class="plot" src="assets/lecture02-phase.png" alt="Blue 25 degree wave peaks 3.86 milliseconds before the zero phase reference."><h3>Sampling rate and sample interval</h3><p>A data-acquisition system stores a continuous signal at selected times. If the sample rate is <em>f</em><sub>s</sub> samples per second, the sample interval is Δt = 1/<em>f</em><sub>s</sub>. A record of duration <em>T</em> contains approximately <em>N</em> = <em>f</em><sub>s</sub><em>T</em> samples.</p>
-<img class="plot" src="assets/lecture02-samples.png" alt="Simulated samples at 48 Hz alongside the densely evaluated two-tone waveform."><h3>Mean and RMS</h3><p>The mean describes the average signed level. RMS describes the overall size of an oscillating signal. A zero-mean sinusoid with amplitude <em>A</em> has RMS = <em>A</em>/√2. For distinct tones measured over complete cycles, their mean-square contributions add.</p>
-<h3>Nyquist frequency and aliasing</h3><p>The Nyquist frequency is <em>f</em><sub>N</sub> = <em>f</em><sub>s</sub>/2. A signal component above this limit appears at a false lower frequency. For the assigned cases, students predict that false frequency before viewing the FFT.</p>
-<img class="plot" src="assets/lecture02-alias.png" alt="42 Hz and 6 Hz curves have identical samples at 48 Hz."><h3>FFT and record duration</h3><p>The FFT reorganizes the same sampled data from voltage versus time into magnitude versus frequency. A peak location gives a frequency, and peak height estimates its voltage amplitude. The frequency-bin spacing is Δ<em>f</em> = <em>f</em><sub>s</sub>/<em>N</em> = 1/<em>T</em>. A longer record gives finer frequency resolution; a higher sample rate raises the highest frequency that can be measured without aliasing.</p>
-<p>A Hann window reduces leakage from a finite record but widens spectral peaks. Bin spacing alone does not determine whether two nearby tones can be separated. Gain correction adjusts amplitude scaling, but off-bin and overlapping peaks still need care. Windowing cannot remove aliasing.</p><h2>Student data analysis</h2><ol><li>Calculate theoretical mean and RMS.</li><li>Extract sampled mean and RMS values and calculate RMS percent errors.</li><li>Predict both FFT peaks for four sample rates.</li><li>Compare predictions with observed peaks and explain aliasing.</li><li>Compare the frequency resolution of 0.25 s and 1.00 s records.</li><li>Design a sample rate and record duration for a new measurement up to 75 Hz.</li></ol>
-<div class="callout"><strong>No programming assignment.</strong> The notebook contains complete Python code. Credit comes from calculations, tables, predictions, comparisons, and engineering explanations.</div>
-</main><footer>Mechanical &amp; Industrial Engineering · Fall 2026<br>Prof. Ehsan Roohi · <a href="mailto:roohie@umass.edu">roohie@umass.edu</a></footer></body></html>
+<nav class="subnav" aria-label="Lecture topics"><a href="#slide-12">Signal and sampling frequencies</a><a href="#slide-14">Nyquist</a><a href="#slide-17">Aliasing</a><a href="#slide-20">FFT</a><a href="#slide-23">Record duration</a></nav>
+<section id="slide-1" class="lecture-slide"><span class="slide-count">Slide 1 / 31</span><h2>Sampling, FFT, and the Pre-Lab 1 notebook</h2>
+</section>
+<section id="slide-2" class="lecture-slide"><span class="slide-count">Slide 2 / 31</span><h2>Learning goals</h2>
+<ul><li>Explain sample rate, sample interval, record length, and Nyquist frequency</li><li>Run prepared analysis cells in a Jupyter notebook</li><li>Interpret time histories, RMS values, and one-sided FFT spectra</li><li>Recognize aliasing before collecting Lab 1 sound data</li></ul>
+</section>
+<section id="slide-3" class="lecture-slide"><span class="slide-count">Slide 3 / 31</span><h2>Connection to Lab 1</h2>
+<div class="two-col">
+<div><h3>PRE-LAB</h3><p>A known voltage signal contains two pure tones.<br><br>Amplitude describes signal size; frequency describes how fast it repeats; phase sets its starting position.</p></div>
+<div><h3>LABORATORY</h3><p>A microphone converts changing sound pressure into changing voltage.<br><br>Moku:Go stores voltage samples. The waveform shows change in time; the spectrum shows the frequencies present.</p></div>
+</div>
+</section>
+<section id="slide-4" class="lecture-slide"><span class="slide-count">Slide 4 / 31</span><h2>Jupyter notebook structure</h2>
+<div class="two-col">
+<div><h3>MARKDOWN CELLS</h3><p>Instructions, equations, and response areas.<br><br>Double-click to edit. Use Shift+Enter to render and move forward.</p></div>
+<div><h3>CODE CELLS</h3><p>Python commands that define variables, calculate results, and make figures.<br><br>Run from top to bottom with Shift+Enter.</p></div>
+</div>
+</section>
+<section id="slide-5" class="lecture-slide"><span class="slide-count">Slide 5 / 31</span><h2>Opening and saving the notebook</h2>
+<ul><li>Download the .ipynb file from Canvas or open it from the course website in Colab</li><li>Save a personal copy before editing</li><li>Run cells from top to bottom</li><li>Keep code outputs and figures in the submitted file</li></ul>
+</section>
+<section id="slide-6" class="lecture-slide"><span class="slide-count">Slide 6 / 31</span><h2>Execution order matters</h2>
+<pre style="overflow-x:auto;background:#f5f6f7;padding:20px"><code>import numpy as np
+A = 1.20
+print(A)
+
+# A later cell can use A only after this cell runs.
+rms_component = A / np.sqrt(2)
+print(rms_component)</code></pre>
+</section>
+<section id="slide-7" class="lecture-slide"><span class="slide-count">Slide 7 / 31</span><h2>A sinusoid: what the three parameters mean</h2>
+<img class="plot" src="assets/lecture02-period.png" alt="A sinusoid: what the three parameters mean">
+</section>
+<section id="slide-8" class="lecture-slide"><span class="slide-count">Slide 8 / 31</span><h2>The new two-tone signal</h2>
+<pre style="overflow-x:auto;background:#f5f6f7;padding:20px"><code>A1, f1, phi1_deg = 1.20, 18.0, 25.0
+A2, f2, phi2_deg = 0.45, 42.0, -15.0
+
+def signal(t):
+    return (A1*np.sin(2*np.pi*f1*t + np.deg2rad(phi1_deg))
+            + A2*np.cos(2*np.pi*f2*t + np.deg2rad(phi2_deg)))</code></pre>
+</section>
+<section id="slide-9" class="lecture-slide"><span class="slide-count">Slide 9 / 31</span><h2>Phase relative to a zero-phase sine wave</h2>
+<img class="plot" src="assets/lecture02-phase.png" alt="Phase relative to a zero-phase sine wave">
+</section>
+<section id="slide-10" class="lecture-slide"><span class="slide-count">Slide 10 / 31</span><h2>Mean and RMS</h2>
+<div class="two-col">
+<div><h3>MEAN</h3><p>Average signed level:<br>mean = (1/N) Σ x[n]<br><br>N is the sample count; x[n] is sample n.<br>The continuous one-second signal has zero mean.</p></div>
+<div><h3>RMS</h3><p>Typical signal size, independent of sign:<br>RMS = sqrt((1/N) Σ x[n]²)<br><br>For these two distinct tones over complete cycles:<br>RMS = sqrt((A₁² + A₂²)/2) = 0.9062 V</p></div>
+</div>
+</section>
+<section id="slide-11" class="lecture-slide"><span class="slide-count">Slide 11 / 31</span><h2>Samples and the underlying waveform</h2>
+<img class="plot" src="assets/lecture02-samples.png" alt="Samples and the underlying waveform">
+</section>
+<section id="slide-12" class="lecture-slide"><span class="slide-count">Slide 12 / 31</span><h2>Signal frequency and sampling rate</h2>
+<div class="two-col">
+<div><h3>THE WAVE: f_signal</h3><p>f_signal counts complete cycles per second.<br>Unit: hertz (Hz).<br><br>Our signal has two components:<br>f₁ = 18 Hz and f₂ = 42 Hz.</p></div>
+<div><h3>THE RECORDER: f_s</h3><p>f_s counts stored samples per second.<br>Unit: samples/s (often written Hz).<br><br>We choose this setting on the recorder.<br>Changing f_s changes the sample times.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Say: We have two different clocks. The first belongs to the wave: how often does the voltage complete a cycle? That is f_signal. The second belongs to the recorder: how often do we store a voltage reading? That is f_s. The letter s means sampling, not signal. In the notebook, fs is the sampling rate, while f1 and f2 belong to the two tones. There is no single f_signal for a two-tone signal; we apply the term to each component. Ask: If I change fs from 126 to 336, does the 42 Hz tone become a 336 Hz tone? No. We get more readings of the same 42 Hz wave. Transition: We can now count how many readings fall within one cycle.</p></details>
+</section>
+<section id="slide-13" class="lecture-slide"><span class="slide-count">Slide 13 / 31</span><h2>How many samples describe one cycle?</h2>
+<div class="two-col">
+<div><h3>DURATION OF ONE CYCLE</h3><p>Signal period: T_signal = 1/f_signal.<br>For 42 Hz: T_signal = 23.81 ms.<br><br>Sample interval: Δt = 1/f_s.<br>For 126 samples/s: Δt = 7.94 ms.</p></div>
+<div><h3>SAMPLES PER CYCLE</h3><p>Samples/cycle = T_signal / Δt<br>                         = f_s / f_signal<br><br>126 / 42 = 3 samples per cycle.<br>336 / 42 = 8 samples per cycle.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Say: The 42 Hz component completes a cycle in about 24 milliseconds. At 126 samples per second, the recorder takes one reading about every 8 milliseconds. Therefore three sample intervals fit in one cycle. Divide the cycle duration by the time between readings to obtain the formula, rather than asking students to memorize it. Check the units: samples per second divided by cycles per second gives samples per cycle. Eight readings give a much clearer drawing than three. For a noninteger ratio, this is the average number of samples per cycle, not a guarantee that every individual cycle contains the same number. Ask students to calculate 72/42 = 1.71 before the next slide.</p></details>
+</section>
+<section id="slide-14" class="lecture-slide"><span class="slide-count">Slide 14 / 31</span><h2>The Nyquist condition</h2>
+<div class="two-col">
+<div><h3>THE SIGNAL REQUIREMENT</h3><p>f_max is the highest frequency present.<br>For our two tones: f_max = 42 Hz.<br><br>To avoid aliasing in this signal:<br>f_s &gt; 2 f_max = 84 samples/s.</p></div>
+<div><h3>THE RECORDER LIMIT</h3><p>Nyquist frequency: f_N = f_s / 2.<br>At f_s = 126 samples/s: f_N = 63 Hz.<br><br>Both 18 Hz and 42 Hz are below 63 Hz.<br>The same condition is f_max &lt; f_N.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Say: f_max belongs to the signal. f_N belongs to the selected sampling rate. They are not two names for the same quantity. The sampling theorem tells us that a signal confined to frequencies below half the sampling rate can, in principle, be recovered from ideal uniform samples. For our ordinary real-valued voltage measurement starting at low frequency, we require fs greater than twice the highest frequency present. We use a strict inequality and leave margin in practice. The 42 Hz component is smaller in amplitude than the 18 Hz component, but it still determines the requirement. Ask: At fs = 126, what is f_N? Answer: 63 Hz. Is 42 below it? Yes. Transition: Why do we avoid exactly two samples per cycle?</p></details>
+</section>
+<section id="slide-15" class="lecture-slide"><span class="slide-count">Slide 15 / 31</span><h2>Exactly two samples per cycle can fail</h2>
+<img class="plot" src="assets/lecture02-nyquist-boundary.png" alt="Exactly two samples per cycle can fail">
+<details><summary>Explanation and worked example</summary><p>Say: This example uses a 42 Hz sine wave with zero phase, rather than our assigned two-tone waveform. Sample at exactly 84 samples per second. Every reading lands on a zero crossing, so all stored values are zero. A different starting phase gives different values, which is precisely why the boundary is unsafe for recovering an arbitrary sinusoid. The curve has not disappeared; the recording has missed it. This is a direct reason to write greater than, not equal to, twice the maximum frequency. Meeting the ideal theorem with three samples per cycle also does not mean straight lines between the readings reproduce the waveform. Reconstruction and a visually smooth connected plot are different tasks.</p></details>
+</section>
+<section id="slide-16" class="lecture-slide"><span class="slide-count">Slide 16 / 31</span><h2>Checking the four notebook sample rates</h2>
+<div class="table-wrap"><table><thead><tr><th>f_s (samples/s)</th><th>f_N (Hz)</th><th>Samples per 42 Hz cycle</th><th>Both tones below f_N?</th></tr></thead><tbody>
+<tr><td>336</td><td>168</td><td>8.00</td><td>Yes</td></tr>
+<tr><td>126</td><td>63</td><td>3.00</td><td>Yes</td></tr>
+<tr><td>72</td><td>36</td><td>1.71</td><td>No: 42 Hz aliases</td></tr>
+<tr><td>48</td><td>24</td><td>1.14</td><td>No: 42 Hz aliases</td></tr>
+</tbody></table></div>
+<details><summary>Explanation and worked example</summary><p>Work through the first row with the class. fs = 336 gives f_N = 168 Hz and eight samples per 42 Hz cycle. Both components satisfy the condition. Then ask students to complete the second row: 126 gives 63 Hz and three samples per cycle. For 72, f_N is only 36 Hz, so the 42 Hz component fails even though 18 Hz remains below the limit. For 48, the boundary is 24 Hz and the same high-frequency component fails. Emphasize that we check every component, including smaller ones. These pass/fail labels refer to avoiding aliasing in this ideal known two-tone signal, not to overall measurement quality, noise, calibration or amplitude accuracy.</p></details>
+</section>
+<section id="slide-17" class="lecture-slide"><span class="slide-count">Slide 17 / 31</span><h2>Aliasing: two waves fit the same samples</h2>
+<img class="plot" src="assets/lecture02-alias.png" alt="Aliasing: two waves fit the same samples">
+<details><summary>Explanation and worked example</summary><p>Say: Look only at the red points first. These are the readings available to the recorder. The gray 42 Hz wave passes through every red point. The blue 6 Hz wave also passes through every red point. If I give you only these readings, you cannot decide which of these two waves produced them. That ambiguity is aliasing. At fs = 48, the displayed low-frequency interpretation is 6 Hz because 42 exceeds the 24 Hz Nyquist frequency. The source still oscillates at 42 Hz; sampling has lost the information needed to identify it. This plot isolates the second component of our signal. The 18 Hz component remains distinguishable in this case. The alias phase is chosen so both curves agree exactly at the sample times. Taking an FFT cannot recreate the missing information.</p></details>
+</section>
+<section id="slide-18" class="lecture-slide"><span class="slide-count">Slide 18 / 31</span><h2>Predicting an alias frequency</h2>
+<div class="two-col">
+<div><h3>FIRST CHECK THE LIMIT</h3><p>Compute f_N = f_s / 2.<br>If 0 ≤ f_signal &lt; f_N, keep its frequency.<br><br>For f_N &lt; f_signal &lt; f_s:<br>f_alias = f_s − f_signal.</p></div>
+<div><h3>EXAMPLES FROM THIS NOTEBOOK</h3><p>42 Hz at f_s = 72: f_N = 36 Hz.<br>f_alias = 72 − 42 = 30 Hz.<br><br>42 Hz at f_s = 48: f_N = 24 Hz.<br>f_alias = 48 − 42 = 6 Hz.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Define f_alias as the frequency that the sampled data appear to contain within the interval from zero to fs/2. Students must check which case they are in before applying subtraction. For these examples, the true frequency lies between fs/2 and fs, so one subtraction works. Do not teach absolute value of f minus fs as a universal rule. For a frequency several times fs, subtract an appropriate integer multiple of fs and reflect into the range zero to fs/2. In general choose an integer k so that abs(f_signal - k fs) is at most fs/2. That general rule belongs in your explanation only if a student asks; the assigned examples need one fold. Ask students why the 18 Hz component stays at 18 Hz in all four cases.</p></details>
+</section>
+<section id="slide-19" class="lecture-slide"><span class="slide-count">Slide 19 / 31</span><h2>Preventing aliasing during acquisition</h2>
+<ul><li>Estimate the highest frequency in the input, including unwanted high-frequency content.</li><li>Choose a sampling rate above twice that frequency, with practical margin.</li><li>An analog low-pass filter reduces unwanted frequencies before sampling.</li><li>After aliasing occurs, an FFT or a smoother plot cannot restore the lost information.</li></ul>
+<details><summary>Explanation and worked example</summary><p>Say: In this notebook we know the input exactly. In the laboratory the microphone can also pick up higher harmonics and background noise. An anti-alias filter is a physical or built-in analog filter before the analog-to-digital converter. It reduces high-frequency input that the chosen sampling rate cannot represent correctly. A real filter has a transition region, so choose margin and follow the acquisition system specifications. A digital filter applied after bad sampling may remove part of a recorded signal, but cannot identify which original high-frequency component produced an alias. Do not imply students should disable instrument protection. Relate this to choosing Moku:Go settings before collecting data.</p></details>
+</section>
+<section id="slide-20" class="lecture-slide"><span class="slide-count">Slide 20 / 31</span><h2>A waveform and a spectrum answer different questions</h2>
+<img class="plot" src="assets/lecture02-spectrum.png" alt="A waveform and a spectrum answer different questions">
+<details><summary>Explanation and worked example</summary><p>Say: The waveform answers what the voltage is doing as time passes. The frequency spectrum answers which repeating components are present. The FFT is an efficient calculation of the discrete Fourier transform. It compares the recorded samples with a set of sinusoidal patterns and returns their contributions. This plot is calculated from the same two-tone signal using 336 samples in one second, with no window taper in this particular teaching example. Both tones complete whole cycles and lie exactly on FFT bins. Therefore the one-sided amplitude spectrum has peaks at 18 and 42 Hz with amplitudes 1.20 and 0.45 V. The graph is not new data; it is another description of the same samples. We will discuss the notebook&#x27;s Hann window after students can read the axes.</p></details>
+</section>
+<section id="slide-21" class="lecture-slide"><span class="slide-count">Slide 21 / 31</span><h2>Reading an FFT peak</h2>
+<div class="two-col">
+<div><h3>HORIZONTAL POSITION</h3><p>The x-axis is frequency in Hz.<br>A peak at 18 Hz means 18 cycles/s.<br><br>This axis is not time.<br>It is not the recorder sampling rate.</p></div>
+<div><h3>VERTICAL HEIGHT</h3><p>Here the y-axis is amplitude in volts.<br>The 18 Hz peak is about 1.20 V.<br><br>This is peak amplitude, not RMS.<br>Its single-tone RMS is 1.20/√2 V.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Point to the 18 Hz peak on the previous figure and ask two separate questions: Where is it? How tall is it? Location gives frequency; height estimates amplitude using the chosen spectrum normalization. This lecture uses a one-sided amplitude spectrum, not a power spectral density. Power density would have different units such as volts squared per hertz. One-sided means showing the nonnegative frequencies for a real-valued time signal; the negative-frequency half contains matching information. The prepared code handles the scaling. Do not ask students to implement the FFT. A wrong sample-rate value used in analysis gives a wrong horizontal frequency axis, so always retain the actual recording rate.</p></details>
+</section>
+<section id="slide-22" class="lecture-slide"><span class="slide-count">Slide 22 / 31</span><h2>Correct RMS does not guarantee correct frequency</h2>
+<div class="two-col">
+<div><h3>RMS SUMMARIZES SIGNAL SIZE</h3><p>Square each value, average, then take a square root.<br><br>It compresses the record into one number.<br>It does not say how fast the wave repeats.</p></div>
+<div><h3>THE NOTEBOOK COMPARISON</h3><p>An aliased record can still have nearly the expected RMS.<br><br>Check the waveform and the FFT peaks as well as the mean and RMS.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Say: A thermometer gives one temperature, not a picture of all changes during the day. Similarly RMS gives one measure of signal size, not its frequencies. In our one-second sample records the 42 Hz component can appear at another frequency while its magnitude contribution stays similar. Thus a small RMS percent error is not proof that the sample rate was sufficient. Students should report this explicitly when comparing their results. The theoretical RMS formula assumes the stated distinct tones over a record containing complete cycles. Short records or different sampling relationships need the actual sum or integral rather than blind reuse of that result.</p></details>
+</section>
+<section id="slide-23" class="lecture-slide"><span class="slide-count">Slide 23 / 31</span><h2>Record duration and FFT frequency bins</h2>
+<div class="two-col">
+<div><h3>THREE ACQUISITION QUANTITIES</h3><p>N = number of stored samples.<br>f_s = samples per second.<br>T_record = N / f_s, in seconds.<br><br>T_record is not the period of one wave.</p></div>
+<div><h3>THE FFT FREQUENCY GRID</h3><p>A bin is one frequency checked by the FFT.<br>Bin spacing: Δf = f_s / N = 1/T_record.<br><br>T_record = 1 s gives bins 1 Hz apart.<br>T_record = 0.25 s gives bins 4 Hz apart.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Say: The word bin simply means a position on the FFT frequency grid. For a one-second record the frequencies are zero, one, two, three hertz and so on up to the Nyquist boundary. For a quarter-second record they are zero, four, eight, twelve hertz and so on. Define N, fs and T_record before substituting numbers. Distinguish T_record from T_signal: one is how long we record, the other is how long the wave takes to repeat. N samples at times 0 through (N-1)/fs still correspond to an N/fs FFT record duration. We do not add a duplicate endpoint. Ask: Which change gives finer bin spacing, longer recording at fixed fs or only raising fs while keeping record duration fixed? Longer recording.</p></details>
+</section>
+<section id="slide-24" class="lecture-slide"><span class="slide-count">Slide 24 / 31</span><h2>Why a peak can spread over several bins</h2>
+<img class="plot" src="assets/lecture02-leakage.png" alt="Why a peak can spread over several bins">
+<details><summary>Explanation and worked example</summary><p>Say: Here is a separate teaching example with a single 18.5 Hz tone recorded for one second at 128 samples per second. Its frequency is halfway between the 18 and 19 Hz FFT bins. The transform needs several bins to describe the finite record, so one physical tone produces a spread of spectral values. This is spectral leakage. The blue and gray curves are calculated from identical samples with two different windows. Do not interpret every neighboring nonzero bin as a separate physical tone. The notebook&#x27;s quarter-second case has a similar issue: 18 and 42 Hz fall between four-hertz bins. Leakage is different from aliasing: leakage spreads a finite-record peak, while aliasing makes distinct input frequencies share the same samples.</p></details>
+</section>
+<section id="slide-25" class="lecture-slide"><span class="slide-count">Slide 25 / 31</span><h2>What the Hann window changes</h2>
+<div class="two-col">
+<div><h3>SMALLER VALUES NEAR THE ENDS</h3><p>A window multiplies samples by weights.<br>The Hann weights taper toward zero at both ends.<br><br>This reduces distant leakage around a peak.</p></div>
+<div><h3>A TRADEOFF</h3><p>The main peak becomes wider.<br>Amplitude needs a scaling correction.<br><br>The provided code applies the correction.<br>Windowing does not fix aliasing.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Say: Imagine reducing the abrupt jump where the end of the record meets the beginning of the repeated segment used by the Fourier representation. The Hann window does that by gently reducing the endpoint values. On the previous plot, compare the far-away values and the width near the peak. Lower distant leakage helps reveal weaker frequencies, but a wider main peak makes close tones harder to separate. The correction uses the average window weight, often called coherent gain. It adjusts amplitude scaling, but does not guarantee exact peak amplitude for a tone between bins or overlapping another peak. Keep that limit in mind when students compare plot heights.</p></details>
+</section>
+<section id="slide-26" class="lecture-slide"><span class="slide-count">Slide 26 / 31</span><h2>Sample rate and duration solve different problems</h2>
+<div class="two-col">
+<div><h3>HIGHER f_s AT FIXED DURATION</h3><p>More readings in each second.<br>Higher Nyquist frequency f_N = f_s/2.<br><br>The FFT-bin spacing stays 1/T_record.<br>The physical tone frequency stays the same.</p></div>
+<div><h3>LONGER T_record AT FIXED f_s</h3><p>More cycles of the signal are observed.<br>Finer FFT-bin spacing Δf = 1/T_record.<br><br>The Nyquist frequency stays the same.<br>The window also affects peak separation.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Use two concrete changes. First keep one second but increase fs from 126 to 336. The highest unaliased frequency boundary rises from 63 to 168 Hz, yet bin spacing remains one hertz. Second keep fs at 336 and increase duration from 0.25 to 1 second. Nyquist stays 168 Hz, while the frequency grid gets finer from four to one hertz. Say explicitly that grid spacing is not a universal guarantee of resolving two close tones: the window shape, noise and relative amplitudes matter. A denser plotted curve made by zero padding also does not add measured information. This comparison prepares students to justify both acquisition choices separately.</p></details>
+</section>
+<section id="slide-27" class="lecture-slide"><span class="slide-count">Slide 27 / 31</span><h2>Choosing settings for a new measurement</h2>
+<div class="two-col">
+<div><h3>ILLUSTRATIVE DESIGN TARGET</h3><p>Suppose frequencies extend up to 60 Hz.<br>We want FFT bins no more than 0.5 Hz apart.<br><br>Choose f_s &gt; 120 samples/s.<br>Choose T_record ≥ 2 seconds.</p></div>
+<div><h3>ONE POSSIBLE CHOICE</h3><p>f_s = 300 samples/s, T_record = 2 s.<br>N = 600 samples.<br>f_N = 150 Hz and Δf = 0.5 Hz.<br><br>Check filtering, noise and device limits.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Tell students these are teaching values, distinct from their assigned 75 Hz design question. Start with the desired outcomes and work backwards. The highest expected frequency controls the minimum sample rate; the desired grid spacing controls record duration. A choice of 300 samples per second gives five samples per 60 Hz cycle and leaves margin relative to the ideal threshold, but is not a universal instrument recommendation. Two seconds gives the requested half-hertz bins. Ask students which requirement fails if we shorten the record to half a second: bin spacing becomes two hertz, while the Nyquist limit is unchanged. Ask which requirement fails if we keep two seconds but lower fs to 100: 60 Hz exceeds the 50 Hz Nyquist boundary.</p></details>
+</section>
+<section id="slide-28" class="lecture-slide"><span class="slide-count">Slide 28 / 31</span><h2>Using the prepared notebook</h2>
+<ul><li>Open the course Colab link, save a personal copy, and run cells from top to bottom.</li><li>Read fs and duration before interpreting each figure. The full code is already provided.</li><li>Predict peaks first, then compare them with the printed output and plots.</li><li>Enter calculations and explanations in the response cells. No code writing is required.</li></ul>
+<details><summary>Explanation and worked example</summary><p>Switch to the actual notebook and identify the variables rather than asking students to write them. Point to f1 and f2 as physical signal frequencies, fs as the recording setting, and duration as the observation length. Before running the spectrum, ask students to state fs/2 and their predicted peak locations. Run the cell, then ask them to describe agreement or disagreement using values and units. Show a Markdown response cell and how to render it with Shift+Enter. If the output seems inconsistent, restart the runtime and run all earlier cells. Do not type the students&#x27; complete analysis answers. Their work is reasoning about the prepared results.</p></details>
+</section>
+<section id="slide-29" class="lecture-slide"><span class="slide-count">Slide 29 / 31</span><h2>What a good analysis answer includes</h2>
+<ul><li>Name the case: sampling rate, record duration and signal component.</li><li>State a prediction with a calculation, including units.</li><li>Report the observed value and compare it with the prediction.</li><li>Explain the cause: adequate sampling, aliasing, leakage or limited record duration.</li></ul>
+<details><summary>Explanation and worked example</summary><p>Say: &#x27;The plot looks wrong&#x27; is too vague. A useful answer tells the reader which component, which settings, the expected behavior and the measured result. For RMS, compute percent error as abs(sample RMS minus theoretical RMS) divided by theoretical RMS times 100 percent, since the theoretical value here is nonzero. For frequency, connect the observed peak with Nyquist and the predicted alias. For duration, compute the actual N/fs before claiming a particular bin spacing. The goal is not to use more technical words. It is to make a clear claim supported by a number and a reason.</p></details>
+</section>
+<section id="slide-30" class="lecture-slide"><span class="slide-count">Slide 30 / 31</span><h2>Check your understanding</h2>
+<div class="two-col">
+<div><h3>QUESTIONS</h3><p>1. Does raising f_s change f₁ or f₂?<br>2. Which quantity equals f_s/2?<br>3. Can a longer record repair aliasing?<br>4. What does a peak location tell you?</p></div>
+<div><h3>ANSWERS</h3><p>1. No, it changes the sampling times.<br>2. The Nyquist frequency f_N.<br>3. No, choose adequate sampling first.<br>4. The frequency represented in the data.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Ask each question before revealing or discussing its answer. For question one, require students to distinguish the physical source from the recorder. For question three, a longer incorrectly sampled record gives more of the same ambiguous information. For question four, add that a peak may represent an alias, so the FFT alone does not prove the original analog frequency. Close by asking students to state the two design rules in words: sample fast enough for the highest input frequency and record long enough for the frequency detail needed. If these distinctions are unclear, return to the two clocks explanation rather than introducing more notation.</p></details>
+</section>
+<section id="slide-31" class="lecture-slide"><span class="slide-count">Slide 31 / 31</span><h2>Pre-Lab 1 submission</h2>
+<div class="two-col">
+<div><h3>BEFORE SUBMITTING</h3><p>Run all prepared cells.<br>Keep all figures visible.<br>Complete every response section.<br>Export to HTML or PDF for Canvas.</p></div>
+<div><h3>DEADLINE</h3><p>Normally posted Monday before the lab.<br><br>Submit before your own section begins.<br>Late pre-labs are not accepted.</p></div>
+</div>
+<details><summary>Explanation and worked example</summary><p>Remind students that the different laboratory sections have different start times, so each student&#x27;s deadline is the start of their own section. The pre-lab is normally posted on the Monday before that laboratory. Students can discuss general approaches, but their submitted explanations and results must be their own. The final file must include readable figures and calculations. This is a data-analysis assignment with complete prepared code. End by pointing students back to the course page and the direct Colab link.</p></details>
+</section>
+<p>Further reading: <a href="https://brianmcfee.net/dstbook-site/content/ch02-sampling/Nyquist.html">Digital Signals Theory: sampling theorem</a> and <a href="https://scipy.github.io/devdocs/tutorial/signal.html">SciPy spectral analysis tutorial</a>.</p></main><footer>Mechanical &amp; Industrial Engineering · Fall 2026<br>Prof. Ehsan Roohi · <a href="mailto:roohie@umass.edu">roohie@umass.edu</a></footer></body></html>
