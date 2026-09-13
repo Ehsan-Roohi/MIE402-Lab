@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="MIE 402 Lab 1 instructions, MATLAB analysis script, report requirements, and Pre-Lab 1 files.">
+<title>Lab 1 · Dynamic data sampling · MIE 402</title><link rel="stylesheet" href="assets/style.css"></head>
+<body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner">
+<a class="brand" href="index.html">MIE 402 <span>UMass Amherst</span></a><nav aria-label="Course navigation"><a href="index.html">Overview</a><a href="syllabus.html">Syllabus</a><a href="lecture01.html">Lecture 01</a><a href="lecture02.html">Lecture 02</a><a href="lab1.html">Lab 1</a><a href="report-guide.html">Report guide</a><a href="report-template.html">Report template</a></nav>
+</div></header><main id="main"><p class="eyebrow">Fall 2026 · Laboratory 1</p><h1>Dynamic data sampling<br>and frequency analysis</h1>
+<p class="lede">Record three sounds with five sample-rate settings, verify the exported MAT data, and explain what sampling changes in the waveform, spectrum, and replayed sound.</p>
+<div class="resources">
+<div class="resource"><div><h3>Laboratory instructions</h3><p>Required data matrix, Moku:Go procedure, GTA verification, and data backup</p></div><div class="links"><a href="docs/LAB1_MIE402.pdf">Open PDF</a></div></div>
+<div class="resource"><div><h3>MATLAB analysis and replay script</h3><p>Select one Moku MAT file, recover the achieved sample rate, plot the waveform and FFT, and replay at a valid rate</p></div><div class="links"><a href="docs/MIE402_Lab1_Analyze_and_PlaySound.m" download>Download MATLAB</a></div></div>
+<div class="resource"><div><h3>Lab 1 report instructions</h3><p>Required questions, equations, evidence, organization, interpretation checks, and final checklist</p></div><div class="links"><a href="docs/MIE402_Lab1_Report_Instructions_Fall2026.pdf">Open PDF</a><a href="docs/MIE402_Lab1_Report_Instructions_Fall2026.docx" download>Download Word</a></div></div>
+<div class="resource"><div><h3>Pre-Lab 1 notebook</h3><p>Complete calculations, predictions, tables, figures, and explanations; submit one Word or PDF file</p></div><div class="links"><a href="https://colab.research.google.com/github/Ehsan-Roohi/MIE402-Lab/blob/main/site/docs/MIE402_PreLab1_Fall2026_Student.ipynb" target="_blank" rel="noopener">Open in Colab</a><a href="docs/MIE402_PreLab1_Fall2026_Student.ipynb" download>Download notebook</a><a href="docs/MIE402_PreLab1_Fall2026_Student_Canvas.zip" download>Canvas package</a></div></div>
+</div>
+<h2>Required acquisition matrix</h2><div class="table-wrap"><table><thead><tr><th>Sound source</th><th>Frequency reference</th><th>Required sample rates</th><th>Minimum duration</th></tr></thead><tbody>
+<tr><td>Tuning fork</td><td>Frequency printed on the fork</td><td>100f, 10f, 3f, 1.4f, 1f</td><td>1 second per case</td></tr>
+<tr><td>Whistle</td><td>State how f is selected from a high-rate pilot record</td><td>100f, 10f, 3f, 1.4f, 1f</td><td>1 second per case</td></tr>
+<tr><td>Finger snap</td><td>State the frequency-band or reference choice approved by the GTA</td><td>100f, 10f, 3f, 1.4f, 1f</td><td>1 second per case</td></tr>
+</tbody></table></div>
+<div class="callout"><strong>Before leaving the laboratory:</strong> show the GTA one valid high-rate tuning-fork waveform and a spectrum with a clear peak near the labeled frequency. Confirm that all MAT files and acquisition notes are backed up.</div>
+<h2>What the MATLAB script does</h2><ol><li>Loads one Moku:Go MAT file and checks its structure.</li><li>Calculates the achieved sample rate from the time column.</li><li>Reports sample count, duration, mean, RMS, FFT-bin spacing, and strongest non-DC peak.</li><li>Creates a labeled time-domain waveform and one-sided amplitude spectrum.</li><li>Replays a normalized listening copy using the measured rate or a supported resampled rate.</li></ol>
+<p>The listening copy is qualitative. Resampling for a sound card cannot restore frequencies already lost or aliased during acquisition.</p>
+<h2>Report focus</h2><p>Compare the five rates for all three sounds in time, frequency, and playback. Predict aliasing before interpreting the FFT. Use the high-rate tuning-fork record as a reference, distinguish volts from hertz, and explain why a plausible RMS value does not prove that the frequency content was recorded correctly.</p>
+<p>Submit through Canvas. The Canvas assignment controls the due date, file limits, and any updated requirement.</p>
+</main><footer>Mechanical &amp; Industrial Engineering · Fall 2026<br>Prof. Ehsan Roohi · <a href="mailto:roohie@umass.edu">roohie@umass.edu</a></footer></body></html>
