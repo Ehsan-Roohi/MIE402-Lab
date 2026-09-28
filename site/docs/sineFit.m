@@ -28,6 +28,34 @@ function SineParams=sineFit(x,y,Plot)
 % % save('xy.mat','x','y','paramsClean');
 %
 %Author: Peter Seibold, November 2023
+%MIE 402 maintenance, September 2026: normalize vector shapes, validate
+%time/data inputs, and use screen-independent plot positions. These changes
+%prevent fminsearch from receiving a vector-valued objective when x and y
+%have different orientations.
+
+if nargin < 2
+  error('sineFit:MissingInput','Provide time x and measured signal y.');
+end
+if ~isnumeric(x) || ~isnumeric(y) || ~isvector(x) || ~isvector(y) || ...
+    ~isreal(x) || ~isreal(y)
+  error('sineFit:InvalidInput','x and y must be real numeric vectors.');
+end
+if numel(x) ~= numel(y) || numel(x) < 5
+  error('sineFit:InputLength','x and y must have the same length (at least five samples).');
+end
+% Both columns are essential: row/column mixing creates an N-by-N residual
+% through implicit expansion, which makes the fminsearch objective non-scalar.
+x = double(x(:));
+y = double(y(:));
+if any(~isfinite(x)) || any(~isfinite(y))
+  error('sineFit:NonfiniteInput','Remove NaN and Inf samples from both x and y.');
+end
+if any(diff(x) <= 0)
+  error('sineFit:TimeOrder','Time x must be strictly increasing, with no duplicate timestamps.');
+end
+if max(y)-min(y) <= 10*eps(max(1,max(abs(y))))
+  error('sineFit:ConstantSignal','The signal is constant; no sinusoidal frequency can be fitted.');
+end
 
 if nargin>2 && Plot==0
   boolGraphic=false;
@@ -118,7 +146,9 @@ if Numf>1
   PhiExtra=(angle(Y(fIndxExtra))+pi/2-x(1)*fExtra*pi2);
   AExtra=repelem(AExtra,Numf);
   offExtra=repelem(offs,Numf);
-  paramsFFT=[offExtra',AExtra',fExtra',PhiExtra'];
+  % Force one candidate per row regardless of how MATLAB or Octave shapes
+  % a vector returned by indexed access.
+  paramsFFT=[offExtra(:),AExtra(:),fExtra(:),PhiExtra(:)];
 end
 paramsOut=zeros(Numf,6);%for regression outputs
 %fminsearch ======================================================
@@ -201,9 +231,8 @@ yFFT=paramsFFTp(1)+paramsFFTp(2)*sin(2*pi*paramsFFTp(3)*xFFT+paramsFFTp(4));
 %time plot:
 hFigPlotSin = findobj( 'Type', 'Figure', 'Tag', 'Fig$PlotSin' );
 if isempty(hFigPlotSin)
-  screensize=get(0, 'MonitorPositions');
   hFigPlotSin=figure('Tag','Fig$PlotSin','Name','Sinus',...
-    'OuterPosition',[960,screensize(1,4)/2,screensize(1,3)-960,screensize(1,4)/2]);
+    'Units','normalized','OuterPosition',[0.08,0.53,0.84,0.42]);
   drawnow
 end
 figure(hFigPlotSin(1));
@@ -221,7 +250,7 @@ grid on;
 hFigPlotFFT = findobj( 'Type', 'Figure', 'Tag', 'Fig$PlotFFT' );
 if isempty(hFigPlotFFT)
   hFigPlotFFT=figure('Tag','Fig$PlotFFT','Name','FFT',...
-    'OuterPosition',[960,40,screensize(1,3)-960,screensize(1,4)/2-45]);
+    'Units','normalized','OuterPosition',[0.08,0.06,0.84,0.42]);
   drawnow
 end
 figure(hFigPlotFFT(1));
