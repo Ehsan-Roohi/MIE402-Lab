@@ -79,6 +79,12 @@ ylabel('One-sided amplitude (V)');
 title(sprintf('%s: amplitude spectrum', fileName), 'Interpreter','none');
 xlim([0 fs/2]);
 grid on;
+% Put the measured FFT-bin frequency on the graph itself (not only in the
+% Command Window). This label is computed from this MAT file's time column.
+text(0.98, 0.94, sprintf('Measured peak: %.3f Hz', peakFrequency), ...
+    'Units','normalized', 'HorizontalAlignment','right', ...
+    'VerticalAlignment','top', 'FontWeight','bold', ...
+    'BackgroundColor','w', 'Margin',5);
 
 %% 5. Replay for listening only
 % Playback must use the measured sample rate. Many sound cards cannot play
