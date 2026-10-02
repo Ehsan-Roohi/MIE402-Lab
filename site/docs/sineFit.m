@@ -83,14 +83,19 @@ pi2=2*pi;
 NumSamples=length(xFFT);
 T=xFFT(2)-xFFT(1);
 fNy=1/(2*T);%Nyquist frequency
-offs=mean(y);%DC value, do not take (max(y)+min(y))/2!
-y_m=yFFT-offs;%FFT much better without offset
+% Use the mean of the same uniformly spaced vector used by the FFT.
+% With missing tracking frames, mean(y) weights times with successful
+% detections more heavily. Subtracting it from interpolated yFFT can leave a
+% large false DC peak and seed the nonlinear fit at f=0 (a flat line).
+offs=mean(yFFT);
+y_m=yFFT-offs;
 n = 128*2^nextpow2(NumSamples);%heavy zero padding
 Y = fft(y_m,n);%Y(f)
 n2=floor(n/2);
 P2 = abs(Y/NumSamples);
 P1 = P2(1:n2+1);
 P1(2:end-1) = 2*P1(2:end-1);
+P1(1)=0;%do not use DC as a sinusoidal-frequency initial guess
 fs = (0:n2)/n/T;% frequency scale
 % %FFT parameters at peak
 [maxFFT,maxFFTindx]=max(P1);%Peak magnitude and location

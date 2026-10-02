@@ -35,9 +35,28 @@ yAll = double(data(:,3));
 valid = isfinite(tAll) & isfinite(xAll) & isfinite(yAll);
 fprintf('Valid tracked frames: %d of %d (%.1f%%).\n', ...
     sum(valid),numel(valid),100*mean(valid));
+if any(~isfinite(tAll)) || any(diff(tAll)<=0)
+    error('Lab2:InvalidTime','ExpData time must be finite and strictly increasing.');
+end
+missing = ~valid;
+gapEdges = diff([false;missing;false]);
+gapStarts = find(gapEdges==1);
+gapEnds = find(gapEdges==-1)-1;
+if ~isempty(gapStarts)
+    longestGapSeconds = max(gapEnds-gapStarts+1)*median(diff(tAll));
+else
+    longestGapSeconds = 0;
+end
+fprintf('Longest missing-position gap: %.3f s.\n',longestGapSeconds);
 if mean(valid) < 0.90
-    warning('Lab2:ManyMissingFrames', ...
-        'More than 10%% of positions are missing. Inspect Quick Review and tracking settings.');
+    error('Lab2:ManyMissingFrames', ...
+        ['Only %.1f%% of frames contain valid bob positions. Re-run the app in ', ...
+         'Analyze All Frames mode, check contrast/focus, and save a new MAT file. ', ...
+         'Do not report a sine fit from this incomplete track.'],100*mean(valid));
+end
+if longestGapSeconds > 0.05
+    error('Lab2:LongTrackingGap', ...
+        'A tracking gap is %.3f s; re-track instead of fitting across that gap.',longestGapSeconds);
 end
 if sum(valid) < 12
     error('Lab2:TooFewFrames','At least 12 valid tracked frames are needed.');
@@ -51,6 +70,8 @@ if any(diff(t) <= 0)
 end
 
 % sineFit is a FUNCTION. Supply time and angle; Plot=0 avoids extra windows.
+% Its constant-amplitude sine is a frequency estimate, not a model of the
+% decaying envelope. A visibly damped trace requires a separate damped fit.
 p = sineFit(t,theta,0);
 thetaFit = p(1)+p(2)*sin(2*pi*p(3)*t+p(4));
 fprintf('Sine-fit frequency = %.4f Hz; period = %.4f s; MSE = %.5g rad^2.\n', ...
