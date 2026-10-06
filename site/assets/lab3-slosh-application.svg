@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-labelledby="title desc"><title id="title">Fuel slosh and an equivalent two-mode model</title><desc id="desc">A fuel tank is represented by two separate equivalent pendulums, rather than two connected links.</desc><rect width="360" height="240" fill="#f5f6f7"/><g font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#192126">
+<rect x="15" y="43" width="120" height="135" rx="24" fill="white" stroke="#526475" stroke-width="3"/>
+<path d="M18 95q25-22 55 0t59 0v59q0 21-23 21H42q-24 0-24-21Z" fill="#c5e2ec"/>
+<path d="M18 95q25-22 55 0t59 0" fill="none" stroke="#25759a" stroke-width="3"/>
+<text x="29" y="25">liquid fuel</text><path d="M144 113h20l-7-5m7 5-7 5" fill="none" stroke="#881c1c" stroke-width="2"/>
+<path d="M180 47H342" stroke="#526475" stroke-width="6"/>
+<path d="M205 47L227 118M296 47L316 162" stroke="#324f66" stroke-width="3"/>
+<circle cx="227" cy="118" r="11" fill="#881c1c"/><circle cx="316" cy="162" r="13" fill="#25759a"/>
+<text x="179" y="25">equivalent modes</text><text x="185" y="144">mode 1</text><text x="275" y="189">mode 2</text>
+<text x="17" y="213" font-size="12" fill="#526475">Model pendulums represent liquid motion.</text>
+<text x="17" y="229" font-size="12" fill="#526475">They are not two links in series.</text></g></svg>

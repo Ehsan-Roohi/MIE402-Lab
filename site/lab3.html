@@ -1,1 +1,135 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="MIE 402 Lab 3 double-pendulum procedure and files."><title>Lab 3 · Double pendulum · MIE 402</title><link rel="stylesheet" href="assets/style.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner"><a class="brand" href="index.html">MIE 402 <span>UMass Amherst</span></a><nav aria-label="Course navigation"><a href="index.html">Overview</a><a href="syllabus.html">Syllabus</a><a href="lecture04.html">Lecture 04</a><a href="lab2.html">Lab 2</a><a href="lab3.html">Lab 3</a></nav></div></header><main id="main"><p class="eyebrow">Fall 2026 · Laboratory 3 · October 19–23</p><h1>Double pendulum</h1><p class="lede">Record two moving bobs, recover two link angles, and compare four release cases with a two-link model that includes bar masses.</p><img class="plot" src="assets/lab3-apparatus-photo.jpg" alt="Double pendulum apparatus with upper joint and lower bob against a dark background"><p class="caption">Prior course apparatus photograph. Find the fixed pivot, upper joint/bob and lower bob before tracking.</p><h2>Example video</h2><video class="plot" controls preload="metadata" aria-label="Prior course double pendulum example video"><source src="assets/DP_Test.mp4" type="video/mp4">Your browser does not support video.</video><p class="caption">Example recording from the course folder; your experiment requires your own new videos and measured settings.</p><div class="resources"><div class="resource"><div><h3>Laboratory guide</h3><p>Fall 2026 procedure, apparatus, camera settings, four trials, analyzer V4, MAT format, required figures and troubleshooting.</p></div><div class="links"><a href="docs/LAB3_MIE402_Fall2026.pdf">Open PDF</a></div></div><div class="resource"><div><h3>Pre-Lab 3</h3><p>Run supplied cells and submit one Word/PDF with figures and analysis before your own section. No student coding.</p></div><div class="links"><a href="https://colab.research.google.com/github/Ehsan-Roohi/MIE402-Lab/blob/main/site/docs/MIE402_PreLab3_Fall2026_Student.ipynb" target="_blank" rel="noopener">Open in Colab</a><a href="docs/MIE402_PreLab3_Fall2026_Student.ipynb" download>Notebook</a><a href="docs/MIE402_PreLab3_Fall2026_Student_Canvas.zip" download>Canvas package</a></div></div><div class="resource"><div><h3>MATLAB files</h3><p>Runnable simulation and ExpData analysis scripts, helper functions, self-test, and readme. Keep all files together.</p></div><div class="links"><a href="docs/MIE402_Lab3_MATLAB_Files.zip" download>Complete bundle</a><a href="docs/Run_Lab3_Simulation.m" download>Simulation script</a><a href="docs/Run_Lab3_ExpData_Analysis.m" download>Analysis script</a><a href="docs/Test_Lab3_Model.m" download>Self-test</a><a href="docs/PendulumMotionAnalyzer_V4.mltbx" download>Analyzer V4</a></div></div><div class="resource"><div><h3>Lecture 04</h3><p>Double-pendulum physics and Lab 3 preparation.</p></div><div class="links"><a href="lecture04.html">Lecture page</a><a href="docs/MIE402_Lecture04_Double_Pendulum_PreLab3_Fall2026.pptx" download>PowerPoint</a><a href="docs/MIE402_Lecture04_Double_Pendulum_PreLab3_Fall2026.pdf">PDF</a></div></div></div><h2>Four release cases</h2><p>Record one small nonzero aligned-link release and at least three larger-angle releases. Include two similar but distinct starts; document the actual angles rather than only the intended angles. Measure both bar masses, lumped bob/hardware masses, and pivot-to-center lengths. Keep the camera capture frame rate and calibration distance with each trial.</p><h2>From camera to analysis</h2><ol><li>Set 1280 × 1024 and nominal 1000 capture frames/s or document the actual camera setting. Frame the entire motion and focus both bobs.</li><li>Save the raw H.264 MP4. The MP4 playback rate is not the capture rate.</li><li>In Pendulum Motion Analyzer V4 select <strong>Double Pendulum</strong>, enter capture fps, calibrate the mark separation, locate pivot and both centers, run Quick Review, then analyze all frames.</li><li>Save the MAT file. <strong>ExpData</strong> columns are time (s), x1 (mm), y1 (mm), x2 (mm), y2 (mm). The app reports right-positive x and up-positive y relative to the pivot.</li><li>Run <strong>Run_Lab3_ExpData_Analysis.m</strong>. For each trial check both absolute angle traces, angular velocities, and spectra. Show one full trial set to your GTA before leaving.</li></ol><img class="plot" src="assets/lab3-coordinates.png" alt="Coordinate convention for fixed pivot and two tracked bobs"><p>Angles from the downward vertical: <strong>theta1 = unwrap(atan2(x1, −y1))</strong> and <strong>theta2 = unwrap(atan2(x2−x1, −(y2−y1)))</strong>. Both are approximately zero when both links hang down. The second is the lower link's absolute angle, not theta2−theta1.</p><div class="callout"><strong>Run the scripts, not the helper functions.</strong> First run <strong>Test_Lab3_Model.m</strong>, then <strong>Run_Lab3_Simulation.m</strong> with your measured parameters, and <strong>Run_Lab3_ExpData_Analysis.m</strong> on each saved MAT file. Do not click Run inside <strong>MIE402_Lab3_RHS.m</strong> or <strong>MIE402_Lab3_Energy.m</strong>; they need input arguments. Lab 3 does not use sineFit.m.</div><p class="meta">The undamped model is a baseline. Measured amplitude loss can reflect pivot friction and air drag. A short trace can show sensitivity, but is not alone proof of chaos. Combined Labs 2–3 report: tentatively due November 2; check Canvas.</p></main><footer>Mechanical &amp; Industrial Engineering · Fall 2026<br>Prof. Ehsan Roohi</footer></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="MIE 402 Lab 3: double-pendulum applications in cranes, robotics and spacecraft; video tracking, MATLAB files and experiment guidance."><title>Lab 3 · Double pendulum · MIE 402</title><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/lab3.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner"><a class="brand" href="index.html">MIE 402 <span>UMass Amherst</span></a><nav aria-label="Course navigation"><a href="index.html">Overview</a><a href="syllabus.html">Syllabus</a><a href="lecture04.html">Lecture 04</a><a href="lab2.html">Lab 2</a><a href="lab3.html">Lab 3</a></nav></div></header><main id="main" class="lab3-page">
+  <p class="eyebrow">Fall 2026 · Laboratory 3 · October 19–23</p>
+  <h1>Double pendulum</h1>
+  <p class="lede">Two connected links can move together, oppose one another, or exchange motion. In Lab 3, you will measure both link angles and test how well a model predicts their motion.</p>
+  <nav class="subnav" aria-label="On this page">
+    <a href="#applications">Why it matters</a><a href="#files">Get the files</a><a href="#release-cases">Plan the trials</a><a href="#analysis">Process your video</a><a href="#interpretation">Understand the plots</a><a href="#before-leaving">Before leaving</a>
+  </nav>
+
+  <section id="applications" aria-labelledby="applications-title">
+    <p class="eyebrow section-eyebrow">Start here · Engineering applications</p>
+    <h2 id="applications-title">Why would an engineer study two pendulums?</h2>
+    <p>When one moving part is attached to another, the motion of each affects the other. We call this <strong>coupled motion</strong>. A model of only one part can miss an important oscillation. This experiment gives you a simple, visible way to learn how to measure that motion and check a model before trusting its predictions.</p>
+    <div class="application-grid">
+      <article class="application-card">
+        <p class="application-kind">A direct mechanical application</p>
+        <h3>Cranes: a swinging hook and load</h3>
+        <img src="assets/lab3-crane-application.svg" width="360" height="240" alt="Crane trolley supports a swinging hook, with a second suspension joining the hook to the payload. Both suspension directions can change.">
+        <p>A crane can have a heavy hook on its main cable and a load hanging below the hook. Both can swing. Moving or stopping the trolley can excite both motions, so the load may still be moving after the trolley has stopped.</p>
+        <p><strong>Why it matters:</strong> Engineers plan acceleration and braking to reduce residual sway, place the load accurately, and shorten settling time.</p>
+        <p><strong>What this lab teaches:</strong> Track both bodies, identify the important oscillation frequencies, and check how mass and length affect the prediction. Our fixed pivot lets us study free motion; a working crane adds a moving trolley and control inputs.</p>
+        <a class="application-source" href="https://arxiv.org/abs/1805.03882" target="_blank" rel="noopener">Research example: double-pendulum crane control</a>
+      </article>
+      <article class="application-card">
+        <p class="application-kind">A related mechanism</p>
+        <h3>Robot arms: two joints, one task</h3>
+        <img src="assets/lab3-robot-application.svg" width="360" height="240" alt="A robot shoulder and elbow connect two links to a tool. Motors act at both joints, and the tool carries a load.">
+        <p>A robot arm may have a shoulder joint, an elbow joint, and a tool or payload at its tip. Accelerating one link changes the motion and the forces experienced by the other. Treating the links as independent can give a poor prediction of the tool's path.</p>
+        <p><strong>Why it matters:</strong> A coupled model helps engineers choose joint torques and move a tool accurately along a planned path.</p>
+        <p><strong>What this lab teaches:</strong> Measure the masses and lengths, define each angle, and compare measured motion with a two-link model. Our links move freely under gravity; a robot adds motor torques, and some robots move in a horizontal plane.</p>
+        <a class="application-source" href="https://www.mathworks.com/help/control/ug/linear-time-varying-robot-model.html" target="_blank" rel="noopener">Engineering example: a two-link robot model</a>
+      </article>
+      <article class="application-card">
+        <p class="application-kind">An equivalent model in aerospace</p>
+        <h3>Spacecraft: moving liquid fuel</h3>
+        <img src="assets/lab3-slosh-application.svg" width="360" height="240" alt="A schematic fuel tank next to two separate equivalent pendulums representing two liquid oscillation modes. They are not two links in series.">
+        <p>Liquid fuel can move inside a tank when a spacecraft accelerates or rotates. This motion is called <strong>sloshing</strong>. It changes the vehicle's center of mass and applies forces and torques to the tank and spacecraft.</p>
+        <p><strong>Why it matters:</strong> NASA has used a two-pendulum equivalent model for Europa Clipper propellant slosh to help predict loads and support attitude-control design.</p>
+        <p><strong>What this lab teaches:</strong> A simple model can represent important frequencies and motion, but it must be checked against data. These fuel-model pendulums represent liquid modes; their arrangement and parameters differ from our two links in series.</p>
+        <a class="application-source" href="https://ntrs.nasa.gov/citations/20170007452" target="_blank" rel="noopener">NASA example: two-pendulum propellant-slosh model</a>
+      </article>
+    </div>
+    <p class="caption">Original teaching schematics, not to scale. The sources above describe the engineering applications; the connections to our experiment explain the skills you will practice.</p>
+    <div class="callout"><strong>The engineering question:</strong> How much motion can a simple model predict, and what changes when the release angle, measured mass, length, or initial condition changes? In this lab, you will test the prediction with real video data. You will not design a crane or robot controller.</div>
+  </section>
+
+  <section id="files" aria-labelledby="files-title">
+    <h2 id="files-title">Files for your laboratory section</h2>
+    <p>Use the laboratory guide for the complete procedure and report requirements. The lecture explains the theory; the notebook lets you explore it before your section. Download the full MATLAB bundle so the scripts can find their helper functions.</p>
+    <div class="resources"><div class="resource"><div><h3>Laboratory guide</h3><p>Fall 2026 procedure, apparatus, camera settings, four trials, analyzer V4, MAT format, required figures and troubleshooting.</p></div><div class="links"><a href="docs/LAB3_MIE402_Fall2026.pdf">Open PDF</a></div></div><div class="resource"><div><h3>Pre-Lab 3</h3><p>Run supplied cells and submit one Word/PDF with figures and analysis before your own section. No student coding.</p></div><div class="links"><a href="https://colab.research.google.com/github/Ehsan-Roohi/MIE402-Lab/blob/main/site/docs/MIE402_PreLab3_Fall2026_Student.ipynb" target="_blank" rel="noopener">Open in Colab</a><a href="docs/MIE402_PreLab3_Fall2026_Student.ipynb" download>Notebook</a><a href="docs/MIE402_PreLab3_Fall2026_Student_Canvas.zip" download>Canvas package</a></div></div><div class="resource"><div><h3>MATLAB files</h3><p>Runnable simulation and ExpData analysis scripts, helper functions, self-test, and readme. Keep all files together.</p></div><div class="links"><a href="docs/MIE402_Lab3_MATLAB_Files.zip" download>Complete bundle</a><a href="docs/Run_Lab3_Simulation.m" download>Simulation script</a><a href="docs/Run_Lab3_ExpData_Analysis.m" download>Analysis script</a><a href="docs/Test_Lab3_Model.m" download>Self-test</a><a href="docs/PendulumMotionAnalyzer_V4.mltbx" download>Analyzer V4</a></div></div><div class="resource"><div><h3>Lecture 04</h3><p>Double-pendulum physics and Lab 3 preparation.</p></div><div class="links"><a href="lecture04.html">Lecture page</a><a href="docs/MIE402_Lecture04_Double_Pendulum_PreLab3_Fall2026.pptx" download>PowerPoint</a><a href="docs/MIE402_Lecture04_Double_Pendulum_PreLab3_Fall2026.pdf">PDF</a></div></div></div>
+  </section>
+
+  <section id="apparatus" aria-labelledby="apparatus-title">
+    <h2 id="apparatus-title">What you will measure</h2>
+    <img class="plot" src="assets/lab3-apparatus-photo.jpg" alt="Double pendulum apparatus with upper joint and lower bob against a dark background">
+    <p class="caption">Prior course apparatus photograph. Find the fixed pivot, upper joint/bob and lower bob before tracking.</p>
+    <p>The upper link joins the fixed pivot to the first moving joint. The lower link joins that joint to the lower bob. <strong>Two degrees of freedom</strong> means that two independent angles are needed to specify the configuration. Measure both bar masses, the bob and hardware masses, and the pivot-to-center lengths; the model includes the masses of both bars.</p>
+    <h3>Example recording from the course</h3>
+    <video class="plot" controls preload="metadata" aria-label="Prior course double pendulum example video"><source src="assets/DP_Test.mp4" type="video/mp4">Your browser does not support video. <a href="assets/DP_Test.mp4">Open the recording</a>.</video>
+    <p class="caption">Example recording from the course folder; your experiment requires your own new videos and measured settings. For annotated small-motion mode demonstrations, see the <a href="lecture04.html#mode-videos">lecture video section</a>.</p>
+  </section>
+
+  <section id="release-cases" aria-labelledby="release-title">
+    <h2 id="release-title">Plan four release cases</h2>
+    <p>Record one small, nonzero aligned-link release and at least three larger-angle releases. Include two similar but distinct starts. Record the <strong>actual initial angles</strong> visible in your video rather than only the angles you intended to set. Document whether the links were released from rest or received an unintended push.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">Case</th><th scope="col">What to look for</th><th scope="col">Why record it?</th></tr></thead>
+      <tbody>
+        <tr><td>Small aligned-link release</td><td>Regular motion with contributions from one or both small-motion modes; aligned links do not necessarily give a pure mode.</td><td>Test the small-angle prediction and establish the measurement convention.</td></tr>
+        <tr><td>Larger-angle release</td><td>A changing motion pattern, possibly with strong interaction between the links.</td><td>Check where a linear prediction becomes less useful.</td></tr>
+        <tr><td>Another larger-angle release</td><td>A different combination of initial link angles.</td><td>Compare how the starting configuration changes the response.</td></tr>
+        <tr><td>A nearby, distinct start</td><td>Compare it with one of the other larger-angle cases using the measured starting angles.</td><td>Explore sensitivity while accounting for tracking error and an unintended release velocity.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Keep the original camera capture frame rate, calibration distance, measured masses and lengths with every trial. A large release angle does not automatically imply chaotic motion. A short pair of different traces alone does not prove chaos.</p>
+  </section>
+
+  <section id="analysis" aria-labelledby="analysis-title">
+    <h2 id="analysis-title">From camera frames to two angle histories</h2>
+    <p>The camera records images. The analyzer tracks the two bob centers and converts their pixel positions into distances. The analysis script then calculates angles, angular velocities, and frequency spectra. Each stage needs a check before you trust the next one.</p>
+    <ol class="checklist">
+      <li><strong>Record the complete motion.</strong> Set 1280 × 1024 and nominal 1000 capture frames/s, or document the actual camera setting. Keep the pivot and both bobs in view; check focus and contrast throughout the motion.</li>
+      <li><strong>Save the raw H.264 MP4 and camera settings.</strong> The MP4 playback rate is not the capture rate. A slow-motion export does not change the physical interval between the original captured frames.</li>
+      <li><strong>Track in Pendulum Motion Analyzer V4.</strong> Select <strong>Double Pendulum</strong>, enter capture fps, calibrate the mark separation, locate the fixed pivot and both centers, run Quick Review, then analyze all frames. Inspect crossings and occlusions carefully so the two identities do not swap.</li>
+      <li><strong>Save the MAT file.</strong> Its <code>ExpData</code> matrix contains time in seconds and four positions in millimeters, in the order shown below. The app reports right-positive horizontal positions and up-positive vertical positions relative to the fixed pivot.</li>
+      <li><strong>Extract the experimental plots.</strong> Run <code>Run_Lab3_ExpData_Analysis.m</code> and select the saved MAT file. Check both absolute angles, both angular velocities, and both spectra. The script reports tracked link lengths and the time spacing; use those to catch bad tracking or a wrong capture rate.</li>
+      <li><strong>Calculate a matching prediction.</strong> Run <code>Run_Lab3_Simulation.m</code> with your measured masses, lengths, release angles and initial angular velocities. Use the same physical time interval as the experiment when comparing curves. This is a separate prediction script; the experimental analysis script does not automatically fit or overlay a theoretical curve.</li>
+    </ol>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">MAT column</th><th scope="col">Symbol</th><th scope="col">Physical meaning</th><th scope="col">Unit</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><var>t</var></td><td>Time assigned to the tracked frame</td><td>s</td></tr>
+        <tr><td>2, 3</td><td><var>x</var><sub>1</sub>, <var>y</var><sub>1</sub></td><td>Horizontal and vertical positions of the upper joint/bob relative to the fixed pivot</td><td>mm</td></tr>
+        <tr><td>4, 5</td><td><var>x</var><sub>2</sub>, <var>y</var><sub>2</sub></td><td>Horizontal and vertical positions of the lower bob relative to the fixed pivot</td><td>mm</td></tr>
+      </tbody>
+    </table></div>
+    <img class="plot" src="assets/lab3-coordinates.png" alt="Coordinate convention for fixed pivot and two tracked bobs">
+    <p><strong>Define the angles first:</strong> <var>θ</var><sub>1</sub> is the upper link's absolute angle from the downward vertical. <var>θ</var><sub>2</sub> is the lower link's absolute angle from the same vertical direction. Both are approximately zero when both links hang straight down. The lower link's direction is found from the displacement between the two moving centers:</p>
+    <div class="lab3-equations" aria-label="Angle conversion equations">
+      <p><var>θ</var><sub>1</sub> = unwrap(atan2(<var>x</var><sub>1</sub>, −<var>y</var><sub>1</sub>))</p>
+      <p><var>θ</var><sub>2</sub> = unwrap(atan2(<var>x</var><sub>2</sub> − <var>x</var><sub>1</sub>, −(<var>y</var><sub>2</sub> − <var>y</var><sub>1</sub>)))</p>
+    </div>
+    <p><code>atan2</code> finds the angle using both displacement components and their signs. <code>unwrap</code> removes artificial jumps of a full revolution so continuous rotations remain continuous. Its outputs here are radians; the script labels angle plots in degrees. <var>θ</var><sub>2</sub> is an <strong>absolute angle</strong>; the relative angle at the moving joint would be <var>θ</var><sub>2</sub> − <var>θ</var><sub>1</sub>. Check a known frame before processing every trial.</p>
+    <div class="callout"><strong>Run the scripts, not the helper functions.</strong> First run <code>Test_Lab3_Model.m</code>, then <code>Run_Lab3_Simulation.m</code> with your measured parameters, and <code>Run_Lab3_ExpData_Analysis.m</code> on each saved MAT file. Do not click Run inside <code>MIE402_Lab3_RHS.m</code> or <code>MIE402_Lab3_Energy.m</code>; they need input arguments. Lab 3 does not use <code>sineFit.m</code>: two coupled links generally do not produce a single sine wave.</div>
+  </section>
+
+  <section id="interpretation" aria-labelledby="interpretation-title">
+    <h2 id="interpretation-title">What do your plots tell an engineer?</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">Evidence in your data</th><th scope="col">Physical interpretation</th><th scope="col">Connection to the applications</th></tr></thead>
+      <tbody>
+        <tr><td>Two angle histories</td><td>Look at how the upper and lower links move relative to one another. A changing amplitude pattern can result from a combination of modes.</td><td>A crane needs both hook and load motion; a robot needs both joint motions.</td></tr>
+        <tr><td>Small-motion spectra and angle patterns</td><td>A normal mode is a coordinated oscillation pattern with a single frequency and a fixed ratio of link amplitudes. A mixed release can show both frequencies. One mode can be weak or unresolved; two visible peaks are not guaranteed in every trace.</td><td>Knowing the important frequencies helps engineers avoid exciting unwanted motion. Peak locations alone do not identify a mode: also check the two-angle pattern and the model prediction.</td></tr>
+        <tr><td>Larger-angle motion</td><td>The full nonlinear prediction accounts for changing geometry. Small-angle natural frequencies are useful reference values, but a large-motion spectrum need not contain only those two peaks.</td><td>Model validity depends on the operating conditions. A model validated for small motion may give a poor prediction for a much larger disturbance.</td></tr>
+        <tr><td>Measured amplitude decay and model mismatch</td><td>The baseline model omits pivot friction and air drag. Tracking error, imperfect initial conditions and mass/length errors can also explain disagreement. Do not attribute every difference to drag.</td><td>Engineers distinguish missing physics from bad inputs and measurement errors before changing a design or controller.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Energy explains why the two links cannot be treated independently</h3>
+    <p>As the bobs fall, gravitational potential energy becomes kinetic energy. As they rise, that exchange reverses. The lower bob's velocity depends on the motion of <strong>both</strong> links, so its kinetic energy couples the two angles. One link can become quieter while the other becomes more active even in an ideal model with no energy loss.</p>
+    <p>Total mechanical energy should remain nearly constant in the undamped simulation. The simulation's energy check helps detect a numerical problem; it does not prove that the model describes the real apparatus. In the real experiment, friction and drag can remove energy and reduce amplitudes.</p>
+    <p class="meta">For frequency analysis, label peaks in Hz and state the record duration. A longer useful record gives closer frequency-bin spacing. The FFT summarizes frequency content over the chosen interval; it does not replace the time histories or prove chaos.</p>
+  </section>
+
+  <section id="before-leaving" aria-labelledby="before-leaving-title">
+    <h2 id="before-leaving-title">Check one complete trial before leaving</h2>
+    <ul class="checklist">
+      <li>Both bobs remain correctly identified; tracked link lengths stay close to the measured lengths.</li>
+      <li>The angle signs match a known frame and no unexplained tracking jumps remain.</li>
+      <li>The MAT time spacing agrees with the actual capture rate and any documented frame skipping.</li>
+      <li>You can open the raw video, MAT file, angle plots, angular-velocity plots and spectra.</li>
+      <li>Your notes include masses, lengths, camera settings, calibration and actual starting conditions.</li>
+      <li>Show one full trial set to your GTA before leaving. If a plot looks wrong, inspect the tracking and inputs while the apparatus is still available.</li>
+    </ul>
+    <p class="meta">Combined Labs 2–3 report: tentatively due November 2; check Canvas. Follow the laboratory guide and report guide for the assigned deliverables.</p>
+  </section>
+</main><footer>Mechanical &amp; Industrial Engineering · Fall 2026<br>Prof. Ehsan Roohi</footer></body></html>

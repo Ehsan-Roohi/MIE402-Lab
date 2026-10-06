@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-labelledby="title desc"><title id="title">Crane hook and payload sway</title><desc id="desc">A hook suspended from a trolley carries a second suspended payload.</desc><rect width="360" height="240" fill="#f5f6f7"/><g font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#192126">
+<path d="M20 28H338" stroke="#526475" stroke-width="9"/><rect x="65" y="12" width="66" height="28" rx="4" fill="#881c1c"/>
+<text x="152" y="20">moving trolley</text><path d="M153 35H206l-7-5m7 5-7 5" fill="none" stroke="#881c1c" stroke-width="2"/>
+<path d="M98 40v145M147 122v74" stroke="#b2b8bf" stroke-width="1.5" stroke-dasharray="5 5"/>
+<path d="M98 40L147 122L218 183" fill="none" stroke="#324f66" stroke-width="5" stroke-linecap="round"/>
+<circle cx="147" cy="122" r="13" fill="#881c1c"/><rect x="195" y="182" width="46" height="30" rx="3" fill="#25759a"/>
+<text x="19" y="96">main cable</text><path d="M93 92l21-14" stroke="#526475" fill="none"/>
+<text x="179" y="116">hook</text><path d="M171 117l-12 5" stroke="#526475"/>
+<text x="230" y="156">rigging</text><path d="M223 153l-23 6" stroke="#526475"/>
+<text x="255" y="203">payload</text><text x="18" y="228" font-size="12" fill="#526475">Two changing suspension directions</text></g></svg>

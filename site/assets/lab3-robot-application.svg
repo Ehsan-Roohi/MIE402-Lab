@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-labelledby="title desc"><title id="title">Two-link robot arm</title><desc id="desc">Shoulder and elbow motors move two connected links and a loaded tool.</desc><rect width="360" height="240" fill="#f5f6f7"/><g font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#192126">
+<rect x="30" y="155" width="64" height="43" rx="3" fill="#526475"/><path d="M19 199H309" stroke="#b2b8bf" stroke-width="2"/>
+<path d="M61 155L160 65L271 131" fill="none" stroke="#324f66" stroke-width="15" stroke-linecap="round"/>
+<circle cx="61" cy="155" r="17" fill="#881c1c"/><circle cx="160" cy="65" r="17" fill="#881c1c"/>
+<path d="M270 132h18m0-10v20m0-20 12-8m-12 28 12 8" fill="none" stroke="#25759a" stroke-width="5"/>
+<text x="15" y="135">shoulder</text><text x="154" y="35">elbow</text><text x="267" y="96">tool / load</text>
+<text x="69" y="65">link 1</text><text x="196" y="110">link 2</text>
+<text x="16" y="223" font-size="12" fill="#526475">Motor torques act at both joints</text></g></svg>
