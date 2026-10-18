@@ -19,7 +19,7 @@ Lecture 01 covers orientation and laboratory report writing in a 50-minute class
 - [Detailed raw-CSV analysis workflow](site/docs/MIE402_Lab4_Analysis_Workflow_Fall2026.html)
 - [Current main MATLAB free-response analysis script](site/docs/MIE402_Lab4_Analyze_Free_Response.m) and [usage/limitations](site/docs/MIE402_Lab4_MATLAB_README.txt)
 
-The final integrated **49-slide Lecture 05 PowerPoint** and matching **49-page PDF** are published together under the existing `site/docs/MIE402_Lecture05_Lab4_Free_Response_Fall2026` file paths (commit `6e7aaaae325dba663ae4a18757660fce351cdf8c`).
+The final integrated **49-slide Lecture 05 PowerPoint** and matching **49-page PDF** are published together under the existing `site/docs/MIE402_Lecture05_Lab4_Free_Response_Fall2026` file paths (commit `6e7aaaae325dba663ae4a18757660fce351cdf8c`). The revised **Lab 4 instructions PDF**, **MATLAB ZIP**, and **Pre-Lab 4 Canvas ZIP** are built reproducibly from the current HTML/notebook/MATLAB sources by `tools/build_lab4_downloads.py` (package commit `56817296375666ca2e4232c448ecb4f8b21d8486`). The notebook clean-kernel GitHub Actions check passed; the MATLAB script has not been executed in MATLAB against real laboratory CSV data.
 
 ## Six experiments
 
