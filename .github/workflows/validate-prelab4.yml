@@ -1,0 +1,28 @@
+name: Validate Pre-Lab 4 notebook
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/docs/MIE402_PreLab4_Fall2026_Student.ipynb'
+      - '.github/workflows/validate-prelab4.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install teaching dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib nbconvert ipykernel
+      - name: Execute all student cells from a clean kernel
+        env:
+          MPLBACKEND: Agg
+        run: |
+          python -m jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=120 --output /tmp/MIE402_PreLab4_executed.ipynb site/docs/MIE402_PreLab4_Fall2026_Student.ipynb
+      - name: Check execution output exists
+        run: test -s /tmp/MIE402_PreLab4_executed.ipynb
