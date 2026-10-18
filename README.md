@@ -19,7 +19,7 @@ Lecture 01 covers orientation and laboratory report writing in a 50-minute class
 - [Detailed raw-CSV analysis workflow](site/docs/MIE402_Lab4_Analysis_Workflow_Fall2026.html)
 - [Current main MATLAB free-response analysis script](site/docs/MIE402_Lab4_Analyze_Free_Response.m) and [usage/limitations](site/docs/MIE402_Lab4_MATLAB_README.txt)
 
-The site currently retains the **existing matching PPTX/PDF pair** for Lecture 05; the integrated 49-slide PPTX/PDF created separately is **not yet stored in this repository**. Do not describe the existing copies as the 49-slide edition. Course schedule and grade deadlines are unchanged.
+The final integrated **49-slide Lecture 05 PowerPoint** and matching **49-page PDF** are published together under the existing `site/docs/MIE402_Lecture05_Lab4_Free_Response_Fall2026` file paths (commit `6e7aaaae325dba663ae4a18757660fce351cdf8c`).
 
 ## Six experiments
 
