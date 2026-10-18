@@ -10,6 +10,17 @@ Prof. Ehsan Roohi · Gunness Laboratory, Room 1 · [roohie@umass.edu](mailto:roo
 
 Lecture 01 covers orientation and laboratory report writing in a 50-minute class. Each of the six experiments has equipment photographs from the course files and plain-English explanations of the procedure, analysis, and report. Its 37 slides include detailed speaker notes, report examples, and a short class exercise.
 
+## Lab 4 free response — updated student resources
+
+- [Lab 4 HTML guide and apparatus photos](site/lab4.html)
+- [Lecture 05 HTML explanation](site/lecture05.html)
+- [Pre-Lab 4 notebook (complete supplied-code assignment)](site/docs/MIE402_PreLab4_Fall2026_Student.ipynb)
+- [Open Pre-Lab 4 in Colab](https://colab.research.google.com/github/Ehsan-Roohi/MIE402-Lab/blob/main/site/docs/MIE402_PreLab4_Fall2026_Student.ipynb)
+- [Detailed raw-CSV analysis workflow](site/docs/MIE402_Lab4_Analysis_Workflow_Fall2026.html)
+- [Current main MATLAB free-response analysis script](site/docs/MIE402_Lab4_Analyze_Free_Response.m) and [usage/limitations](site/docs/MIE402_Lab4_MATLAB_README.txt)
+
+The site currently retains the **existing matching PPTX/PDF pair** for Lecture 05; the integrated 49-slide PPTX/PDF created separately is **not yet stored in this repository**. Do not describe the existing copies as the 49-slide edition. Course schedule and grade deadlines are unchanged.
+
 ## Six experiments
 
 | Lab | Experiment | Report |
