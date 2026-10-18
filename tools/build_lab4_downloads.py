@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Rebuild student-facing Lab 4 downloads from the versioned source files."""
+"""Rebuild student-facing Lab 4 downloads from current versioned sources.
+
+Preserve unrelated archive members, but replace stale named Lab 4 inputs.
+"""
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 from io import BytesIO
