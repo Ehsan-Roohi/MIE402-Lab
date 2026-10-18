@@ -1,0 +1,36 @@
+name: Build Lab 4 student downloads
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/build_lab4_downloads.py'
+      - 'site/docs/MIE402_Lab4_Analysis_Workflow_Fall2026.html'
+      - 'site/docs/MIE402_Lab4_Analyze_Free_Response.m'
+      - 'site/docs/MIE402_Lab4_MATLAB_README.txt'
+      - 'site/docs/MIE402_PreLab4_Fall2026_Student.ipynb'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install PDF and verification tools
+        run: python -m pip install --disable-pip-version-check weasyprint pymupdf
+      - name: Rebuild ZIP packages and matching instructions PDF
+        run: python tools/build_lab4_downloads.py
+      - name: Commit updated downloadable packages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/docs/MIE402_Lab4_MATLAB_Files.zip site/docs/MIE402_PreLab4_Fall2026_Student_Canvas.zip site/docs/MIE402_Lab4_Free_Response_Instructions_Fall2026.pdf
+          if git diff --cached --quiet; then echo "Packages already current"; exit 0; fi
+          git commit -m "Refresh Lab 4 MATLAB and Canvas ZIPs and instructions PDF"
+          git push
