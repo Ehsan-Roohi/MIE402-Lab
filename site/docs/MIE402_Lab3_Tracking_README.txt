@@ -1,98 +1,70 @@
 MIE 402 LAB 3 -- MATLAB EXPERIMENTAL-DATA ANALYSIS
-Prof. Ehsan Roohi, Fall 2026. Updated 20 October 2026.
+Prof. Ehsan Roohi, Fall 2026
 
-STUDENT WORKFLOW (MATLAB)
-1. Download the updated MATLAB bundle from the Lab 3 course page and extract it.
-   Replace your older copy of Run_Lab3_ExpData_Analysis.m; do not run an old copy
-   from another folder. This experimental-analysis file is self-contained.
-2. Use Analyzer V4 as before to track the existing video and save ExpData.mat.
-   If you already have that MAT file, start with step 3; no new video is needed
-   to analyze its usable intervals. The Analyzer application itself is unchanged.
-3. Open Run_Lab3_ExpData_Analysis.m in MATLAB and click Run. Select your MAT file.
-   Do not run local helper functions separately. No sineFit is required.
-4. Inspect the geometry diagnostic first: near-zero lower-link lengths indicate
-   overlapping/incorrect bob detections. Review questionable points in the video.
-5. Inspect angle and angular-velocity plots, the continuous-rotation plot, and
-   the spectra. Figures (.png and editable .fig), CSV tables and Lab3_Analysis.mat
-   are saved beside your input in <recording>_Lab3_results. Repeat for each trial.
+RUN THE ANALYSIS
+1. Download the MATLAB bundle from the Lab 3 course page and extract it.
+2. In Pendulum Motion Analyzer V4, track the two bob centers and save ExpData.mat.
+   The columns are time_s, x1_mm, y1_mm, x2_mm, y2_mm. Positions are relative to
+   the fixed pivot, with x positive rightward and y positive upward.
+3. Open Run_Lab3_ExpData_Analysis.m in MATLAB, click Run, and select the MAT file.
+   Run the main file rather than its local helper functions. Repeat for each trial.
+4. Inspect the tracking-geometry diagnostic, angle histories, angular velocities
+   and spectra before selecting figures for your report.
 
-UNDERSTANDING THE OUTPUT
-- Missing endpoint rows remain missing; they no longer abort the entire record.
-- Short internal gaps are estimated only within the stated duration/angle limits
-  and explicitly flagged. Long or ambiguous gaps remain blank, never extrapolated.
-- Principal orientation is between -180 and 180 degrees. Continuous rotation may
-  exceed that range during real full turns. Do not clip it or force one sine fit.
-- Both FFTs use the same longest joint-valid interval. Check the reported interval
-  and frequency-bin spacing. During rotations the spectrum may use sin(theta),
-  labelled as dimensionless, instead of a continuous-angle winding ramp.
-- Peaks during large-angle motion are not automatically small-angle modal values.
-- State the retained interval, rejected/estimated data and limitations in the report.
-- Default +/-20% length screening is coarse quality control, not uncertainty.
-  Set measuredLengthsMM=[L1 L2] at the top if independent lengths in mm are known.
-- Long gaps require review/retracking of the EXISTING video for a complete trace.
-  The script cannot reconstruct missing positions from the MAT file alone.
+OUTPUT FILES
+The <recording>_Lab3_results folder beside your input contains:
+- 01_tracking_geometry.png: tracked lengths and reference lengths.
+- 02_angles_and_velocity.png: principal angles and angular velocities.
+- 03_frequency_spectra.png: both spectra over a common time interval.
+- 04_continuous_rotation.png: continuous angles within connected data segments.
+- Editable .fig versions of the figures.
+- analysis_with_quality_flags.csv: raw coordinates, results and quality flags.
+- link1_spectrum.csv and link2_spectrum.csv: frequency and amplitude tables.
+- Lab3_Analysis.mat: analysis variables for further work in MATLAB.
 
-OTHER MATLAB FILES
-Keep the complete model/simulation files together. Run Test_Lab3_Model.m for the
-simulation model, then Run_Lab3_Simulation.m with measured masses and lengths.
-That model test does not validate experimental tracking or this analysis script.
+INTERPRETING THE RESULTS
+Angles are measured from the downward vertical. Principal angles lie between
+-180 and 180 degrees; continuous angles can exceed this range during full turns.
+Winding is not joined across unresolved gaps. Check the original video when
+interpreting rotations and overlapping bob images.
 
-REQUIREMENTS AND EXECUTION CHECK
-The numerical entry point uses base MATLAB operations (R2016b+ syntax).
-No optional curve-fitting or signal-processing toolbox is required.
-The actual Run_Lab3_ExpData_Analysis.m was executed, without numerical shims,
-in GNU Octave 11.3.0 on two original experimental MAT files. Both runs completed
-and produced four PNG figures, four editable figure files, CSV tables and a MAT
-result. Angles, raw data, geometry checks, gap flags and FFTs matched the separate
-Python implementation; maximum angular-velocity difference was below 2e-11 rad/s.
-This is an actual .m-language execution test, not a MATLAB-runtime or editor-UI
-test: MathWorks MATLAB is not installed on the preparation computer.
-Students continue to use MATLAB in the laboratory. Colab is optional.
+Short internal gaps are estimated only within the duration and angle limits
+specified at the top of the file. Estimates are marked; longer gaps and missing
+endpoints remain blank. A complete trace through a long gap requires review or
+retracking of the original video.
 
-WHAT WAS WRONG
-1. NaN checks alone miss finite but invalid tracking: both bob coordinates can
-   be nearly identical, making the lower-link length nearly zero.
-2. The former script aborts if the first/last tracking rows are missing. Missing
-   end rows should remain missing; they do not invalidate the rest of a run.
-3. A continuous angle from unwrap can legitimately reach -1000 degrees after
-   multiple rotations. This number alone is not proof of failed tracking.
-4. Differentiating raw jitter, coordinate failures or branch cuts creates
-   artificial angular-velocity spikes.
+The default length screen is +/-20% about a reference length. This is a coarse
+quality check, not a calibration uncertainty. If independently measured lengths
+are available, set measuredLengthsMM=[L1 L2], in millimeters, near the top.
 
-WHAT THE NEW ANALYSIS DOES
-- Preserves raw coordinates and original timestamps in the output CSV.
-- Separately checks each link's finite coordinates and approximately constant
-  length. Default +/-20% is a coarse QC screen, not an uncertainty estimate.
-  Supply independently measured link lengths with --lengths-mm L1 L2 when known.
-- Retains missing endpoints; never extrapolates them. Complete internal gaps
-  are filled only if anchor separation is <=0.05 s and angular change <=60 deg.
-  Short circular interpolation estimates are explicitly flagged in the CSV.
-- Leaves longer or ambiguous gaps as NaNs; never joins winding across them.
-- Reports principal orientation [-180,180] and continuous angle separately.
-  The first is a coordinate convention; the second preserves genuine turns.
-- Computes a 21 ms local-polynomial angular derivative and excludes derivative
-  neighborhoods influenced by estimated samples and segment edges.
-- Uses the SAME longest joint-valid interval for both Hann-windowed FFTs,
-  with correct DC/Nyquist scaling and explicit time interval/bin spacing.
-  If the selected segment includes full rotations, sin(theta), rather than a
-  winding ramp, is used and labelled as dimensionless orientation.
-- Does not fit the double-pendulum trace to one sine wave or force a small-angle
-  model onto large-angle/rotating motion.
+Angular velocity uses a 21 ms local-polynomial derivative. Neighborhoods affected
+by gap estimates and segment boundaries are excluded. Both FFTs use the same
+longest joint-valid interval. Check the interval and frequency-bin spacing.
+For a rotating segment, a spectrum may use sin(theta), labelled dimensionless,
+rather than an accumulating angle. Large-angle peaks are not automatically the
+two small-angle modal frequencies.
 
-WHICH FIGURES TO USE
-02_angles_and_velocity.png: principal orientation and filtered angular velocity.
-03_frequency_spectra.png: spectra over the stated common time window.
-04_continuous_rotation.png: discuss full turns and disconnected segments.
-01_tracking_diagnosis.png: documents old processing and geometry failures.
-The MATLAB script produces a geometry-only diagnostic with a similar name.
-Report axes/units, retained interval, interpolated/rejected data, original capture
-fps, and limitations. Dominant FFT bins are NOT automatically small-angle modes.
+IN YOUR REPORT
+State axes and units, original capture frame rate, calibration, measured masses
+and lengths, retained analysis interval, estimated or excluded points, and limits
+of the measurements. Use capture fps rather than slow-motion playback fps.
 
-LIMITS
-The code cannot reconstruct a hidden bob from a MAT file. For a complete trace
-through a long missing interval, retrack the EXISTING video or verify manually.
-Length screening cannot catch every wrong detection on a plausible circle, nor
-validate the camera scale, pivot placement, capture timing or out-of-plane motion.
-Check representative video frames, especially around full rotations or overlap.
-The reference lengths inferred from each recording are QC estimates, not new
-physical measurements. Original laboratory mass/length measurements still apply.
+THEORETICAL COMPARISON
+Keep the model/simulation files together. Test_Lab3_Model.m checks the simulation
+model and coordinate convention. Use Run_Lab3_Simulation.m with measured masses,
+lengths and initial conditions for a prediction over the same physical interval.
+The experimental analysis does not automatically fit or overlay that prediction.
+
+MATLAB REQUIREMENTS
+Base MATLAB operations using R2016b+ syntax. No optional curve-fitting or
+signal-processing toolbox is required.
+
+OPTIONAL PYTHON/COLAB WORKFLOW
+Open MIE402_Lab3_Tracking_Analysis.ipynb in Colab and run the supplied cells in
+order. Upload an ExpData MAT file when prompted, inspect the figures, and download
+the results ZIP. For local Python, install the dependencies in requirements.txt
+and run:
+python MIE402_Lab3_Analyze_ExpData.py recording.mat --output results_folder
+
+The Python geometry diagnostic is named 01_tracking_diagnosis.png. Read the
+quality report and data flags when interpreting its plots and spectra.
