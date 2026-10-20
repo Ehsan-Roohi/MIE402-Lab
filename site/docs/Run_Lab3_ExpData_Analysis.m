@@ -1,5 +1,9 @@
 %% RUN THIS MAIN SCRIPT; local functions below are not separate entry points.
 % Lab 3 tracking-aware analysis, 20 October 2026.
+% STUDENTS: open this SCRIPT in MATLAB, click Run, and select your ExpData MAT.
+% No sineFit, Python, or additional helper downloads are needed for this script.
+% Results are saved beside the input file in a new *_Lab3_results folder.
+% Keep the original recording and inspect tracking flags before using the figures.
 % ExpData: time_s,x1_mm,y1_mm,x2_mm,y2_mm. Fixed pivot; x right, y up.
 % MATLAB port of the Python algorithm tested on the supplied recordings.
 % This MATLAB port has NOT been executed in MATLAB in this delivery.
@@ -74,18 +78,21 @@ nexttile;plot(t,omega);grid on;legend('Link 1','Link 2');
 xlabel('Original MAT time (s)');ylabel('Angular velocity (rad/s)');
 title('21 ms local-polynomial derivative; interpolation neighborhoods/edges excluded');
 saveas(f,fullfile(out,'02_angles_and_velocity.png'));
+savefig(f,fullfile(out,'02_angles_and_velocity.fig'));
 
 f=figure('Name','Lab 3: continuous rotation');
 plot(t,rad2deg(continuous));grid on;legend('Link 1','Link 2');
 xlabel('Original MAT time (s)');ylabel('Continuous angle (deg)');
 title('Preserve winding within each valid segment; no forced clipping');
 saveas(f,fullfile(out,'04_continuous_rotation.png'));
+savefig(f,fullfile(out,'04_continuous_rotation.fig'));
 
 f=figure('Name','Lab 3: geometry checks');
 plot(t,L);hold on;yline(refs(1),'--');yline(refs(2),'--');grid on
 xlabel('Original MAT time (s)');ylabel('Tracked length (mm)');legend('Link 1','Link 2');
 title('Near-zero lower-link length means duplicate/wrong bob detection, not real shortening');
 saveas(f,fullfile(out,'01_tracking_geometry.png'));
+savefig(f,fullfile(out,'01_tracking_geometry.fig'));
 
 % Both spectra use the SAME longest joint-valid segment; never join across gaps.
 common=all(isfinite(continuous),2); [starts,stops]=validRuns(common);
@@ -117,6 +124,7 @@ else
     end
 end
 saveas(f,fullfile(out,'03_frequency_spectra.png'));
+savefig(f,fullfile(out,'03_frequency_spectra.fig'));
 disp(['Saved to ',out]);
 disp('Large-angle spectra describe this record; they are not automatically the two small-angle modes.');
 disp('Long gaps require review of the EXISTING video, not invented positions or a new experiment.');
