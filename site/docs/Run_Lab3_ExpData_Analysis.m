@@ -1,21 +1,29 @@
-%% RUN THIS MAIN SCRIPT; local functions below are not separate entry points.
+function result = Run_Lab3_ExpData_Analysis(inputFile, outputFolder)
+% Main entry point. Click Run with no inputs, or supply a MAT path for batch use.
+% Example: R = Run_Lab3_ExpData_Analysis('recording.mat','results_folder');
 % Lab 3 tracking-aware analysis, 20 October 2026.
-% STUDENTS: open this SCRIPT in MATLAB, click Run, and select your ExpData MAT.
+% STUDENTS: open this file in MATLAB, click Run, and select your ExpData MAT.
 % No sineFit, Python, or additional helper downloads are needed for this script.
 % Results are saved beside the input file in a new *_Lab3_results folder.
 % Keep the original recording and inspect tracking flags before using the figures.
 % ExpData: time_s,x1_mm,y1_mm,x2_mm,y2_mm. Fixed pivot; x right, y up.
 % MATLAB port of the Python algorithm tested on the supplied recordings.
-% This MATLAB port has NOT been executed in MATLAB in this delivery.
-clear; close all; clc
+% Runtime validation is documented in MIE402_Lab3_MATLAB_README.txt.
+result = struct();
 lengthTolerance = 0.20;       % QC screen; not a physical calibration uncertainty
 maxGapSeconds = 0.05;        % full anchor-to-anchor interval, not missing-row count
 maxBridgeDegrees = 60;       % do not infer large turns through a missing interval
 velocityWindowSeconds = .021;
 measuredLengthsMM = [];      % optional [L1,L2] measured lengths; empty uses robust medians
-[filename,folder] = uigetfile('*.mat','Select Lab 3 ExpData');
-if isequal(filename,0), return; end
-S=load(fullfile(folder,filename));
+if nargin < 1 || isempty(inputFile)
+    [filename,folder] = uigetfile('*.mat','Select Lab 3 ExpData');
+    if isequal(filename,0), return; end
+    inputFile=fullfile(folder,filename);
+else
+    [folder,base,ext]=fileparts(inputFile); filename=[base,ext];
+    if isempty(folder),folder=pwd;end
+end
+S=load(inputFile);
 assert(isfield(S,'ExpData'),'The MAT file has no ExpData.');
 D=double(S.ExpData);
 assert(size(D,2)>=5 && size(D,1)>=20,'Need >=20 rows and t,x1,y1,x2,y2.');
@@ -52,51 +60,57 @@ disp('Length references are QC estimates, not independent calibration. Raw coord
 disp('Principal angles wrap at +/-180 deg; continuous angles can legitimately exceed 360 deg.');
 disp('Continuous-angle turn counts are not linked across unresolved gaps.');
 
-out=fullfile(folder,[erase(filename,'.mat'),'_Lab3_results']);
+[~,base]=fileparts(filename);
+if nargin < 2 || isempty(outputFolder)
+    out=fullfile(folder,[base,'_Lab3_results']);
+else
+    out=outputFolder;
+end
 if ~exist(out,'dir'), mkdir(out); end
-T=array2table([D,rad2deg(principal),rad2deg(continuous),omega,L,observed,filled,derivativeInfluence], ...
- 'VariableNames',{'time_s','x1_raw_mm','y1_raw_mm','x2_raw_mm','y2_raw_mm', ...
+csvData=[D,rad2deg(principal),rad2deg(continuous),omega,L,observed,filled,derivativeInfluence];
+headers={'time_s','x1_raw_mm','y1_raw_mm','x2_raw_mm','y2_raw_mm', ...
  'theta1_principal_deg','theta2_principal_deg','theta1_continuous_deg','theta2_continuous_deg', ...
  'omega1_rad_s','omega2_rad_s','L1_raw_mm','L2_raw_mm','link1_observed','link2_observed', ...
- 'link1_interpolated','link2_interpolated','omega1_influenced','omega2_influenced'});
-writetable(T,fullfile(out,'analysis_with_quality_flags.csv'));
+ 'link1_interpolated','link2_interpolated','omega1_influenced','omega2_influenced'};
+writeNumericCSV(fullfile(out,'analysis_with_quality_flags.csv'),csvData,headers);
 save(fullfile(out,'Lab3_Analysis.mat'),'D','t','L','refs','principal','continuous','omega', ...
- 'observed','filled','derivativeInfluence','lengthTolerance','maxGapSeconds','velocityWindowSeconds');
+ 'observed','filled','derivativeInfluence','lengthTolerance','maxGapSeconds','maxBridgeDegrees','velocityWindowSeconds','-v7');
 
 colors=lines(2);
-f=figure('Name','Lab 3: orientation and angular velocity'); tiledlayout(2,1);
-nexttile;hold on
+f=figure('Name','Lab 3: orientation and angular velocity');
+subplot(2,1,1);hold on
 for j=1:2
     a=rad2deg(principal(:,j)); a([false;abs(diff(a))>180])=NaN;
     plot(t,a,'Color',colors(j,:),'DisplayName',sprintf('Link %d',j));
     q=filled(:,j);plot(t(q),rad2deg(principal(q,j)),'o','Color',colors(j,:), ...
         'MarkerSize',3,'DisplayName',sprintf('Link %d short-gap estimates',j));
 end
-grid on;legend('show');ylabel('Principal angle (deg)');
-title('Orientation from downward vertical; +/-180 deg is a coordinate wrap');
-nexttile;plot(t,omega);grid on;legend('Link 1','Link 2');
+grid on;hLegend=legend('show');set(hLegend,'Visible','on');ylabel('Principal angle (deg)');
+title('Angles: blue = link 1; orange = link 2; circles = short-gap estimates'); xlim([t(1),t(end)]);
+subplot(2,1,2);plot(t,omega);grid on;hLegend=legend('Link 1','Link 2');set(hLegend,'Visible','on');
 xlabel('Original MAT time (s)');ylabel('Angular velocity (rad/s)');
-title('21 ms local-polynomial derivative; interpolation neighborhoods/edges excluded');
+title('Angular velocity: blue = link 1; orange = link 2'); xlim([t(1),t(end)]);
 saveas(f,fullfile(out,'02_angles_and_velocity.png'));
 savefig(f,fullfile(out,'02_angles_and_velocity.fig'));
 
 f=figure('Name','Lab 3: continuous rotation');
-plot(t,rad2deg(continuous));grid on;legend('Link 1','Link 2');
+plot(t,rad2deg(continuous));grid on;hLegend=legend('Link 1','Link 2');set(hLegend,'Visible','on');
 xlabel('Original MAT time (s)');ylabel('Continuous angle (deg)');
-title('Preserve winding within each valid segment; no forced clipping');
+title('Continuous rotation: blue = link 1; orange = link 2'); xlim([t(1),t(end)]);
 saveas(f,fullfile(out,'04_continuous_rotation.png'));
 savefig(f,fullfile(out,'04_continuous_rotation.fig'));
 
 f=figure('Name','Lab 3: geometry checks');
-plot(t,L);hold on;yline(refs(1),'--');yline(refs(2),'--');grid on
-xlabel('Original MAT time (s)');ylabel('Tracked length (mm)');legend('Link 1','Link 2');
-title('Near-zero lower-link length means duplicate/wrong bob detection, not real shortening');
+plot(t,L);hold on;plot([t(1),t(end)],[refs(1),refs(1)],'--');plot([t(1),t(end)],[refs(2),refs(2)],'--');grid on
+xlabel('Original MAT time (s)');ylabel('Tracked length (mm)');hLegend=legend('Link 1','Link 2');set(hLegend,'Visible','on');
+title('Tracked lengths: blue = link 1; orange = link 2; dashed = references'); xlim([t(1),t(end)]);
 saveas(f,fullfile(out,'01_tracking_geometry.png'));
 savefig(f,fullfile(out,'01_tracking_geometry.fig'));
 
 % Both spectra use the SAME longest joint-valid segment; never join across gaps.
+fftInterval=[NaN,NaN]; fftPeaks=[NaN,NaN]; fftBinSpacing=NaN;
 common=all(isfinite(continuous),2); [starts,stops]=validRuns(common);
-f=figure('Name','Lab 3: spectra');tiledlayout(1,2);
+f=figure('Name','Lab 3: spectra');
 if isempty(starts)
     warning('No joint-valid segment; inspect/retrack the existing video.');
 else
@@ -105,6 +119,7 @@ else
     if n<32 || max(abs(diff(t(idx))-dti))>.02*dti
         warning('No sufficiently long uniform common segment for an FFT. Time-domain outputs remain available.');
     else
+        fftInterval=[t(a),t(b)]; fftBinSpacing=1/(n*dti);
         freq=(0:floor(n/2))'/(n*dti); w=.5-.5*cos(2*pi*(0:n-1)'/(n-1));
         for j=1:2
             x=continuous(idx,j); unit='rad'; quantity='angle';
@@ -116,10 +131,11 @@ else
             [~,ip]=max(amp(2:end));ip=ip+1;
             fprintf('Link %d largest FFT bin %.4f Hz; common interval %.3f--%.3f s; bins %.4f Hz.\n', ...
                 j,freq(ip),t(a),t(b),1/(n*dti));
-            nexttile;plot(freq,amp);hold on;xline(freq(ip),'--');grid on
+            fftPeaks(j)=freq(ip);
+            subplot(1,2,j);plot(freq,amp);hold on;plot([freq(ip),freq(ip)],[0,max(amp)],'--');grid on
             xlim([0,min(15,freq(end))]);xlabel('Frequency (Hz)');ylabel(['One-sided amplitude (',unit,')']);
             title(sprintf('Link %d: %.3f Hz; %s',j,freq(ip),quantity));
-            writematrix([freq,amp],fullfile(out,sprintf('link%d_spectrum.csv',j)));
+            writeNumericCSV(fullfile(out,sprintf('link%d_spectrum.csv',j)),[freq,amp],{'frequency_hz','amplitude'});
         end
     end
 end
@@ -128,6 +144,25 @@ savefig(f,fullfile(out,'03_frequency_spectra.fig'));
 disp(['Saved to ',out]);
 disp('Large-angle spectra describe this record; they are not automatically the two small-angle modes.');
 disp('Long gaps require review of the EXISTING video, not invented positions or a new experiment.');
+
+result=struct('time',t,'raw',D,'lengths',L,'referenceLengths',refs, ...
+    'principal',principal,'continuous',continuous,'omega',omega,'observed',observed, ...
+    'filled',filled,'derivativeInfluence',derivativeInfluence, ...
+    'fftInterval',fftInterval,'fftPeaks',fftPeaks,'fftBinSpacing',fftBinSpacing,'outputFolder',out);
+save(fullfile(out,'Lab3_Analysis.mat'),'result','-v7','-append');
+end
+
+function writeNumericCSV(path,data,headers)
+fid=fopen(path,'w'); assert(fid>=0,'Cannot write CSV output.');
+cleanup=onCleanup(@() fclose(fid));
+for k=1:numel(headers)
+    if k>1,fprintf(fid,',');end
+    fprintf(fid,'%s',headers{k});
+end
+fprintf(fid,'\n');
+fmt=[repmat('%.17g,',1,size(data,2)-1),'%.17g\n'];
+fprintf(fid,fmt,data.');
+end
 
 function [a,u,filled]=repairAngle(t,a,observed,maxGap,maxDegrees)
 a(~observed)=NaN;filled=false(size(a));n=numel(t);

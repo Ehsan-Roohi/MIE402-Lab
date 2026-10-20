@@ -4,7 +4,7 @@ Prof. Ehsan Roohi, Fall 2026. Updated 20 October 2026.
 STUDENT WORKFLOW (MATLAB)
 1. Download the updated MATLAB bundle from the Lab 3 course page and extract it.
    Replace your older copy of Run_Lab3_ExpData_Analysis.m; do not run an old copy
-   from another folder. This experimental-analysis script is self-contained.
+   from another folder. This experimental-analysis file is self-contained.
 2. Use Analyzer V4 as before to track the existing video and save ExpData.mat.
    If you already have that MAT file, start with step 3; no new video is needed
    to analyze its usable intervals. The Analyzer application itself is unchanged.
@@ -37,11 +37,14 @@ Keep the complete model/simulation files together. Run Test_Lab3_Model.m for the
 simulation model, then Run_Lab3_Simulation.m with measured masses and lengths.
 That model test does not validate experimental tracking or this analysis script.
 
-REQUIREMENTS AND VALIDATION
-MATLAB R2019b or newer (tiledlayout, writematrix and implicit expansion).
-No optional signal-processing or curve-fitting toolbox is used.
-The corresponding Python algorithm and Colab computations were tested on two real
-experimental MAT files. MATLAB is unavailable on the preparation computer, so
-this MATLAB script has not yet been executed in MATLAB. A laboratory-computer
-runtime check with a known MAT file is still required before calling it MATLAB-
-verified. Optional Colab/Python files remain available for comparison/troubleshooting.
+REQUIREMENTS AND EXECUTION CHECK
+The numerical entry point uses base MATLAB operations (R2016b+ syntax).
+No optional curve-fitting or signal-processing toolbox is required.
+The actual Run_Lab3_ExpData_Analysis.m was executed, without numerical shims,
+in GNU Octave 11.3.0 on two original experimental MAT files. Both runs completed
+and produced four PNG figures, four editable figure files, CSV tables and a MAT
+result. Angles, raw data, geometry checks, gap flags and FFTs matched the separate
+Python implementation; maximum angular-velocity difference was below 2e-11 rad/s.
+This is an actual .m-language execution test, not a MATLAB-runtime or editor-UI
+test: MathWorks MATLAB is not installed on the preparation computer.
+Students continue to use MATLAB in the laboratory. Colab is optional.
