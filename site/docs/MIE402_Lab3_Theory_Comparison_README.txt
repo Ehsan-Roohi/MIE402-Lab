@@ -1,3 +1,60 @@
+LAB 3: EXPERIMENT VS THEORY — SIMPLE MATLAB GUIDE
+
+FILE TO RUN: Run_Lab3_Compare_Theory.m
+This compares YOUR saved experiment with the Lecture 04 double-pendulum
+models. You do not need to record another video or write MATLAB code.
+
+1. Download MIE402_Lab3_Theory_Comparison_MATLAB.zip and extract ALL files.
+   In MATLAB, select the extracted folder as Current Folder.
+2. Open Run_Lab3_Compare_Theory.m and click Run. Do not run the helper files.
+3. Choose your saved ExpData MAT file, or the Lab3_Analysis.mat produced
+   by the experimental-data analysis. Select a MAT file, not the video.
+4. Enter YOUR group's measurements in the dialog:
+   L1 [mm]: fixed pivot CENTER to moving middle-joint CENTER.
+   L2 [mm]: middle-joint CENTER to bottom-bob CENTER.
+   m1 [g]: upper bar alone. m2 [g]: lower bar alone.
+   M1 [g]: middle bob/joint and its hardware, excluding the bars.
+   M2 [g]: bottom bob and its hardware, excluding the bars.
+   Enter grams and millimeters; conversion to kg and m is automatic.
+   Check the suggested tracked lengths against your own measurements.
+   Do not copy another group's values or count the bars twice.
+5. In the preview, read a start/end time from the ORIGINAL MAT time axis.
+   Choose motion after your hand has released the apparatus. The start
+   may be mid-swing: the code estimates initial angles AND speeds from
+   the data. You do not need to guess an initial angle or set speed to zero.
+6. Open the output folder ending _TheoryComparison next to your input MAT.
+   Repeat with each trial and that trial's appropriate measurements.
+
+FIGURES TO USE IN YOUR REPORT
+01_angles_theory_overlay.png: main experiment/theory comparison for both
+links. Blue dots = measured; red = nonlinear; purple dashed = small-angle.
+02_observed_only_residuals.png: angular disagreement versus time.
+03_spectra_theory_overlay.png: compare frequency content; read the marked
+small-angle frequencies and measured FFT bin. The second mode need not
+appear as a strong experimental peak in every release.
+04_energy_model_check.png: explain only if relevant to your report;
+this is model-based energy, not a direct energy measurement.
+Use PNG files in Word/PDF; FIG files can be edited in MATLAB. Label the
+trial, release condition, masses, lengths and compared time interval.
+READ_COMPARISON.txt gives modal frequencies and angular RMSE for both
+models. Explain agreement near the start and any later phase/amplitude
+differences. A larger-angle release can invalidate the small-angle model.
+These instructions support the report requirements in the lab guide.
+
+IF IT DOES NOT RUN
+Extract the whole ZIP first. Keep all five files in one Current Folder.
+A missing tracked joint cannot be recovered by theory comparison; review
+the tracking output and retrack the existing video if needed.
+Do not use pixel-only coordinates without physical length calibration.
+Use actual camera capture timing, not slow-motion playback fps.
+
+The two models use the same measured inputs and data-derived initial
+state. No mass, damping, time or phase adjustment forces a match. The
+nonlinear baseline omits friction and air drag. Short-gap estimates are
+excluded from error metrics; long missing intervals stay blank.
+
+DETAILED MODEL AND OUTPUT REFERENCE
+===================================
 MIE 402 LAB 3 — COMPARE MEASUREMENTS WITH LECTURE 04 THEORY
 
 PURPOSE
