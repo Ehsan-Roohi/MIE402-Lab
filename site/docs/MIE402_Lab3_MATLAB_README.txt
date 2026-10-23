@@ -57,7 +57,11 @@ THEORETICAL COMPARISON
 Keep the model/simulation files together. Test_Lab3_Model.m checks the simulation
 model and coordinate convention. Use Run_Lab3_Simulation.m with measured masses,
 lengths and initial conditions for a prediction over the same physical interval.
-The experimental analysis does not automatically fit or overlay that prediction.
+For a measured-versus-theory overlay, run Run_Lab3_Compare_Theory.m.
+Enter your group's measured lengths [mm] and four masses [g] in its dialog;
+select the free-motion interval. It compares nonlinear and analytical
+small-angle predictions without tuning parameters to the later trajectory.
+See MIE402_Lab3_Theory_Comparison_README.txt for the complete workflow.
 
 MATLAB REQUIREMENTS
 The ExpData ANALYSIS uses base MATLAB operations with R2016b+ syntax.
