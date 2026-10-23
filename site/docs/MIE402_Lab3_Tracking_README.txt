@@ -13,7 +13,7 @@ RUN THE ANALYSIS
 
 OUTPUT FILES
 The <recording>_Lab3_results folder beside your input contains:
-- 01_tracking_geometry.png: tracked lengths and reference lengths.
+- 01_tracking_geometry.png: processed lengths; circles mark short-gap estimates.
 - 02_angles_and_velocity.png: principal angles and angular velocities.
 - 03_frequency_spectra.png: both spectra over a common time interval.
 - 04_continuous_rotation.png: continuous angles within connected data segments.
@@ -21,6 +21,8 @@ The <recording>_Lab3_results folder beside your input contains:
 - analysis_with_quality_flags.csv: raw coordinates, results and quality flags.
 - link1_spectrum.csv and link2_spectrum.csv: frequency and amplitude tables.
 - Lab3_Analysis.mat: analysis variables for further work in MATLAB.
+- link_lengths_with_quality_flags.csv: raw and processed lengths with flags.
+- coordinates_with_quality_flags.csv: raw and estimated positions with flags.
 
 INTERPRETING THE RESULTS
 Angles are measured from the downward vertical. Principal angles lie between
@@ -68,3 +70,10 @@ python MIE402_Lab3_Analyze_ExpData.py recording.mat --output results_folder
 
 The Python geometry diagnostic is named 01_tracking_diagnosis.png. Read the
 quality report and data flags when interpreting its plots and spectra.
+
+L and result.lengths contain processed lengths. L_raw and result.rawLengths
+retain the original tracking lengths. Unresolved invalid samples are NaN, not
+zero; short-gap estimates are flagged. The length plot uses processed values.
+If a whole joint lacks observations, consult READ_AVAILABLE_POSITIONS.txt in
+the results folder. Available point positions do not determine both link angles;
+review or retrack the original video with both moving centers selected.
