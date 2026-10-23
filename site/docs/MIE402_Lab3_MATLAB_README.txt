@@ -3,7 +3,9 @@ Prof. Ehsan Roohi, Fall 2026
 
 RUN THE ANALYSIS
 1. Download the MATLAB bundle from the Lab 3 course page and extract it.
-2. In Pendulum Motion Analyzer V4, track the two bob centers and save ExpData.mat.
+2. Track the two ring-shaped bobs with Run_Lab3_Ring_Video_Tracker.m and save
+   RingTracking_ExpData.mat; follow MIE402_Lab3_Video_Tracker_README.txt.
+   A valid ExpData MAT saved from Analyzer V4 can also be used.
    The columns are time_s, x1_mm, y1_mm, x2_mm, y2_mm. Positions are relative to
    the fixed pivot, with x positive rightward and y positive upward.
 3. Open Run_Lab3_ExpData_Analysis.m in MATLAB, click Run, and select the MAT file.
@@ -58,8 +60,10 @@ lengths and initial conditions for a prediction over the same physical interval.
 The experimental analysis does not automatically fit or overlay that prediction.
 
 MATLAB REQUIREMENTS
-Base MATLAB operations using R2016b+ syntax. No optional curve-fitting or
-signal-processing toolbox is required.
+The ExpData ANALYSIS uses base MATLAB operations with R2016b+ syntax.
+No optional curve-fitting or signal-processing toolbox is required for it.
+The VIDEO TRACKER additionally requires Image Processing Toolbox; GNU Octave
+requires its image and video packages. See the dedicated tracker instructions.
 
 L and result.lengths contain processed lengths. L_raw and result.rawLengths
 retain the original tracking lengths. Unresolved invalid samples are NaN, not
