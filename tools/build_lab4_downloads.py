@@ -61,23 +61,12 @@ preserve_and_update("MIE402_PreLab4_Fall2026_Student_Canvas.zip", {
     ).encode("utf-8"),
 }, remove_suffix=".ipynb")
 
-from weasyprint import HTML, CSS
-html = DOCS / "MIE402_Lab4_Analysis_Workflow_Fall2026.html"
-pdf = DOCS / "MIE402_Lab4_Free_Response_Instructions_Fall2026.pdf"
-css = CSS(string="""@page {size: Letter; margin: 0.75in 0.78in; }
-body {background:white !important; color:#16283b !important; font-family:Arial,sans-serif; font-size:10.5pt; line-height:1.42}
-main {max-width:none !important; margin:0 !important; padding:0 !important}
-h1 {font-size:22pt; line-height:1.18} h2 {font-size:14pt; margin:16pt 0 6pt; break-after:avoid}
-p, li, td {orphans:2; widows:2}
-figure, table {break-inside:avoid}
-img {max-height:2.05in; width:auto}
-.equation {font-size:12.5pt !important; overflow:visible !important}
-a {color:#184d78} td,th {font-size:9.3pt}
-""")
-HTML(filename=str(html), base_url=str(DOCS)).write_pdf(str(pdf), stylesheets=[css])
+# The full laboratory manual is authored and visually reviewed separately.
+# Do not replace it with the shorter HTML analysis supplement when rebuilding ZIPs.
 import fitz
-doc=fitz.open(pdf)
-assert len(doc)>=2 and len(doc)<20, f"Unexpected PDF page count: {len(doc)}"
-assert all(len(p.get_text().strip())>50 for p in doc)
-assert "seven" in " ".join(p.get_text() for p in doc).lower()
-print(f"Rebuilt Lab 4 instructions PDF: {len(doc)} pages, {pdf.stat().st_size} bytes")
+pdf = DOCS / "MIE402_Lab4_Free_Response_Instructions_Fall2026.pdf"
+doc = fitz.open(pdf)
+text = " ".join(p.get_text() for p in doc)
+assert len(doc) >= 10, "The full laboratory manual must not be replaced by the short analysis supplement"
+assert "Zero" in text and "spring" in text.lower() and "seven" in text.lower()
+print(f"Preserved full Lab 4 instructions PDF: {len(doc)} pages, {pdf.stat().st_size} bytes")
