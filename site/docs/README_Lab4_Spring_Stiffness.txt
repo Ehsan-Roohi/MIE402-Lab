@@ -62,7 +62,7 @@ An entered alpha is not the sine fit's phase parameter.
 NEXT: CART ANALYSIS IS A DIFFERENT PROGRAM
 Use each measured spring k as the left/right stiffness input to
 MIE402_Lab4_Analyze_Free_Response.m. That existing script analyzes the cart;
-this new program does not alter it. Do not enter the sum twice.
+the spring analysis gives the individual k values. Do not enter the sum twice.
 
 Optional reproducible use (no dialogs)
 c=struct('mode','manual','label','A','massValue',200,'massUnit','g', ...
