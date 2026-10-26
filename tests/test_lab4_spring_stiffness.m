@@ -31,4 +31,21 @@ try,Lab4_Spring_Stiffness_Analysis(c);catch,failed=true;end;assert(failed);
 c.force=ones(size(t));failed=false;try,Lab4_Spring_Stiffness_Analysis(c);catch,failed=true;end;assert(failed);
 c.force=y;c.time=t;c.time(5)=c.time(4);failed=false;try,Lab4_Spring_Stiffness_Analysis(c);catch,failed=true;end;assert(failed);
 c.time=t;c.time(101:end)=c.time(101:end)+.2;failed=false;try,Lab4_Spring_Stiffness_Analysis(c);catch,failed=true;end;assert(failed);
+% Exercise the actual no-argument student entry for four manual-B springs.
+% Only dialogs/typed inputs are mocked; production calculations/CSV are executed.
+mock=fullfile(out,'ui_mock');if ~exist(mock,'dir'),mkdir(mock);end
+fid=fopen(fullfile(mock,'uigetdir.m'),'w');
+fprintf(fid,'function x=uigetdir(varargin)\nglobal SPRING_TEST_FOLDER; x=SPRING_TEST_FOLDER;\nend\n');fclose(fid);
+fid=fopen(fullfile(mock,'input.m'),'w');
+fprintf(fid,'function x=input(varargin)\nglobal SPRING_TEST_INPUTS SPRING_TEST_NEXT; x=SPRING_TEST_INPUTS{SPRING_TEST_NEXT}; SPRING_TEST_NEXT=SPRING_TEST_NEXT+1;\nend\n');fclose(fid);
+global SPRING_TEST_FOLDER SPRING_TEST_INPUTS SPRING_TEST_NEXT;
+SPRING_TEST_FOLDER=out;SPRING_TEST_INPUTS={4};SPRING_TEST_NEXT=1;
+for j=1:4
+ SPRING_TEST_INPUTS=[SPRING_TEST_INPUTS,{char(64+j),200,'g',1,7.3,'rad/s',0}];
+end
+addpath(mock,'-begin');
+entry=Run_Lab4_Spring_Stiffness();
+rmpath(mock);clear input uigetdir;
+assert(numel(entry)==4);assert(all(abs([entry.k_N_m]-10.658)<1e-9));
+fprintf('Zero-argument student entry completed all four springs.\n');
 fprintf('ALL SPRING STIFFNESS CHECKS PASSED. Synthetic test artifacts: %s\n',out);
