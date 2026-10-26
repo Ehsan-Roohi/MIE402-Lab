@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'site/docs/Run_Lab4_Spring_Stiffness.m'
+      - 'site/docs/Lab4_Spring_Stiffness_Analysis.m'
       - 'tests/test_lab4_spring_stiffness.m'
       - '.github/workflows/check-spring-stiffness.yml'
   workflow_dispatch:

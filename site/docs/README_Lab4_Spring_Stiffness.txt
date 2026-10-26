@@ -2,6 +2,7 @@ Lab 4 - Spring stiffness analysis (vertical hanging-spring test)
 
 START
 1. Download and unzip the Spring stiffness package into a writable folder.
+   Keep both .m files in this folder.
 2. In MATLAB open Run_Lab4_Spring_Stiffness.m and click Run, or type:
        Run_Lab4_Spring_Stiffness
    No input arguments are needed. Do not run a helper function.
@@ -66,7 +67,7 @@ this new program does not alter it. Do not enter the sum twice.
 Optional reproducible use (no dialogs)
 c=struct('mode','manual','label','A','massValue',200,'massUnit','g', ...
          'B',7.30,'frequencyUnit','rad/s','alpha',0);
-r=Run_Lab4_Spring_Stiffness(c);  % example only: k=10.658 N/m
+r=Lab4_Spring_Stiffness_Analysis(c);  % example only: k=10.658 N/m
 For a file also set mode='file', file, timeColumn, forceColumn, startTime,
 endTime, damped=true/false, outputDir and makePlots=true.
 Frequency fitting uses base MATLAB operations (no fitting toolbox).
