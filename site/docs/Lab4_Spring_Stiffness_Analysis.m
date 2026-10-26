@@ -47,17 +47,17 @@ elseif strcmpi(c.mode,'file') || strcmpi(c.mode,'data')
     % Variable projection solves amplitudes/offset linearly at each frequency.
     yy=(y-mean(y))/yrange;
     step=1/(8*span);ngrid=min(12000,max(80,ceil(diff(band)/step)+1));
-    grid=linspace(band(1),band(2),ngrid);score=zeros(size(grid));
-    for z=1:numel(grid),score(z)=objective([2*pi*grid(z),0],t,yy,band,false,span);end
+    frequencyGrid=linspace(band(1),band(2),ngrid);score=zeros(size(frequencyGrid));
+    for z=1:numel(frequencyGrid),score(z)=objective([2*pi*frequencyGrid(z),0],t,yy,band,false,span);end
     [~,ix]=sort(score);best=Inf;bestp=[];
     opts=optimset('Display','off','MaxIter',1200,'MaxFunEvals',3000,'TolX',1e-9,'TolFun',1e-11);
     for z=1:min(6,numel(ix))
         seeds=0;if damped,seeds=[0 1/span 3/span];end
         for a=seeds
             if damped
-                [p,s]=fminsearch(@(v)objective(v,t,yy,band,true,span),[2*pi*grid(ix(z)),a],opts);
+                [p,s]=fminsearch(@(v)objective(v,t,yy,band,true,span),[2*pi*frequencyGrid(ix(z)),a],opts);
             else
-                [q,s]=fminsearch(@(v)objective([v,0],t,yy,band,false,span),2*pi*grid(ix(z)),opts);p=[q,0];
+                [q,s]=fminsearch(@(v)objective([v,0],t,yy,band,false,span),2*pi*frequencyGrid(ix(z)),opts);p=[q,0];
             end
             if s<best,best=s;bestp=p;end
         end
