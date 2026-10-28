@@ -1,5 +1,6 @@
 % MATLAB-only integration tests with synthetic workbook; not student data.
-addpath(fullfile(pwd,'site','docs'));set(0,'DefaultFigureVisible','off');
+repoRoot=fileparts(fileparts(mfilename('fullpath')));
+addpath(fullfile(repoRoot,'site','docs'));set(0,'DefaultFigureVisible','off');
 out=fullfile(tempdir,'lab4_excel_checks');if ~exist(out,'dir'),mkdir(out);end
 file=fullfile(out,'synthetic_vernier.xlsx');
 t=(0:0.04:10)';b=7.30;a=.11;y=1.96+.35*exp(-a*t).*cos(b*t+.6);
