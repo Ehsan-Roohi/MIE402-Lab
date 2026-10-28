@@ -79,7 +79,8 @@ for j=1:n
         [ok,msg]=mkdir(out);if ~ok,error('Cannot create results folder: %s',msg);end
     end
     cfg.outputDir=out;cfg.makePlots=true;
-    r=Lab4_Spring_Stiffness_Analysis(cfg);results(j)=r;
+    r=Lab4_Spring_Stiffness_Analysis(cfg);
+    if isempty(results),results=r;else,results(j)=r;end
     writeSummary(fullfile(out,'Spring_Stiffness_Summary.csv'),results);
     fprintf('\n%s: mass=%.6g kg, B=%.6g rad/s, f=%.6g Hz, k=%.6g N/m\n',r.label,r.mass_kg,r.B_rad_s,r.frequency_Hz,r.k_N_m);
     fprintf('Quality note: %s\n',r.qualityNote);
