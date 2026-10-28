@@ -1,0 +1,22 @@
+name: Check Lab 4 cart analysis
+on:
+  push:
+    paths:
+      - 'site/docs/MIE402_Lab4_Analyze_Free_Response.m'
+      - 'tests/test_lab4_cart.m'
+      - '.github/workflows/check-lab4-cart.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  matlab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+      - uses: matlab-actions/run-command@v3
+        with:
+          command: run('tests/test_lab4_cart.m')

@@ -40,9 +40,7 @@ t = t-t(1);
 if numel(t)<20, error('Too few samples in the selected CSV.'); end
 
 %% Select the free response, then subtract equilibrium (do NOT detrend blindly)
-figure('Color','w'); plot(t,xRaw); grid on;
-xlabel('Time (s)'); ylabel('Raw encoder position (export units)');
-title('Select AFTER release; exclude hand contact, impacts and clipped samples');
+fprintf('Recording duration: %.3f s. Enter a free-response interval after release.\n',t(end));
 tStart = input('Free-response start time [s], measured from CSV start (0 for all): ');
 tEnd = input('Free-response end time [s], measured from CSV start: ');
 if isempty(tStart), tStart=0; end
@@ -146,7 +144,7 @@ title(sprintf('Log-peak fit: alpha = %.4f 1/s, zeta = %.4f, R^2 = %.4f',alpha,ze
 nexttile; plot(t,residual); grid on;
 xlabel('Time (s)'); ylabel('Fit residual (m)');
 title(sprintf('Full-response residual: RMS %.4g m (%.2f%% of max amplitude)',rmsResidual,100*relativeResidual));
-exportgraphics(fig1,fullfile(resultFolder,stem+'_time_and_decay.png'),'Resolution',220);
+exportgraphics(fig1,fullfile(resultFolder,[stem '_time_and_decay.png']),'Resolution',220);
 
 fig2 = figure('Color','w','Position',[120 120 1050 520]);
 plot(f,amp,'LineWidth',1.2); hold on;
@@ -155,7 +153,7 @@ xline(fdTime,':','peak-spacing estimate','LineWidth',1.4);
 xlim([0 min(5,0.45*fs)]); grid on;
 xlabel('Frequency (Hz)'); ylabel('One-sided displacement amplitude (m)');
 title(sprintf('Displacement spectrum: FFT peak = %.4f Hz',fFFT));
-exportgraphics(fig2,fullfile(resultFolder,stem+'_FFT.png'),'Resolution',220);
+exportgraphics(fig2,fullfile(resultFolder,[stem '_FFT.png']),'Resolution',220);
 
 %% Save one-row summary
 summary = table(string(fileName),m,kLeft,kRight,k,damperCount,fs,t(end), ...
@@ -164,7 +162,7 @@ summary = table(string(fileName),m,kLeft,kRight,k,damperCount,fs,t(end), ...
     'DamperCount','SampleRate_Hz','Duration_s','fd_Time_Hz','f_FFT_Hz', ...
     'fn_Measured_Hz','Zeta','Alpha_per_s','c_Ns_per_m','LogFit_R2', ...
     'fn_Theory_Hz','Residual_RMS_m','Residual_RMS_rel'});
-writetable(summary,fullfile(resultFolder,stem+'_summary.csv'));
+writetable(summary,fullfile(resultFolder,[stem '_summary.csv']));
 disp(summary);
 fprintf('\nSaved figures and summary in:\n%s\n',resultFolder);
 
