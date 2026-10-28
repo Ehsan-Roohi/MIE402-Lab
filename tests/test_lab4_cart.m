@@ -7,6 +7,7 @@ fid=fopen(fullfile(mock,'uigetfile.m'),'w');fprintf(fid,'function [f,p]=uigetfil
 fid=fopen(fullfile(mock,'input.m'),'w');fprintf(fid,'function x=input(varargin)\nglobal CART_TEST_INPUTS CART_TEST_NEXT;x=CART_TEST_INPUTS{CART_TEST_NEXT};CART_TEST_NEXT=CART_TEST_NEXT+1;\nend\n');fclose(fid);
 global CART_TEST_FILE CART_TEST_INPUTS CART_TEST_NEXT;CART_TEST_FILE=f;CART_TEST_INPUTS={.5,14,14,0,0,15,1};CART_TEST_NEXT=1;
 addpath(mock,'-begin');rehash;run(fullfile(repo,'site','docs','MIE402_Lab4_Analyze_Free_Response.m'));
+out=fullfile(tempdir,'cart_response_check');
 assert(numel(findall(0,'Type','figure'))==2,'Expected two figure windows, with three subplots in the first.');
 assert(exist(fullfile(out,'Lab4_results','cart_test_time_and_decay.png'),'file')==2);
 assert(exist(fullfile(out,'Lab4_results','cart_test_FFT.png'),'file')==2);
