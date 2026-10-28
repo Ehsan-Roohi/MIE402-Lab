@@ -1,5 +1,5 @@
 % Synthetic verification only: these are NOT student experimental records.
-addpath('site/docs');
+addpath(fullfile(pwd,'site','docs'));
 rand('seed',42);randn('seed',42);
 out=fullfile(tempdir(),'lab4_spring_checks');if ~exist(out,'dir'),mkdir(out);end
 c=struct('mode','manual','label','A','massValue',200,'massUnit','g','B',7.3,'frequencyUnit','rad/s','alpha',0);
@@ -44,7 +44,7 @@ for j=1:4
  SPRING_TEST_INPUTS=[SPRING_TEST_INPUTS,{char(64+j),200,'g',1,7.3,'rad/s',0}];
 end
 addpath(mock,'-begin');
-entry=Run_Lab4_Spring_Stiffness();
+oldFolder=pwd;cd(out);entry=Run_Lab4_Spring_Stiffness();cd(oldFolder);
 rmpath(mock);clear input uigetdir;
 assert(numel(entry)==4);assert(all(abs([entry.k_N_m]-10.658)<1e-9));
 fprintf('Zero-argument student entry completed all four springs.\n');

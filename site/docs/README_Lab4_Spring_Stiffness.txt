@@ -2,11 +2,13 @@ Lab 4 - Spring stiffness analysis (vertical hanging-spring test)
 
 START
 1. Download and unzip the Spring stiffness package into a writable folder.
-   Keep both .m files in this folder.
+   Keep all .m files in this folder.
 2. In MATLAB open Run_Lab4_Spring_Stiffness.m and click Run, or type:
        Run_Lab4_Spring_Stiffness
    No input arguments are needed. Do not run a helper function.
-3. Select an output location. The program creates a new results folder.
+3. File analysis: choose the force-data file when prompted. Results are saved
+   in a new folder beside the first file. For manual B, results use the MATLAB
+   current folder. The path is printed at the end.
 4. Enter the number of records (normally four), and label the springs A-D.
 
 FOR EACH SPRING, CHOOSE ONE ROUTE
@@ -22,10 +24,12 @@ Route 1: Enter the total hanging mass and the fitted Vernier B.
 
 Route 2: Import the original Force-versus-Time file.
 - Export ONE hanging-spring run from Graphical Analysis as CSV (preferred).
-  MATLAB also accepts an Excel workbook (.xlsx/.xls) containing one numeric
-  Time/Force table. Select the intended sheet/run before export if necessary.
-- Do not use a cart Position CSV here. Select Time [seconds] and Force [N]
-  from the listed numeric columns; do not assume that they are columns 1/2.
+  Excel .xlsx/.xls/.xlsm workbooks are also supported. For multiple sheets,
+  select the sheet containing the force-time record when prompted.
+  Text titles and unit rows are supported; numerical text is converted.
+- Do not use a cart Position CSV here. Verify the suggested Time and Force
+  columns (or enter their listed numbers) and choose the units used in the file.
+  Start/end times must use the same time units shown in the original file.
 - Inspect the displayed raw plot. Enter the start and end times of clean
   vertical free motion AFTER release. Exclude hand contact and impacts.
 - Use several clear cycles, preferably at least 15-20 samples/cycle.
@@ -68,6 +72,7 @@ Optional reproducible use (no dialogs)
 c=struct('mode','manual','label','A','massValue',200,'massUnit','g', ...
          'B',7.30,'frequencyUnit','rad/s','alpha',0);
 r=Lab4_Spring_Stiffness_Analysis(c);  % example only: k=10.658 N/m
-For a file also set mode='file', file, timeColumn, forceColumn, startTime,
+For a file also set mode='file', file, sheet (for multi-sheet Excel),
+timeColumn, forceColumn, timeScale (to seconds), forceScale (to N), startTime,
 endTime, damped=true/false, outputDir and makePlots=true.
 Frequency fitting uses base MATLAB operations (no fitting toolbox).

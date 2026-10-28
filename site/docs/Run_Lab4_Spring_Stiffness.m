@@ -7,10 +7,8 @@ function results = Run_Lab4_Spring_Stiffness()
 fprintf('\nLAB 4 - SPRING STIFFNESS (vertical test, one spring at a time)\n');
 fprintf('Use total HANGING mass, including hanger. This is not cart mass.\n');
 fprintf('Keep raw data unchanged. Force in N; time in seconds.\n');
-folder = uigetdir(pwd,'Choose where to save spring results');
-if isequal(folder,0), results=[]; return; end
-out = fullfile(folder,['Lab4_Spring_Results_' datestr(now,'yyyymmdd_HHMMSS')]);
-mkdir(out);
+out='';
+fprintf('Choose the input file when prompted. Results are saved beside the first file.\n');
 n = askNumber('Number of springs / records [4]: ',4);
 if n<1 || n~=round(n), error('Enter a positive integer.'); end
 results=struct([]);
@@ -28,27 +26,43 @@ for j=1:n
         cfg.alpha=askNumber('Measured decay alpha [1/s], or 0 for light-damping approximation [0]: ',0);
     elseif mode==2
         cfg.mode='file';
-        [fn,fp]=uigetfile({'*.csv;*.txt;*.xlsx;*.xls','Vernier Force-Time export'},'Select ONE hanging-spring record');
-        if isequal(fn,0), error('No data file selected.'); end
-        cfg.file=fullfile(fp,fn);
-        opts=detectImportOptions(cfg.file,'VariableNamingRule','preserve');
-    T=readtable(cfg.file,opts);numeric=varfun(@isnumeric,T,'OutputFormat','uniform');
-    T=T(:,numeric);data=table2array(T);names=T.Properties.VariableNames;
-    if size(data,2)<2,error('Need numeric Time and Force columns.');end
-        fprintf('\nNumeric columns available:\n');
-        for z=1:size(data,2), fprintf('%d: %s\n',z,names{z}); end
-        cfg.timeColumn=askNumber('TIME column number (seconds): ',[]);
-        cfg.forceColumn=askNumber('FORCE column number (newtons): ',[]);
+        [fn,fp]=uigetfile({'*.csv;*.txt;*.tsv;*.xlsx;*.xls;*.xlsm','Vernier data (CSV, Excel)';'*.*','All files (*.*)'},'Select the SPRING force-data file');
+        if isequal(fn,0), fprintf('No file selected; previous results are saved.\n');return; end
+        cfg.file=fullfile(fp,fn);[~,~,ext]=fileparts(cfg.file);cfg.sheet='';
+        if ismember(lower(ext),{'.xlsx','.xls','.xlsm'})
+            sheets=Lab4_Vernier_Sheets(cfg.file);
+            if numel(sheets)>1
+                [choice,ok]=listdlg('PromptString','Choose the worksheet containing Time and Force','SelectionMode','single','ListString',sheets);
+                if ~ok,fprintf('No worksheet selected; previous results are saved.\n');return;end
+                cfg.sheet=sheets{choice};
+            else
+                cfg.sheet=sheets{1};
+            end
+        end
+        [data,names,cfg.sheet]=Lab4_Read_Vernier_Force(cfg.file,cfg.sheet);
+        eligible=find(sum(isfinite(data),1)>=30);
+        fprintf('\nColumns in %s:\n',fn);
+        for z=eligible, fprintf('%d: %s (%d numeric values)\n',z,names{z},sum(isfinite(data(:,z)))); end
+        timeMatches=eligible(~cellfun('isempty',regexpi(names(eligible),'time|zeit|temps')));
+        forceMatches=eligible(~cellfun('isempty',regexpi(names(eligible),'force|load')));
+        td=[];fd=[];if numel(timeMatches)==1,td=timeMatches;end;if numel(forceMatches)==1,fd=forceMatches;end
+        cfg.timeColumn=askNumber('TIME column number (Enter to accept identified column): ',td);
+        cfg.forceColumn=askNumber('FORCE column number (Enter to accept identified column): ',fd);
         tc=cfg.timeColumn;fc=cfg.forceColumn;
         if tc~=round(tc)||fc~=round(fc)||tc<1||fc<1||tc>size(data,2)||fc>size(data,2)||tc==fc
-            error('Choose different valid numeric Time and Force column numbers.');
+            error('Choose different valid Time and Force column numbers.');
         end
+        tu=askNumber('Time unit: 1 = seconds, 2 = milliseconds, 3 = minutes [1]: ',1);
+        fu=askNumber('Force unit: 1 = N, 2 = mN, 3 = kN [1]: ',1);
+        timeFactors=[1 .001 60];forceFactors=[1 .001 1000];
+        if ~ismember(tu,1:3)||~ismember(fu,1:3),error('Choose one of the displayed units.');end
+        cfg.timeScale=timeFactors(tu);cfg.forceScale=forceFactors(fu);
         tt=data(:,tc);ff=data(:,fc);
         figure('Color','w');plot(tt,ff,'.-');grid on;
-        xlabel('Time in exported file (s)');ylabel('Force (N)');
+        xlabel('Time in selected file (original units)');ylabel('Force in selected file (original units)');
         title('Choose clean vertical free motion AFTER release; exclude hand contact');
-        cfg.startTime=askNumber('Fit START time in exported seconds: ',[]);
-        cfg.endTime=askNumber('Fit END time in exported seconds: ',[]);
+        cfg.startTime=askNumber('Fit START time in original file units: ',[]);
+        cfg.endTime=askNumber('Fit END time in original file units: ',[]);
         fitMode=askNumber('1 = ordinary sine (weak decay); 2 = damped sine [2]: ',2);
         if ~ismember(fitMode,[1 2]), error('Choose 1 or 2.'); end
         cfg.damped=(fitMode==2);
@@ -57,6 +71,12 @@ for j=1:n
         if ~isempty(band), cfg.frequencyBand=band; end
     else
         error('Choose mode 1 or 2.');
+    end
+    if isempty(out)
+        if strcmpi(cfg.mode,'file'), parent=fileparts(cfg.file); else, parent=pwd; end
+        base=fullfile(parent,['Lab4_Spring_Results_' datestr(now,'yyyymmdd_HHMMSS')]);
+        out=base;counter=1;while exist(out,'dir'),counter=counter+1;out=[base '_' num2str(counter)];end
+        [ok,msg]=mkdir(out);if ~ok,error('Cannot create results folder: %s',msg);end
     end
     cfg.outputDir=out;cfg.makePlots=true;
     r=Lab4_Spring_Stiffness_Analysis(cfg);results(j)=r;

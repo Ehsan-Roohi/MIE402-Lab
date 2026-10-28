@@ -21,19 +21,21 @@ if strcmpi(c.mode,'manual')
 elseif strcmpi(c.mode,'file') || strcmpi(c.mode,'data')
     if strcmpi(c.mode,'file')
         required(c,{'file','timeColumn','forceColumn'});
-        [a,~]=loadExport(c.file);[t,y]=selectColumns(a,c.timeColumn,c.forceColumn);r.source=c.file;
+        [a,~,sheet]=Lab4_Read_Vernier_Force(c.file,getfieldDefault(c,'sheet',''));[t,y]=selectColumns(a,c.timeColumn,c.forceColumn);r.source=c.file;
+        if ~isempty(sheet),r.source=[c.file ' | sheet: ' sheet];end
     else
         required(c,{'time','force'});t=c.time(:);y=c.force(:);r.source='provided force-time arrays';
     end
     if numel(t)~=numel(y),error('Time and force must have the same length.');end
     valid=isfinite(t)&isfinite(y);t=t(valid);y=y(valid);
     if numel(t)<30,error('Need at least 30 finite force-time samples.');end
-    if any(diff(t)<=0),error('Timestamps must increase strictly. Select one run; do not combine runs.');end
     lo=getfieldDefault(c,'startTime',t(1));hi=getfieldDefault(c,'endTime',t(end));
     if ~isscalar(lo)||~isscalar(hi)||~isfinite(lo)||~isfinite(hi)||lo>=hi,error('Invalid fit time interval.');end
     use=t>=lo&t<=hi;t=t(use);y=y(use);
     if numel(t)<30,error('Selected interval needs at least 30 samples.');end
-    r.startTime_s=t(1);r.endTime_s=t(end);t=t-t(1);
+    if any(diff(t)<=0),error('Timestamps in the chosen interval must increase strictly. Select one run, not multiple runs.');end
+    ts=getfieldDefault(c,'timeScale',1);fscl=getfieldDefault(c,'forceScale',1);positive(ts,'time scale');positive(fscl,'force scale');
+    t=t*ts;y=y*fscl;r.startTime_s=t(1);r.endTime_s=t(end);t=t-t(1);
     span=t(end);dt=median(diff(t));fs=1/dt;
     if max(abs(diff(t)-dt))>0.05*dt,error('Time gaps/nonuniform sampling exceed 5%%. Inspect the raw export first.');end
     yrange=max(y)-min(y);
@@ -120,32 +122,6 @@ e=exp(-a*t);H=[ones(size(t)),e.*cos(b*t),e.*sin(b*t)];coef=H\y;
 s=sum((y-H*coef).^2);
 end
 
-function [a,names]=loadExport(file)
-[~,~,ext]=fileparts(file);
-if exist('OCTAVE_VERSION','builtin')
-    if ~ismember(lower(ext),{'.csv','.txt'}),error('Use MATLAB for Excel files, or save the sheet as CSV.');end
-    fid=fopen(file,'r');if fid<0,error('Cannot open export.');end
-    lines={};while true,l=fgetl(fid);if ~ischar(l),break;end;lines{end+1}=l;end;fclose(fid);
-    a=[];names={};sep=',';
-    for i=1:numel(lines)
-        if sum(lines{i}==sprintf('\t'))>sum(lines{i}==','),sep=sprintf('\t');end
-        cells=strsplit(lines{i},sep,'collapsedelimiters',false);v=cellfun(@str2double,cells);
-        if sum(isfinite(v))>=2
-            if isempty(a),a=nan(0,numel(v));end
-            if numel(v)==size(a,2),a(end+1,:)=v;end
-        elseif isempty(a)&&numel(cells)>=2,names=cells;
-        end
-    end
-    if isempty(a),error('No numeric Time/Force data found.');end
-    if numel(names)~=size(a,2),names=arrayfun(@(n)sprintf('Column %d',n),1:size(a,2),'UniformOutput',false);end
-else
-    % MATLAB's import options handle standard Vernier metadata/header rows.
-    opts=detectImportOptions(file,'VariableNamingRule','preserve');T=readtable(file,opts);
-    num=varfun(@isnumeric,T,'OutputFormat','uniform');T=T(:,num);
-    if width(T)<2,error('Need numeric time and force columns. Export one run as CSV.');end
-    a=table2array(T);names=T.Properties.VariableNames;
-end
-end
 function [t,y]=selectColumns(a,tc,fc)
 if ~isscalar(tc)||~isscalar(fc)||tc~=round(tc)||fc~=round(fc)||tc<1||fc<1||tc>size(a,2)||fc>size(a,2)||tc==fc
     error('Choose different valid numeric Time and Force column numbers.');

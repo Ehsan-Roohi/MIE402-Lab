@@ -4,6 +4,9 @@ on:
     paths:
       - 'site/docs/Run_Lab4_Spring_Stiffness.m'
       - 'site/docs/Lab4_Spring_Stiffness_Analysis.m'
+      - 'site/docs/Lab4_Read_Vernier_Force.m'
+      - 'site/docs/Lab4_Vernier_Sheets.m'
+      - 'tests/test_lab4_vernier_excel.m'
       - 'tests/test_lab4_spring_stiffness.m'
       - '.github/workflows/check-spring-stiffness.yml'
   workflow_dispatch:
@@ -24,3 +27,21 @@ jobs:
         with:
           name: synthetic-spring-analysis-checks
           path: /tmp/lab4_spring_checks/
+
+  matlab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+      - name: Test XLSX import and the student workflow in MATLAB
+        uses: matlab-actions/run-command@v3
+        with:
+          command: run('tests/test_lab4_vernier_excel.m')
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: matlab-synthetic-excel-test
+          path: /tmp/lab4_excel_checks/
