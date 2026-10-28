@@ -35,3 +35,10 @@ addpath(mock,'-begin');rehash;results=Run_Lab4_Spring_Stiffness();rmpath(mock);c
 assert(numel(results)==1);assert(abs(results.B_rad_s-b)<.01);assert(abs(results.k_N_m-10.66042)<.02);
 assert(exist(file,'file')==2);
 fprintf('MATLAB student entry: Excel file chooser, worksheet, columns and fit passed.\n');
+% Check MATLAB struct-array handling across four manual spring entries.
+SPRING_TEST_INPUTS={4};SPRING_TEST_NEXT=1;
+for j=1:4,SPRING_TEST_INPUTS=[SPRING_TEST_INPUTS,{char(64+j),200,'g',1,7.3,'rad/s',0}];end
+addpath(mock,'-begin');rehash;oldFolder=pwd;cd(out);
+four=Run_Lab4_Spring_Stiffness();cd(oldFolder);rmpath(mock);clear input uigetfile uigetdir listdlg;
+assert(numel(four)==4);assert(all(abs([four.k_N_m]-10.658)<1e-9));
+fprintf('MATLAB student entry: all four manual-B results saved.\n');
