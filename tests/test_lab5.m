@@ -19,7 +19,7 @@ end
 raw=cell(numel(t)+4,3); raw(1,:)={'Vernier export','',''};
 raw(3,:)={'Index','Time','Position'};raw(4,:)={'','s','m'};
 x=.17+.02*cos(2*pi*.65*t); raw(5:end,1)=num2cell((1:numel(t))');
-raw(5:end,2)=cellstr(string(t));raw(5:end,3)=cellstr(string(x));
+raw(5:end,2)=cellstr(compose('%.15g',t));raw(5:end,3)=cellstr(compose('%.15g',x));
 csv=fullfile(out,'test.csv'); writecell(raw,csv);
 [tt,xx]=Lab5_Read_Vernier(csv); assert(max(abs(tt-t))<1e-8); assert(max(abs(xx-x))<1e-8);
 xlsx=fullfile(out,'test.xlsx');writecell(raw,xlsx,'Sheet','Cart');
