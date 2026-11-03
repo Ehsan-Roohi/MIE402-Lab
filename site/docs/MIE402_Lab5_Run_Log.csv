@@ -1,0 +1,13 @@
+filename,test_type,mass_total_kg,k_fixed_N_m,k_driven_N_m,magnet_count,c_matching_Ns_m,rpm,input_peak_to_peak_m,window_start_s,window_end_s,notes
+Impulse_1.csv,,,,,,,,,,,
+Impulse_2.csv,,,,,,,,,,,
+Impulse_3.csv,,,,,,,,,,,
+Damped_decay.csv,,,,,,,,,,,
+Harmonic_1.csv,,,,,,,,,,,
+Harmonic_2.csv,,,,,,,,,,,
+Harmonic_3.csv,,,,,,,,,,,
+Harmonic_4.csv,,,,,,,,,,,
+Harmonic_5.csv,,,,,,,,,,,
+Harmonic_6.csv,,,,,,,,,,,
+Harmonic_7.csv,,,,,,,,,,,
+Harmonic_8.csv,,,,,,,,,,,
