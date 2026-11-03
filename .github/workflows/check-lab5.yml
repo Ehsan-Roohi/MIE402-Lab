@@ -1,0 +1,28 @@
+name: Check Lab 5 MATLAB
+on:
+  push:
+    paths:
+      - 'site/docs/*Lab5*.m'
+      - 'site/docs/*PreLab5*.m'
+      - 'tests/test_lab5.m'
+      - '.github/workflows/check-lab5.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  matlab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+      - uses: matlab-actions/run-command@v3
+        with:
+          command: run('tests/test_lab5.m'); run('site/docs/MIE402_PreLab5.m'); assert(exist('prelab5_numeric','var')==1); assert(prelab5_numeric.relative_error<0.002)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lab5-test-outputs
+          path: /tmp/lab5_check/Lab5_Results
