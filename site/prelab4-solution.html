@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pre-Lab 4 solutions · MIE 402</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="brand" href="index.html">MIE 402 <span>UMass Amherst</span></a><nav aria-label="Course navigation"><a href="index.html">Overview</a><a href="lab4.html">Lab 4</a><a href="docs/MIE402_PreLab4_Fall2026_Student.ipynb">Student notebook</a></nav></div></header>
+<main id="main">
+<p class="eyebrow">Fall 2026 · Worked solutions</p>
+<h1>Pre-Lab 4 · Spring–cart free response</h1>
+<p class="lede">Reference answers and figures for the Fall 2026 notebook. The numbers below are from the supplied simulations.</p>
+
+<h2>1. Compute the model parameters <span class="meta">(6 points)</span></h2>
+<p>Use <i>m</i> = 1.35 kg, <i>c</i> = 0.72 N·s/m, <i>k</i><sub>L</sub> = 34 N/m, and <i>k</i><sub>R</sub> = 46 N/m. The two restoring force changes add.</p>
+<div class="table-wrap"><table><thead><tr><th>Quantity</th><th>Calculation</th><th>Result</th></tr></thead><tbody>
+<tr><td>Equivalent stiffness <i>k</i></td><td>34 + 46</td><td>80.0 N/m</td></tr>
+<tr><td>Natural angular frequency ω<sub>n</sub></td><td>√(80 / 1.35)</td><td>7.6980 rad/s</td></tr>
+<tr><td>Natural frequency <i>f</i><sub>n</sub></td><td>ω<sub>n</sub>/(2π)</td><td>1.2252 Hz</td></tr>
+<tr><td>Damping ratio ζ</td><td>0.72 / (2√(1.35 × 80))</td><td>0.034641</td></tr>
+<tr><td>Damped angular frequency ω<sub>d</sub></td><td>ω<sub>n</sub>√(1 − ζ²)</td><td>7.6934 rad/s</td></tr>
+<tr><td>Damped frequency <i>f</i><sub>d</sub></td><td>ω<sub>d</sub>/(2π)</td><td>1.2244 Hz</td></tr>
+<tr><td>Decay rate α</td><td>0.72 / (2 × 1.35)</td><td>0.26667 s⁻¹</td></tr>
+</tbody></table></div>
+<h2>2. Predict the changes <span class="meta">(3 points)</span></h2>
+<p>Doubling mass lowers frequency and halves the decay rate because <i>k</i>/<i>m</i> and <i>c</i>/(2<i>m</i>) both decrease. Doubling both stiffnesses raises frequency while leaving the decay rate unchanged at fixed <i>m</i> and <i>c</i>. Increasing damping at fixed mass and stiffness increases α and slightly lowers <i>f</i><sub>d</sub> in the underdamped range. In the lab, weigh the cart again if the hardware changes its moving mass.</p>
+<h2>3. Analytical versus numerical response <span class="meta">(2 points)</span></h2>
+<p>The closed-form coefficients are <i>A</i> = <i>x</i><sub>0</sub> = 0.0800 m and <i>B</i> = (<i>v</i><sub>0</sub> + α<i>x</i><sub>0</sub>)/ω<sub>d</sub> = 0.007972 m. Substitution gives <i>x</i>(<i>t</i>) = exp(−0.266667<i>t</i>)[0.0800 cos(7.69338<i>t</i>) + 0.007972 sin(7.69338<i>t</i>)] m, with <i>t</i> in seconds.</p>
+<figure><img class="plot" src="assets/prelab-solutions/prelab4-responses.png" alt="Analytical displacement and numerical ODE response overlay" loading="lazy"><figcaption class="caption">Figure 1. The two simulated traces overlap. Maximum absolute difference is approximately 1.32 × 10⁻¹¹ m.</figcaption></figure>
+<p>Both methods solve the same ODE with the same initial conditions. Agreement checks their consistency. Real effects such as rolling friction or speed-dependent eddy-current damping can make the measured cart differ from both curves.</p>
+<h2>4. Estimate damping from the peaks <span class="meta">(3 points)</span></h2>
+<figure><img class="plot" src="assets/prelab-solutions/prelab4-decay-fit.png" alt="Response peaks and decay envelope alongside the log-peak regression" loading="lazy"><figcaption class="caption">Figure 2. The left panel identifies the positive peaks. The right panel fits log amplitude against peak time.</figcaption></figure>
+<p>The log-peak slope is −α. The fit gives α ≈ <strong>0.26669 s⁻¹</strong> and ζ ≈ <strong>0.03464</strong>, with <i>R</i>² = <strong>1.000000</strong> to the printed precision. Using unrounded values, absolute relative differences from the inputs are about <strong>0.0075%</strong> for α and <strong>0.0123%</strong> for ζ. Compare peaks on the same side so adjacent selected peaks span one full cycle. Alternating positive and negative extrema would span half cycles and would require a different conversion.</p>
+<h2>5. FFT interpretation <span class="meta">(2 points)</span></h2>
+<figure><img class="plot" src="assets/prelab-solutions/prelab4-fft.png" alt="Displacement spectrum with FFT peak and theoretical damped frequency" loading="lazy"><figcaption class="caption">Figure 3. The strongest FFT bin is at 1.2495 Hz. The theoretical damped frequency is 1.2244 Hz.</figcaption></figure>
+<p>The FFT and theory differ by about 0.0250 Hz, within one bin (Δ<i>f</i> = 1/(2401 × 0.005 s) ≈ 0.0833 Hz). A finite record spreads energy across nearby bins. Decay also broadens the spectrum. Peak height and width depend on record duration, windowing, initial amplitude, and scaling, so use the time-domain decay fit for damping.</p>
+<h2>6. Compare the parameter cases <span class="meta">(4 points)</span></h2>
+<figure><img class="plot" src="assets/prelab-solutions/prelab4-parameters.png" alt="Simulated displacement versus time for the base case and three parameter changes" loading="lazy"><figcaption class="caption">Figure 4. All cases use the same initial displacement and velocity. Each comparison changes one model parameter.</figcaption></figure>
+<div class="table-wrap"><table><thead><tr><th>Case</th><th><i>f</i><sub>d</sub> (Hz)</th><th>α (s⁻¹)</th><th>ζ</th><th>Effect on the trace</th></tr></thead><tbody>
+<tr><td>Base</td><td>1.2244</td><td>0.2667</td><td>0.03464</td><td>Reference</td></tr>
+<tr><td>Double mass</td><td>0.8661</td><td>0.1333</td><td>0.02449</td><td>Peaks farther apart, slower decay</td></tr>
+<tr><td>Double stiffness</td><td>1.7321</td><td>0.2667</td><td>0.02449</td><td>Peaks closer together, same decay rate</td></tr>
+<tr><td>Double damping</td><td>1.2222</td><td>0.5333</td><td>0.06928</td><td>Peak spacing barely increases, much faster decay</td></tr>
+</tbody></table></div>
+<p>Use ω<sub>d</sub> = √(<i>k</i>/<i>m</i> − α²) to explain peak spacing and α = <i>c</i>/(2<i>m</i>) for the envelope. Unchanged α means the same exponential rate even if the envelope coefficient shifts slightly. Rolling or dry friction can produce a non-exponential envelope even with no magnets.</p>
+<h2>Final interpretation checkpoint</h2>
+<p>A 49% larger FFT peak could come from a larger release displacement, a different window or record length, a different unit scale, or a change in damping. Patterned residuals suggest that some structure remains unmodeled. Check for effects such as friction, drifting equilibrium, or velocity-dependent losses. Reweigh the moving cart after attaching magnetic hardware because its mass enters both the frequency and damping calculations. Keep simulated results separate from real CSV measurements and record each trial's configuration and sampling settings.</p>
+</main>
+<footer>MIE 402 · Mechanical and Industrial Engineering · Fall 2026</footer>
+</body>
+</html>

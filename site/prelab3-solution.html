@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pre-Lab 3 solutions · MIE 402</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="brand" href="index.html">MIE 402 <span>UMass Amherst</span></a><nav aria-label="Course navigation"><a href="index.html">Overview</a><a href="lab3.html">Lab 3</a><a href="docs/MIE402_PreLab3_Fall2026_Student.ipynb">Student notebook</a></nav></div></header>
+<main id="main">
+<p class="eyebrow">Fall 2026 · Worked solutions</p>
+<h1>Pre-Lab 3 · Double pendulum</h1>
+<p class="lede">Reference answers and figures for the Fall 2026 notebook. The numbers below are from the supplied simulations.</p>
+
+<h2>1. Geometry and angle convention <span class="meta">(3 points)</span></h2>
+<p>Draw the fixed pivot, the first moving joint, and the lower bob in that order. Label the pivot-to-joint distance <i>L</i><sub>1</sub> and the joint-to-lower-bob distance <i>L</i><sub>2</sub>. Put <i>m</i><sub>1</sub> and <i>m</i><sub>2</sub> on their respective bars and <i>M</i><sub>1</sub> and <i>M</i><sub>2</sub> at the moving joint and lower bob. Draw both angle arcs from the downward vertical, translating the reference line to the moving joint for the lower link.</p>
+<pre aria-label="Link and mass labels">fixed pivot
+    │  L₁, bar m₁
+    ●  M₁ (moving joint)
+    │  L₂, bar m₂
+    ●  M₂ (lower bob)</pre>
+<p>Both angles are zero with the rods hanging straight down. With the analyzer's upward-positive vertical coordinates, use the vector (<i>x</i><sub>2</sub> − <i>x</i><sub>1</sub>, <i>y</i><sub>2</sub> − <i>y</i><sub>1</sub>) from the moving joint to the lower bob. Thus θ<sub>2</sub> = atan2(<i>x</i><sub>2</sub> − <i>x</i><sub>1</sub>, −(<i>y</i><sub>2</sub> − <i>y</i><sub>1</sub>)). The relative joint angle is θ<sub>2</sub> − θ<sub>1</sub>.</p>
+<h2>2. Prediction and controlled comparison <span class="meta">(3 points)</span></h2>
+<p>The (5°, 5°) release should show the most regular traces because the small-angle approximation applies. The 1° comparison uses Large A (95°, 35°) and Large B (96°, 35°). Hold both lengths, all masses, gravity, and both initial angular velocities fixed so the change in the upper link's release angle is the only physical input that differs. Pivot friction and air drag can dissipate energy in the apparatus.</p>
+<h2>3. Angle histories <span class="meta">(4 points)</span></h2>
+<figure><img class="plot" src="assets/prelab-solutions/prelab3-trials.png" alt="Three simulated releases with separate upper and lower angle traces" loading="lazy"><figcaption class="caption">Figure 1. Absolute angles from the three notebook simulations. The lower link in Large B completes rotations, so its continuous angle extends beyond ±180°.</figcaption></figure>
+<p>In the small release, the upper link stays near ±5° and the lower link near ±8°, with regular oscillations. In Large A the upper link reaches roughly ±95° and has a more varied waveform. The lower link reaches roughly ±160° and shows sharp changes in its motion. In Large B the upper link continues to oscillate, while the lower link makes repeated full turns. The large-angle traces show how strongly the two motions interact.</p>
+<h2>4. Sensitivity to the initial angle <span class="meta">(3 points)</span></h2>
+<figure><img class="plot" src="assets/prelab-solutions/prelab3-separation.png" alt="Combined angular separation versus time for the two large-angle releases" loading="lazy"><figcaption class="caption">Figure 2. Euclidean separation of the two continuous angle pairs in degrees. This measure counts full revolutions.</figcaption></figure>
+<p>The separation starts at <strong>1°</strong>, reaches <strong>6.796° at 1 s</strong> and <strong>994.819° at 6 s</strong>. By the later time the lower link's accumulated turns contribute strongly to the difference. This run illustrates sensitivity to a small change at release. A finite trace, particularly with a rotation-counting angle measure, does not establish chaos. That would require evidence over longer trajectories and appropriate checks such as timestep convergence and a sustained positive Lyapunov exponent.</p>
+<h2>5. Frequency spectra <span class="meta">(4 points)</span></h2>
+<figure><img class="plot" src="assets/prelab-solutions/prelab3-spectra.png" alt="Hann-windowed spectra of both links for the small release and Large A" loading="lazy"><figcaption class="caption">Figure 3. One-sided spectra of the simulated angles after mean removal and Hann windowing.</figcaption></figure>
+<p>Both low-angle spectra show peaks near <strong>1.00 Hz</strong> and <strong>2.25 Hz</strong>, with the lower-frequency peak stronger in both links. The linear model gives about 1.011 and 2.267 Hz, consistent with the 0.125 Hz FFT bin spacing. Each angle can contain both modes. For Large A the strongest peak shifts to about 0.875 Hz, and additional content appears across the band, especially for the lower link. The peaks describe frequency components of each angle signal.</p>
+<h2>6. Plan the measurement <span class="meta">(3 points)</span></h2>
+<ol>
+<li>Record one small nonzero aligned release and three larger-angle releases, including two nearby but distinct starts. Record the angles actually visible at release and whether the links started from rest.</li>
+<li>Record the two bar masses, two lumped masses, two pivot-to-center lengths, calibration distance, camera capture rate, and trial names.</li>
+<li>In Quick Review, check that the fixed pivot and both bob centers are assigned correctly, remain visible throughout, and give nearly constant link lengths without jumps.</li>
+<li>Save the original videos, calibration and timing settings, and the exported <code>ExpData</code> MAT files. Show the GTA the two angle histories, angular velocities, spectra, and tracking-quality plots for at least one complete trial.</li>
+</ol>
+</main>
+<footer>MIE 402 · Mechanical and Industrial Engineering · Fall 2026</footer>
+</body>
+</html>
