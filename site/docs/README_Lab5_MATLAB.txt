@@ -31,3 +31,13 @@ Base MATLAB R2020a+ is required for exportgraphics; analysis uses no toolboxes.
 If headers are unclear or there are several runs, specify columns explicitly.
 An error about time resets or missing samples means the export needs inspection.
 No code fills missing observations or changes the original measurements.
+
+ANALYTICAL COMPARISON
+Each harmonic time plot includes an analytical-amplitude curve calculated from
+your m, kFixed, kDrive, c, input peak travel Y and measured drive frequency.
+The display phase is aligned to the cart data because the input was not
+recorded with a synchronized clock. This does not validate input/output phase.
+The sweep compares measured X/Y with the theoretical gain. Summary columns
+include X_theory_peak_m and signed amplitude_error_percent.
+A sine fit describes the observations; it is not the analytical prediction.
+Use damping from a separate matching free-decay measurement.
