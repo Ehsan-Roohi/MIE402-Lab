@@ -39,12 +39,12 @@ for j=1:numel(names)
         row=[R.fd_fit_Hz,R.fn_fit_Hz,R.fn_theory_Hz,R.c_est_Ns_m,R.zeta_fit,R.rmse_m];
     end
     results{j}=R; summary=[summary;row]; %#ok<AGROW>
-    [~,stem]=fileparts(file); fig=figure('Color','w','Name',stem);
+    [~,stem]=fileparts(file); fig=figure('Color','w','Name',stem,'Position',[100 100 1050 720]);
     subplot(2,1,1); plot(R.t,R.x,'k.',R.t,R.fit,'b-'); hold on;
     if mode==1, plot(R.t,R.theory,'r--'); legend('Measured','Identified decay','Measured m,k; identified c','Location','best');
     else
         plot(R.t,R.theory,'r--','LineWidth',1.2);
-        legend('Measured','Sine fit at measured drive frequency','Analytical amplitude; phase aligned','Location','best');
+        legend('Measured',sprintf('Sine fit: X = %.4g m',R.X_m),sprintf('Analytical X = %.4g m; phase aligned',R.X_theory_m),'Location','best');
         fprintf('Measured X = %.5g m; analytical X = %.5g m; signed difference = %.3g%%.\n',R.X_m,R.X_theory_m,R.amplitude_error_percent);
         fprintf('%s\n',R.theory_note);
     end

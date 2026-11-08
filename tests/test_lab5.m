@@ -19,6 +19,12 @@ for f=[.25 .45 .65 1.1 1.4 1.7]
     expected=R.offset_m+P.Y*abs(H)*cos(w*t-.7);
     assert(max(abs(R.theory-expected))<1e-5);
 end
+% A fit to observations must not force agreement with analytical amplitude.
+f=wn/(2*pi); w=2*pi*f; H=P.kDrive/complex(22-P.m*w^2,P.c*w);
+R=Lab5_Analyze_Record(t,.17+.8*P.Y*abs(H)*cos(w*t+.4),P,'harmonic',f);
+assert(abs(R.amplitude_error_percent+20)<1e-8);
+assert(abs(R.phase_lag_theory_rad-pi/2)<1e-10);
+assert(abs(R.X_theory_m-R.X_m)>0.1*R.X_theory_m);
 % Metadata lines, units, index column, numeric text, millimeters in XLSX.
 raw=cell(numel(t)+4,3); raw(1,:)={'Vernier export','',''};
 raw(3,:)={'Index','Time','Position'};raw(4,:)={'','s','m'};
