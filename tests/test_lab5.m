@@ -14,6 +14,10 @@ for f=[.25 .45 .65 1.1 1.4 1.7]
     x=.17+.0001*t+abs(H)*P.Y*cos(w*t-.7)+1e-5*randn(size(t));
     R=Lab5_Analyze_Record(t,x,P,'harmonic',f);
     assert(abs(R.gain-abs(H))<.002); assert(R.rmse_m<2e-5);
+    assert(abs(R.X_theory_m-P.Y*abs(H))<1e-12);
+    assert(abs(R.phase_lag_theory_rad+angle(H))<1e-12);
+    expected=R.offset_m+P.Y*abs(H)*cos(w*t-.7);
+    assert(max(abs(R.theory-expected))<1e-5);
 end
 % Metadata lines, units, index column, numeric text, millimeters in XLSX.
 raw=cell(numel(t)+4,3); raw(1,:)={'Vernier export','',''};
@@ -39,6 +43,10 @@ assert(exist(fullfile(out,'Lab5_Results','Lab5_Harmonic_Summary.csv'),'file')==2
 assert(exist(fullfile(out,'Lab5_Results','Lab5_Frequency_Response.png'),'file')==2);
 assert(numel(findall(0,'Type','figure'))==2);
 S=readtable(fullfile(out,'Lab5_Results','Lab5_Harmonic_Summary.csv'));assert(abs(S.X_peak_m-.02)<1e-6);
+assert(ismember('X_theory_peak_m',S.Properties.VariableNames));
+assert(exist(fullfile(out,'Lab5_Results','test_comparison.txt'),'file')==2);
+F=readtable(fullfile(out,'Lab5_Results','test_fit.csv'));
+assert(ismember('theory_m',F.Properties.VariableNames));
 close all;L5_INPUT={1,P.m,10,12,[],[0 35],1};L5_I=1;
 % Overwrite input CSV with a transient and retest the other launcher branch.
 x=.2+.04*exp(-a*t).*sin(wd*t);raw(5:end,3)=num2cell(x);writecell(raw,csv);

@@ -33,7 +33,7 @@ for j=1:numel(names)
         rpm=input('Measured drive speed [rpm], one cycle/revolution: ');
         pp=input('Measured input PEAK-TO-PEAK displacement [m]: '); P.Y=pp/2;
         R=Lab5_Analyze_Record(t,x,P,'harmonic',rpm/60);
-        row=[rpm/60,2*pi*rpm/60,R.X_m,R.Y_m,R.gain,R.gain_dB,R.gain_theory,R.rmse_m];
+        row=[rpm/60,2*pi*rpm/60,R.X_m,R.Y_m,R.gain,R.gain_dB,R.gain_theory,R.rmse_m,R.X_theory_m,R.amplitude_error_percent,R.phase_lag_theory_rad];
     else
         R=Lab5_Analyze_Record(t,x,P,'impulse');
         row=[R.fd_fit_Hz,R.fn_fit_Hz,R.fn_theory_Hz,R.c_est_Ns_m,R.zeta_fit,R.rmse_m];
@@ -42,7 +42,12 @@ for j=1:numel(names)
     [~,stem]=fileparts(file); fig=figure('Color','w','Name',stem);
     subplot(2,1,1); plot(R.t,R.x,'k.',R.t,R.fit,'b-'); hold on;
     if mode==1, plot(R.t,R.theory,'r--'); legend('Measured','Identified decay','Measured m,k; identified c','Location','best');
-    else, legend('Measured','Sine fit at measured drive frequency','Location','best'); end
+    else
+        plot(R.t,R.theory,'r--','LineWidth',1.2);
+        legend('Measured','Sine fit at measured drive frequency','Analytical amplitude; phase aligned','Location','best');
+        fprintf('Measured X = %.5g m; analytical X = %.5g m; signed difference = %.3g%%.\n',R.X_m,R.X_theory_m,R.amplitude_error_percent);
+        fprintf('%s\n',R.theory_note);
+    end
     xlabel('Time from selected start (s)'); ylabel('Position (m)'); grid on;
     title(strrep(stem,'_','\_'));
     subplot(2,1,2); plot(R.f_Hz,R.spectrum_m,'k-'); grid on;
@@ -51,10 +56,18 @@ for j=1:numel(names)
     else, xline(R.fd_fit_Hz,'b--',sprintf('fit %.3f Hz',R.fd_fit_Hz)); end
     title(sprintf('Hann spectrum; bin spacing %.3g Hz',R.bin_Hz));
     exportgraphics(fig,fullfile(out,[stem '_analysis.png']),'Resolution',220);
-    writetable(table(R.t,R.x,R.fit,'VariableNames',{'time_s','position_m','fit_m'}),fullfile(out,[stem '_fit.csv']));
+    writetable(table(R.t,R.x,R.fit,R.theory,'VariableNames',{'time_s','position_m','fit_m','theory_m'}),fullfile(out,[stem '_fit.csv']));
+    if mode==2
+        fid=fopen(fullfile(out,[stem '_comparison.txt']),'w');
+        if fid>=0
+            fprintf(fid,'%s\nMeasured peak X: %.9g m\nAnalytical peak X: %.9g m\nSigned amplitude difference: %.6g percent\n',R.theory_note,R.X_m,R.X_theory_m,R.amplitude_error_percent);
+            fprintf(fid,'Analytical phase lag: %.9g rad (prediction only, not measured).\n',R.phase_lag_theory_rad);
+            fclose(fid);
+        end
+    end
 end
 if mode==2
-    labels={'drive_Hz','omega_rad_s','X_peak_m','Y_peak_m','gain','gain_dB','gain_theory','RMSE_m'};
+    labels={'drive_Hz','omega_rad_s','X_peak_m','Y_peak_m','gain','gain_dB','gain_theory','RMSE_m','X_theory_peak_m','amplitude_error_percent','phase_lag_theory_rad'};
     w=logspace(log10(min(summary(:,2))*.7),log10(max(summary(:,2))*1.4),600);
     H=P.kDrive./sqrt((P.kFixed+P.kDrive-P.m*w.^2).^2+(P.c*w).^2);
     fig=figure('Color','w'); semilogx(w,20*log10(H),'k-',summary(:,2),summary(:,6),'bo'); grid on;

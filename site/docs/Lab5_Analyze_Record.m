@@ -29,6 +29,15 @@ if strcmpi(mode,'harmonic')
     if change>0.10, warning('Lab5:SteadyState','First/second half amplitudes differ >10%%; choose a later window or inspect the run.'); end
     R.fit=fit; R.X_m=X; R.Y_m=P.Y; R.gain=X/P.Y; R.gain_dB=20*log10(max(R.gain,realmin));
     R.drive_Hz=fHz; R.gain_theory=abs(H); R.half_amplitude_change=change;
+    R.X_theory_m=abs(H)*P.Y;
+    R.phase_lag_theory_rad=atan2(P.c*w,P.kFixed+P.kDrive-P.m*w^2);
+    % Input motion is not synchronized with the cart record. Compare the
+    % independently predicted amplitude, aligning ONLY phase to the output.
+    % This curve does not validate input/output phase or predict startup.
+    outputLag=atan2(b(4),b(3));
+    R.theory=b(1)+R.X_theory_m*cos(w*t-outputLag);
+    R.amplitude_error_percent=100*(X-R.X_theory_m)/R.X_theory_m;
+    R.theory_note='Analytical steady amplitude; phase aligned to output. No measured input/output phase comparison.';
     R.rmse_m=sqrt(mean((x-fit).^2)); R.offset_m=b(1); R.drift_m_per_s=b(2);
     R.phase_note='Output fit phase is relative to CSV start; input/output phase requires a synchronized input record.';
 elseif strcmpi(mode,'impulse')
