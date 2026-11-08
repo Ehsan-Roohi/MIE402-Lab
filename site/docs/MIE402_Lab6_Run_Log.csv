@@ -1,0 +1,1 @@
+run_id,lamp_id,setting,distance_m,lux,capture_fps,playback_fps,passages_per_revolution,lamp_on_frame,steady_start_frame,steady_end_frame,initial_condition,video_file
