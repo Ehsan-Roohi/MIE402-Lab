@@ -1,1 +1,5 @@
-run_id,passage_csv,capture_fps,passages_per_revolution,lux,distance_m,lamp_on_frame,window_start_s,window_end_s,initial_state,video_file,lamp_id,cooling_time_s
+run_id,passage_csv,capture_fps,passages_per_revolution,lux,distance_m,lamp_on_frame,window_start_s,window_end_s,initial_state
+10cm_1,10cm_1_passages.csv,1000,,,0.1,,0,,
+15cm,15cm_passages.csv,1000,,,0.15,,0,,
+20cm,20cm_passages.csv,1000,,,0.2,,0,,
+10cm_repeat,10cm_repeat_passages.csv,1000,,,0.1,,0,,
