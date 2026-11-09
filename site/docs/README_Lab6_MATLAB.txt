@@ -27,3 +27,10 @@ EXAMPLE ONLY: template frames with 1000 capture fps and p=4 give 60 rpm.
 The supplied table is synthetic and must not be presented as laboratory data.
 Requires MATLAB R2020b or later (base MATLAB). No Curve Fitting/Signal toolbox.
 This tool analyzes verified passage frames; it does not automatically track vanes.
+
+COMPARE ILLUMINATION RUNS
+Fill Lab6_Comparison_Log.csv with passage filenames, capture fps, verified p, lux,
+distance, lamp-on frame, the same requested time window and initial state.
+Run Compare_Lab6_Illumination_Runs.m. It exports physical-time rpm curves,
+mean rpm versus measured lux and early/late/coverage columns. A requested
+window does not create missing edge observations. Keep warm-return tests labeled.

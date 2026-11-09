@@ -1,4 +1,4 @@
-% LAB 6 OPTIONAL: MOLECULAR MOMENTUM TRANSFER (base MATLAB).
+% LAB 6: MOLECULAR MOMENTUM TRANSFER (base MATLAB).
 % Run this script, not the helper. All temperatures below are illustrative.
 % This is a wall-collision Monte Carlo, not a full DSMC model or an rpm predictor.
 clear; clc;

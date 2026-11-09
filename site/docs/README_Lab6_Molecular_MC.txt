@@ -1,4 +1,7 @@
-OPTIONAL LAB 6 MOLECULAR MONTE CARLO
+The primary required activity is Q6 in the Pre-Lab 6 Colab notebook.
+This MATLAB package implements the same model; do not submit duplicate work.
+
+LAB 6 MOLECULAR MONTE CARLO - REQUIRED Q6
 Unzip both .m files into one folder. Open Run_Lab6_Molecular_MC.m and click Run.
 Base MATLAB is sufficient. The script exports three figures and one CSV.
 
