@@ -4,6 +4,9 @@ required={'run_id','passage_csv','capture_fps','passages_per_revolution',...
  'lux','distance_m','lamp_on_frame','window_start_s','window_end_s','initial_state'};
 assert(all(ismember(required,logTable.Properties.VariableNames)),'Use Lab6_Comparison_Log.csv headers.');
 n=height(logTable);assert(n>=1,'The run log is empty.');records=cell(n,1);
+assert(all(logTable.window_start_s==logTable.window_start_s(1)) && ...
+ all(logTable.window_end_s==logTable.window_end_s(1)),...
+ 'Use the same requested start/end window for matched illumination comparisons.');
 values=nan(n,8);
 for i=1:n
  f=char(string(logTable.passage_csv(i)));assert(~isempty(f),'Enter passage_csv for every row.');
@@ -11,6 +14,8 @@ for i=1:n
  a=readtable(f,'VariableNamingRule','preserve');
  assert(ismember('frame',a.Properties.VariableNames),'Each passage CSV needs a frame column.');
  frames=a.frame;fps=logTable.capture_fps(i);p=logTable.passages_per_revolution(i);
+ validateattributes(logTable.lux(i),{'numeric'},{'scalar','finite','nonnegative'});
+ validateattributes(logTable.distance_m(i),{'numeric'},{'scalar','finite','positive'});
  on=logTable.lamp_on_frame(i);t0=logTable.window_start_s(i);t1=logTable.window_end_s(i);
  validateattributes([fps,p],{'numeric'},{'positive','finite'});
  validateattributes([on,t0,t1],{'numeric'},{'finite','nonnegative'});
