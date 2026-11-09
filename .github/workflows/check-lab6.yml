@@ -19,4 +19,4 @@ jobs:
           release: R2024b
       - uses: matlab-actions/run-command@v3
         with:
-          command: run('tests/test_lab6.m')
+          command: run('tests/test_lab6.m'); set(groot,'defaultFigureVisible','off'); run('site/docs/Run_Lab6_Molecular_MC.m'); close all
