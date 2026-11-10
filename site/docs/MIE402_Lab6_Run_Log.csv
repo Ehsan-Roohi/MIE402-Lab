@@ -1,1 +1,1 @@
-run_id,lamp_id,setting,distance_m,lux,capture_fps,playback_fps,passages_per_revolution,lamp_on_frame,steady_start_frame,steady_end_frame,initial_condition,video_file
+run_id,bulb_id,lamp_id,setting,distance_m,lux,irradiance_W_m2,room_T_C,glass_T_start_C,glass_T_end_C,lamp_face_T_C,capture_fps,playback_fps,passages_per_revolution,lamp_on_frame,lamp_off_frame,steady_start_frame,steady_end_frame,coast_time_constant_s,reverse_rotation_seen,initial_condition,video_file

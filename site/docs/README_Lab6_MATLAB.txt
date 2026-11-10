@@ -34,3 +34,18 @@ distance, lamp-on frame, the same requested time window and initial state.
 Run Compare_Lab6_Illumination_Runs.m. It exports physical-time rpm curves,
 mean rpm versus measured lux and early/late/coverage columns. A requested
 window does not create missing edge observations. Keep warm-return tests labeled.
+
+COAST-DOWN (LIGHT OFF)
+In each run, switch the lamp off after the light-on passages and keep recording.
+For the first 1.0 cm run, mark the passages after the light-off frame in a
+separate table named 1cm_1_coast_passages.csv and run Run_Lab6_Radiometer.m on it.
+Plot ln(rpm) from interval_speed.csv against time; the slope is -1/T. Ignore the
+first 1-2 s after light-off. Enter T in both logs. The tool reports speed, not
+direction: state from the movie whether the rotor reversed.
+
+LOGS
+MIE402_Lab6_Run_Log.csv records every movie: bulb number, gap, lux, temperatures,
+light-on and light-off frames. Lab6_Comparison_Log.csv is read by
+Compare_Lab6_Illumination_Runs.m; its extra columns (bulb_id, temperatures,
+lamp_off_frame, coast_time_constant_s, irradiance_W_m2) are carried into the
+summary table. Choose the comparison window before light-off.
