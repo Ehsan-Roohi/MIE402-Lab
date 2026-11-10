@@ -2,4 +2,6 @@ run_id,passage_csv,capture_fps,passages_per_revolution,lux,distance_m,lamp_on_fr
 1cm_1,1cm_1_passages.csv,1000,,,0.010,,0,,,,,,,,,
 1p5cm,1p5cm_passages.csv,1000,,,0.015,,0,,,,,,,,,
 2cm,2cm_passages.csv,1000,,,0.020,,0,,,,,,,,,
+3cm,3cm_passages.csv,1000,,,0.030,,0,,,,,,,,,
+4cm,4cm_passages.csv,1000,,,0.040,,0,,,,,,,,,
 1cm_repeat,1cm_repeat_passages.csv,1000,,,0.010,,0,,,,,,,,,
