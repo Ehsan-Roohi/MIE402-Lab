@@ -1,51 +1,53 @@
-LAB 6 - RADIOMETER
+LAB 6 - RADIOMETER: ANALYZE SEPARATE CLIPS
 
-1. Download and unzip the complete MATLAB bundle into one folder.
-2. Run Mark_Lab6_Passage_Frames.m to view and mark original frames. Observe
-   one complete revolution. Define ONE repeatable crossing of a fixed line.
-   A uniquely identifiable vane gives p=1 event per revolution. If counting
-   every vane, verify how many identical events occur per full turn. Do not
-   assume p=4 just because four vanes are visible. Front/back appearances can
-   create extra events. Do not add a physical marker to the sealed device.
-3. Save consecutive crossing frame numbers in one column named frame, using
-   the template. REPLACE ALL demonstration numbers with your measurements.
-   At least 10 events are recommended. Use the same crossing direction.
-4. Open Run_Lab6_Radiometer.m in MATLAB and click Run. Select the CSV/Excel
-   file. Enter actual camera CAPTURE fps and your verified p. Do not enter
-   the slow-motion file's playback fps. Recover capture settings from your
-   run log/camera before reporting a physical rpm.
-5. The script exports two panels, interval_speed.csv, a MAT result and a
-   summary beside your table. Red circles require video review. Check missed
-   passages and changing speed. Never replace a missed revolution with zero.
-6. For a steady-speed comparison, create a separate table containing only a
-   settled interval. Keep the complete recording for the transient plot.
-7. Repeat for each light setting. Plot steady rpm against measured lux with
-   separate symbols for repeats. Keep lamp type, geometry and meter orientation
-   fixed. Lux is a photometric measure, not irradiance in W/m^2.
+1. Unzip the complete MATLAB bundle into a single folder. Keep the original
+   acquisition movies and the actual capture fps for each clip. Ignore the
+   export playback fps when calculating physical time or rotation speed.
+2. For each lamp gap, label clips on_start, on_late, off_start and off_late.
+   Begin recording before the light switch for on_start and off_start. For
+   on_late and off_late, use a stopwatch to log the actual elapsed seconds from
+   the matching switch to the first saved frame. Wait about 60 s after the
+   previous clip ends, so delay_s is usually about 77 s from the switch.
+   If the rotor has stopped at the delayed off check, record the observation
+   and elapsed time. You can skip that movie.
+3. Run Mark_Lab6_Passage_Frames.m for each movie. Choose one reference line
+   and one repeatable crossing event. Use the same event definition for the
+   series. p is the number of selected events in one full revolution. Follow
+   one identifiable vane for p = 1. If you count every vane, verify the number
+   of events over a full turn, including their angular spacing. A rotor with
+   four vanes does not by itself establish p = 4. Never add a marker to the
+   sealed bulb. Keep consecutive marks in a single direction and in one file.
+   The marker tool numbers frames from zero. The script writes a passage CSV.
+4. Open Lab6_Comparison_Log.csv. Match the movie and passage filenames and
+   enter actual capture_fps, passages_per_revolution, measured lux and gap.
+   Rows for the same gap and repeat share a run_id. In the start clips enter
+   switch_frame (zero-based index of the switch in that saved file). In the
+   late clips enter delay_s (seconds from that switch to the first saved
+   frame). Report the measured switch-to-frame delay, not just the wait. Add bulb and
+   temperature information to the log as available.
+5. Keep status = recorded for valid marked movies. The analysis reports an
+   insufficient result if fewer than three qualifying crossings are marked.
+   Use stationary for a visually confirmed stationary rotor. For an omitted
+   delayed off movie enter stationary and the observed delay_s. Use
+   insufficient if the rotor moved but crossings cannot be resolved or there
+   are too few crossings to use. Use not_run for other omitted clips. The
+   analysis leaves the mean RPM blank (NaN) for rows without speed estimates.
+6. Run Compare_Lab6_Illumination_Runs.m and choose the completed comparison log.
+   Lab6_Comparison_Results contains Lab6_Clip_Summary.csv,
+   Lab6_Clip_Intervals.csv and the figures. Lamp-on and lamp-off times are on
+   separate axes. Dots show within-clip intervals. The gaps between recordings
+   contain no speed data. A mean speed covers first-to-last retained passage
+   within one clip. Compare late-on mean RPM across lux at similar delays and
+   thermal conditions. Review red X marks against the footage. The per-clip
+   speed is unsigned. Document the observed direction and any reversal, and
+   use only a single direction in a passage file.
+7. If you can fit a decay constant, use ln(rpm) and elapsed time from one
+   continuous positive-speed clip with a consistent direction. For a straight
+   interval under negligible residual drive and linear loss, a negative slope
+   gives T = -1/slope. Report the clip, fit window and T. If there are too few
+   points or no defensible interval, record T unavailable.
 
-EXAMPLE ONLY: template frames with 1000 capture fps and p=4 give 60 rpm.
-The supplied table is synthetic and must not be presented as laboratory data.
-Requires MATLAB R2020b or later (base MATLAB). No Curve Fitting/Signal toolbox.
-This tool analyzes verified passage frames; it does not automatically track vanes.
-
-COMPARE ILLUMINATION RUNS
-Fill Lab6_Comparison_Log.csv with passage filenames, capture fps, verified p, lux,
-distance, lamp-on frame, the same requested time window and initial state.
-Run Compare_Lab6_Illumination_Runs.m. It exports physical-time rpm curves,
-mean rpm versus measured lux and early/late/coverage columns. A requested
-window does not create missing edge observations. Keep warm-return tests labeled.
-
-COAST-DOWN (LIGHT OFF)
-In each run, switch the lamp off after the light-on passages and keep recording.
-For the first 1.0 cm run, mark the passages after the light-off frame in a
-separate table named 1cm_1_coast_passages.csv and run Run_Lab6_Radiometer.m on it.
-Plot ln(rpm) from interval_speed.csv against time; the slope is -1/T. Ignore the
-first 1-2 s after light-off. Enter T in both logs. The tool reports speed, not
-direction: state from the movie whether the rotor reversed.
-
-LOGS
-MIE402_Lab6_Run_Log.csv records every movie: bulb number, gap, lux, temperatures,
-light-on and light-off frames. Lab6_Comparison_Log.csv is read by
-Compare_Lab6_Illumination_Runs.m; its extra columns (bulb_id, temperatures,
-lamp_off_frame, coast_time_constant_s, irradiance_W_m2) are carried into the
-summary table. Choose the comparison window before light-off.
+Run_Lab6_Radiometer.m is also available for plots for a single marked clip.
+Its time axis is relative to the first retained passage. Enter actual capture
+fps and verified p when prompted. The example passage template is synthetic.
+Requires base MATLAB R2020b or later. No automatic vane tracking.

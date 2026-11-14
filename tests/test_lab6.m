@@ -40,3 +40,35 @@ assert(abs(S.mean_rpm(1)-60)<1e-10 && abs(S.mean_rpm(2)-30)<1e-10);
 assert(abs(C{1}.physical_interval_time_s(1)-.125)<1e-10);
 assert(S.covered_start_s(1)==0 && S.covered_end_s(1)==2);
 disp('Lab 6 matched-window comparison checks passed.');
+
+% Segmented acquisition: different actual frame rates and origins, no cross-clip intervals.
+writetable(table([50;200;450;700],'VariableNames',{'frame'}),fullfile(tmp,'start_on.csv'));
+writetable(table([0;250;500],'VariableNames',{'frame'}),fullfile(tmp,'late_on.csv'));
+writetable(table([300;1300;2300],'VariableNames',{'frame'}),fullfile(tmp,'start_off.csv'));
+writetable(table([100;500],'VariableNames',{'frame'}),fullfile(tmp,'too_few.csv'));
+L=table(["A";"A";"A";"A";"B";"B"],...
+    ["on_start";"on_late";"off_start";"off_late";"on_start";"off_late"],...
+    ["start_on.csv";"late_on.csv";"start_off.csv";"";"too_few.csv";""],...
+    ["recorded";"recorded";"recorded";"stationary";"recorded";"not_run"],...
+    [1000;500;1000;NaN;1000;NaN],[4;4;4;NaN;4;NaN],...
+    [100;100;100;100;50;NaN],[.2;.2;.2;.2;.3;NaN],...
+    [100;NaN;300;NaN;0;NaN],[NaN;64;NaN;62;NaN;NaN],...
+    'VariableNames',{'run_id','clip_phase','passage_csv','status','capture_fps',...
+    'passages_per_revolution','lux','distance_m','switch_frame','delay_s'});
+[S,I] = Lab6_Analyze_Clips(L,tmp);
+assert(all(abs(S.mean_rpm(1:3)-[60;30;15])<1e-10));
+assert(all(isnan(S.mean_rpm(4:6))));
+assert(isequal(S.analysis_status(4:6),["stationary";"insufficient";"not_run"]));
+assert(height(I)==6 && all(S.measured_intervals(1:3)==2));
+assert(abs(S.covered_start_s(1)-.1)<1e-12 && S.covered_start_s(2)==64);
+assert(S.covered_start_s(3)==0 && all(I.clock_reference(5:6)=="lamp_off"));
+assert(all(I.interval_end_s-I.interval_start_s<=1.01));
+failed = false;
+try
+    L.delay_s(2) = NaN;
+    Lab6_Analyze_Clips(L,tmp);
+catch
+    failed = true;
+end
+assert(failed,'An unrecorded late delay must not default to 60 s.');
+disp('Lab 6 separate-clip and stopped observations passed.');

@@ -1,27 +1,57 @@
-% LAB 6: COMPARE YOUR ILLUMINATION RUNS. Base MATLAB, no automatic tracking.
-% First mark consecutive crossings using Mark_Lab6_Passage_Frames.m.
-% Fill Lab6_Comparison_Log.csv; use a common window for matched comparisons.
-clear;clc;
-[fn,folder]=uigetfile('*.csv','Select your completed Lab6 comparison log');
-if isequal(fn,0),return;end
-logTable=readtable(fullfile(folder,fn),'VariableNamingRule','preserve','TextType','string');
-[summary,records]=Lab6_Compare_Runs(logTable,folder);
-out=fullfile(folder,'Lab6_Comparison_Results');if ~exist(out,'dir'),mkdir(out);end
-writetable(summary,fullfile(out,'Lab6_Run_Comparison.csv'));
-fig=figure('Color','w','Position',[100 100 1000 720]);tiledlayout(2,1);
-nexttile;hold on;
-for i=1:height(summary)
- R=records{i};plot(R.physical_interval_time_s,R.interval_rpm,'.-','DisplayName',char(R.run_id));
+% LAB 6: compare separate clips from your illumination runs.
+% Mark each clip separately, then complete Lab6_Comparison_Log.csv.
+clear; clc;
+[fn,folder] = uigetfile('*.csv','Select your completed Lab 6 comparison log');
+if isequal(fn,0), return; end
+logTable = readtable(fullfile(folder,fn),'VariableNamingRule','preserve','TextType','string');
+out = fullfile(folder,'Lab6_Comparison_Results');
+if ~ismember('clip_phase',logTable.Properties.VariableNames)
+    run(fullfile(fileparts(mfilename('fullpath')),'Lab6_Legacy_Comparison.m'));
+    return;
 end
-xlabel('Time since illumination on (s)');ylabel('Interval speed (rpm)');grid on;legend('Location','best');
-nexttile;hold on;
-for i=1:height(summary)
- plot(summary.lux(i),summary.mean_rpm(i),'o','MarkerSize',7);
- text(summary.lux(i),summary.mean_rpm(i),'  '+string(summary.run_id(i)),'Interpreter','none');
+[summary,intervals] = Lab6_Analyze_Clips(logTable,folder);
+if ~isfolder(out), mkdir(out); end
+writetable(summary,fullfile(out,'Lab6_Clip_Summary.csv'));
+writetable(intervals,fullfile(out,'Lab6_Clip_Intervals.csv'));
+
+runIDs = unique(string(summary.run_id),'stable');
+colors = lines(numel(runIDs));
+fig = figure('Color','w','Position',[100 100 1000 900]);
+tiledlayout(3,1);
+phases = ["on_start","on_late";"off_start","off_late"];
+labels = ["Time since lamp ON (s)","Time since lamp OFF (s)"];
+markers = {'o','s'};
+for j = 1:2
+    nexttile; hold on; grid on;
+    for k = 1:numel(runIDs)
+        for m = 1:2
+            t = intervals(intervals.run_id==runIDs(k) & intervals.clip_phase==phases(j,m),:);
+            if isempty(t), continue; end
+            plot(t.interval_midpoint_s,t.interval_rpm,markers{m},'LineStyle','none',...
+                'Color',colors(k,:),'DisplayName',char(runIDs(k)+" "+phases(j,m)));
+            flagged = t.review;
+            if any(flagged)
+                plot(t.interval_midpoint_s(flagged),t.interval_rpm(flagged),'rx','HandleVisibility','off');
+            end
+        end
+    end
+    xlabel(labels(j)); ylabel('Measured interval speed (rpm)');
+    if any(ismember(intervals.clip_phase,phases(j,:))), legend('Location','best','Interpreter','none'); end
 end
-xlabel('Measured illuminance (lux), same lamp');ylabel('Selected-window mean speed (rpm)');grid on;
+nexttile; hold on; grid on;
+late = summary(lower(strtrim(string(summary.clip_phase)))=="on_late" & isfinite(summary.mean_rpm),:);
+for i = 1:height(late)
+    color = colors(runIDs==string(late.run_id(i)),:);
+    lux = str2double(string(late.lux(i)));
+    plot(lux,late.mean_rpm(i),'o','Color',color,'MarkerFaceColor',color);
+    text(lux,late.mean_rpm(i),sprintf('  %s, %g s',char(string(late.run_id(i))),...
+        str2double(string(late.delay_s(i)))),'Interpreter','none');
+end
+xlabel('Measured illuminance (lux)');
+ylabel('Late-on clip mean (rpm)');
 exportgraphics(fig,fullfile(out,'Lab6_Illumination_Comparison.png'),'Resolution',300);
 exportgraphics(fig,fullfile(out,'Lab6_Illumination_Comparison.pdf'),'ContentType','vector');
-disp(summary(:,{'run_id','mean_rpm','early_rpm','late_rpm','covered_start_s','covered_end_s','intervals_to_review'}));
-fprintf('Means use the covered crossing interval. Inspect early/late differences before calling a run steady.\n');
-fprintf('Keep warm-return runs separate from repeats begun after cooling. Saved to %s\n',out);
+disp(summary(:,{'run_id','clip_phase','analysis_status','mean_rpm','covered_start_s','covered_end_s','intervals_to_review'}));
+fprintf('Ranges and means use measured crossings within each clip. Check red marks in the video.\n');
+fprintf('Compare late-on speeds at similar elapsed delays and thermal conditions.\n');
+fprintf('Saved to %s\n',out);
