@@ -37,7 +37,7 @@ for i = 1:height(logTable)
     end
     distance = numberAt(logTable.distance_m,i);
     lux = numberAt(logTable.lux,i);
-    assert(isfinite(distance) && distance>0,'Row %d needs a positive distance_m.',i);
+    assert(isfinite(distance) && distance>=0,'Row %d needs a nonnegative distance_m.',i);
     assert(isfinite(lux) && lux>=0,'Row %d needs measured lux.',i);
     delay = numberAt(logTable.delay_s,i);
     if lateClip(i) && (status(i)=="recorded" || status(i)=="stationary")

@@ -1,5 +1,10 @@
 LAB 6 - RADIOMETER: ANALYZE SEPARATE CLIPS
 
+Two tests only: A immediately beside the lamp (record actual gap, zero allowed);
+B at one chosen gap between 1 and 3 cm. Same bulb and lamp power.
+Use the eight A/B rows in the log. No extra repeat or brightness sweep.
+Enter distance_m in metres, measured lux and all actual timing values.
+
 1. Unzip the complete MATLAB bundle into a single folder. Keep the original
    acquisition movies and the actual capture fps for each clip. Ignore the
    export playback fps when calculating physical time or rotation speed.
