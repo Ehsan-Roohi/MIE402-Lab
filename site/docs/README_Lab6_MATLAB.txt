@@ -1,14 +1,14 @@
 LAB 6 - RADIOMETER: ANALYZE SEPARATE CLIPS
 
-Two tests only: A immediately beside the lamp (record actual gap, zero allowed);
-B at one chosen gap between 1 and 3 cm. Same bulb and lamp power.
-Use the eight A/B rows in the log. No extra repeat or brightness sweep.
+Two stages only: common Stage A, then the Stage B task in your group row
+in the laboratory guide. Use the eight A/B rows in the log.
+Two-bulb groups record both rotors in the same 6-8 movies; see guide page 3.
 Enter distance_m in metres, measured lux and all actual timing values.
 
 1. Unzip the complete MATLAB bundle into a single folder. Keep the original
    acquisition movies and the actual capture fps for each clip. Ignore the
    export playback fps when calculating physical time or rotation speed.
-2. For each lamp gap, label clips on_start, on_late, off_start and off_late.
+2. For each stage, label clips on_start, on_late, off_start and off_late.
    Begin recording before the light switch for on_start and off_start. For
    on_late and off_late, use a stopwatch to log the actual elapsed seconds from
    the matching switch to the first saved frame. Wait about 60 s after the
@@ -56,3 +56,11 @@ Run_Lab6_Radiometer.m is also available for plots for a single marked clip.
 Its time axis is relative to the first retained passage. Enter actual capture
 fps and verified p when prompted. The example passage template is synthetic.
 Requires base MATLAB R2020b or later. No automatic vane tracking.
+
+TWO BULBS IN ONE MOVIE
+Mark R1 first and move its generated passage CSV into folder R1 before
+marking R2: the marker otherwise overwrites the same output filename.
+Move the second CSV into folder R2. Keep one A/B comparison log per bulb.
+Use full video and passage CSV paths; share switch frames and clip delays.
+Enter each bulb's own lux, ID and passage marks. Run the comparison script
+once per bulb. Compare each bulb with its own Stage A result.
