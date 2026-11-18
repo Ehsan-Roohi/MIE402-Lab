@@ -40,7 +40,16 @@ function followArchivedRecording() {
   const id = location.hash.slice(1);
   const moved = ['rotation-reversal', 'reversal-video', 'reversal-caption',
     'position-swap', 'swap-video', 'swap-caption', 'position-swap-plots'];
-  if (moved.includes(id)) location.replace(archive.href + '#' + id);
+  const target = document.getElementById(id);
+  if (target) {
+    const details = target.closest('details');
+    if (details && !details.open) {
+      details.open = true;
+      target.scrollIntoView({block: 'start', behavior: 'instant'});
+    }
+  } else if (moved.includes(id)) {
+    location.replace(archive.href + '#' + id);
+  }
 }
 followArchivedRecording();
 window.addEventListener('hashchange', followArchivedRecording);
