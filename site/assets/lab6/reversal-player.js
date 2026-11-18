@@ -14,13 +14,14 @@ document.querySelectorAll('[data-reversal-time]').forEach(link => {
   });
 });
 
-function revealLinkedFilm() {
-  const preview = document.getElementById('radiometer-videos');
-  const target = document.getElementById(location.hash.slice(1));
-  if (preview && target && preview.contains(target) && target !== preview && !preview.open) {
-    preview.open = true;
-    target.scrollIntoView();
-  }
+// Keep links to recordings that were previously embedded on the course and lab pages.
+function followArchivedRecording() {
+  const archive = document.querySelector('a[data-reversal-archive]');
+  if (!archive) return;
+  const id = location.hash.slice(1);
+  const moved = ['rotation-reversal', 'reversal-video', 'reversal-caption',
+    'position-swap', 'swap-video', 'swap-caption', 'position-swap-plots'];
+  if (moved.includes(id)) location.replace(archive.href + '#' + id);
 }
-revealLinkedFilm();
-window.addEventListener('hashchange', revealLinkedFilm);
+followArchivedRecording();
+window.addEventListener('hashchange', followArchivedRecording);

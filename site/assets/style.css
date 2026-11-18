@@ -3,9 +3,47 @@
 .equipment-photo{float:right;width:46%;margin:0 0 24px 32px}.equipment-photo img{width:100%;max-height:390px;object-fit:contain}@media(max-width:720px){.equipment-photo{float:none;width:100%;margin:0 0 24px}}
 .download-actions{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0}.download-actions a{display:inline-block;padding:11px 17px;border:1px solid var(--maroon);border-radius:3px;font-weight:700;text-decoration:none}.download-actions a.primary{background:var(--maroon);color:#fff}.pdf-preview{width:100%;height:78vh;min-height:680px;border:1px solid var(--line);background:var(--tint)}@media(max-width:720px){.pdf-preview{height:70vh;min-height:500px}}
 
-.reversal-demo{max-width:850px;margin:28px 0}.reversal-demo figure{margin:0}.reversal-demo video{width:100%;height:auto;max-width:100%;margin:0;border-radius:5px}.reversal-demo figcaption{margin-top:10px;line-height:1.5}
-.reversal-demo .reversal-plots{margin-top:24px}
-.reversal-demo .reversal-plots img{display:block;width:100%;height:auto}
-.radiometer-preview{padding:12px 0 16px;border-bottom:1px solid var(--line)}
-.radiometer-preview summary{cursor:pointer;color:var(--maroon);font-weight:600}
-.radiometer-preview summary:focus-visible{outline:3px solid #1670c5;outline-offset:3px}
+.rotation-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  align-items: center;
+  gap: 28px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.rotation-preview h2 { margin: 0 0 10px; }
+.rotation-preview p { max-width: 42ch; margin: 0 0 16px; }
+.rotation-preview [data-reversal-archive] { font-weight: 650; }
+.rotation-preview figure, .rotation-gallery figure { margin: 0; min-width: 0; }
+.rotation-preview video, .rotation-gallery video, .rotation-gallery figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.rotation-preview figcaption, .rotation-gallery figcaption {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.rotation-gallery > section { padding: 32px 0; border-bottom: 1px solid var(--line); }
+.rotation-gallery > section:last-child { padding-bottom: 0; border: 0; }
+.rotation-gallery h2 { margin: 0 0 20px; }
+.rotation-gallery .eyebrow a { text-decoration: none; }
+.rotation-gallery .eyebrow a:hover { text-decoration: underline; }
+.rotation-observation, .rotation-figures { display: grid; align-items: start; gap: 24px; }
+.rotation-observation { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+.rotation-figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.rotation-observation + .rotation-figures { margin-top: 24px; }
+.rotation-notes h3 { margin: 0 0 6px; }
+.rotation-notes p { margin: 0 0 18px; }
+.rotation-comparison { margin-top: 18px; }
+.rotation-comparison summary { cursor: pointer; color: var(--maroon); font-weight: 600; }
+.rotation-comparison summary:focus-visible { outline: 3px solid #1670c5; outline-offset: 3px; }
+.rotation-comparison figure { max-width: 680px; margin-top: 12px; }
+@media (max-width: 720px) {
+  .rotation-preview, .rotation-observation, .rotation-figures { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .rotation-preview figure { width: min(100%, 470px); }
+  .rotation-gallery > section { padding: 24px 0; }
+}

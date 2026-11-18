@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Watch Crookes radiometers reverse after lamp-off in MIE 402. Compare turn times, signed rotor speeds and a small backward movement of a spherical rotor.">
+  <title>Reverse Rotation · Lab 6 · MIE 402</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/lab6/reversal-player.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html">MIE 402 <span>UMass Amherst</span></a>
+  <nav aria-label="Course navigation"><a href="index.html">Overview</a><a href="lab6.html">Lab 6</a><a href="lecture07.html">Lecture 07</a></nav>
+</div></header>
+<main id="main" class="rotation-gallery">
+  <p class="eyebrow"><a href="lab6.html">Lab 6 · Radiometer</a></p>
+  <h1>Reverse Rotation</h1>
+  <p class="lede">Follow one vane as the rotor slows after lamp-off. At a reversal, the vane stops and then passes back through the same position.</p>
+  <nav class="subnav" aria-label="Recordings"><a href="#two-rotors">Tall and spherical rotors</a><a href="#position-swap">Position swap</a><a href="#rotation-reversal">First bench recording</a><a href="#low-light">Low-light comparison</a></nav>
+
+  <section aria-labelledby="two-rotors">
+    <h2 id="two-rotors">A tall rotor reverses and a spherical rotor recoils</h2>
+    <div class="rotation-observation">
+      <figure>
+        <video id="two-rotor-video" controls muted playsinline preload="none" width="800" height="536" poster="assets/lab6/radiometer-tall-and-round.jpg" aria-label="Tall rotor on the left and blue-base spherical rotor on the right, followed by a close-up of the spherical rotor" aria-describedby="two-rotor-caption">
+          <source src="assets/lab6/radiometer-tall-and-round.mp4" type="video/mp4">
+          <a href="assets/lab6/radiometer-tall-and-round.mp4">Open the clip</a>.
+        </video>
+        <figcaption id="two-rotor-caption"><a href="assets/lab6/radiometer-tall-and-round.mp4#t=3" data-reversal-time="3">Replay the tall rotor’s turn</a> · <a href="assets/lab6/radiometer-tall-and-round.mp4#t=16.5" data-reversal-time="16.5">Jump to the spherical rotor</a></figcaption>
+      </figure>
+      <div class="rotation-notes">
+        <h3>Tall rotor · 00:06 in the clip</h3>
+        <p>The left rotor changes direction about 27 s after the last lamp goes out. Later in the recording, it completes 2¼ turns in reverse over 9.45 s.</p>
+        <h3>Spherical rotor · 00:16.5 in the clip</h3>
+        <p>The close-up follows two vane corners. About 74–78 s after lamp-off, they move backward by roughly 2.6° and 4.0° in the image. These are projected angles. No full reverse turn was observed in this interval.</p>
+      </div>
+    </div>
+    <div class="rotation-figures">
+      <figure><a href="assets/lab6/radiometer-tall-and-round-speed.png"><img src="assets/lab6/radiometer-tall-and-round-speed.png" width="2040" height="1173" alt="Measured rotor speeds during illumination and after lamp-off, with an enlarged view of the tall rotor crossing zero and handheld-light speeds." loading="lazy"></a>
+        <figcaption><a href="assets/lab6/radiometer-tall-and-round-speed.png">Rotor speed plots</a> · <a href="assets/lab6/radiometer-tall-and-round-speed.csv" download>Speed data (CSV)</a></figcaption>
+      </figure>
+      <figure><a href="assets/lab6/radiometer-round-recoil.png"><img src="assets/lab6/radiometer-round-recoil.png" width="1881" height="726" alt="Two blue-base rotor landmarks move backward over four seconds while the fixed-glass reference stays nearly still." loading="lazy"></a>
+        <figcaption><a href="assets/lab6/radiometer-round-recoil.png">Spherical rotor displacement</a> · <a href="assets/lab6/radiometer-round-recoil.csv" download>Projected angles (CSV)</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="position-swap">
+    <h2 id="position-swap">Both tall rotors reverse after they exchange positions</h2>
+    <div class="rotation-observation">
+      <figure>
+        <video id="swap-video" controls muted playsinline preload="none" width="1280" height="720" poster="assets/lab6/radiometer-position-swap.jpg" aria-label="Bench recording with enlarged views of the two tall rotors after the position swap" aria-describedby="swap-caption">
+          <source src="assets/lab6/radiometer-position-swap.mp4" type="video/mp4">
+          <a href="assets/lab6/radiometer-position-swap.mp4">Open the position-swap video</a>.
+        </video>
+        <figcaption id="swap-caption"><a href="assets/lab6/radiometer-position-swap.mp4#t=80" data-reversal-time="80">Replay the front turn</a> · <a href="assets/lab6/radiometer-position-swap.mp4#t=98" data-reversal-time="98">Replay the rear turn</a></figcaption>
+      </figure>
+      <div class="rotation-notes">
+        <h3>Front rotor · 01:25.2</h3><p>The last lamp goes out at 01:05.85. The front rotor turns back about 19 s later.</p>
+        <h3>Rear rotor · 01:43.6</h3><p>The rear rotor changes direction about 38 s after lamp-off.</p>
+        <figure id="position-swap-plots"><a href="assets/lab6/radiometer-position-swap-plots.png"><img src="assets/lab6/radiometer-position-swap-plots.png" width="1860" height="1263" loading="lazy" alt="Signed rotor speeds with both reversal times marked."></a><figcaption><a href="assets/lab6/radiometer-position-swap-plots.png">Position-swap speed plots</a> · <a href="assets/lab6/radiometer-position-swap.csv" download>Speed data (CSV)</a> · <a href="assets/lab6/radiometer-spherical-vane-passages.png">Three spherical rotors</a></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="rotation-reversal">
+    <h2 id="rotation-reversal">First bench recording</h2>
+    <div class="rotation-observation">
+      <figure>
+        <video id="reversal-video" controls muted playsinline preload="none" width="960" height="540" poster="assets/lab6/radiometer-reversal.jpg" aria-label="Rear tall radiometer with a magnified view of its vanes" aria-describedby="reversal-caption">
+          <source src="assets/lab6/radiometer-reversal.mp4" type="video/mp4">
+          <a href="assets/lab6/radiometer-reversal.mp4">Open the first bench video</a>.
+        </video>
+        <figcaption id="reversal-caption"><a href="assets/lab6/radiometer-reversal.mp4#t=11" data-reversal-time="11">Replay from 00:11</a> · <a href="assets/lab6/radiometer-reversal.mp4#t=36" data-reversal-time="36">Watch the reverse motion at 00:36</a></figcaption>
+      </figure>
+      <div class="rotation-notes"><h3>Rear rotor · 00:14.5 in the clip</h3><p>Watch the dark vane on the right side of the enlarged rotor. It slows, pauses and moves back along its previous path.</p></div>
+    </div>
+    <details class="rotation-comparison">
+      <summary>Compare three rotors under bright and dim lighting</summary>
+      <figure>
+        <video id="three-rotor-video" controls muted playsinline preload="none" width="960" height="540" poster="assets/lab6/radiometer-three-rotors.jpg" aria-label="Three enlarged rotor views in bright and dim bench recordings" aria-describedby="three-rotor-caption"><source src="assets/lab6/radiometer-three-rotors.mp4" type="video/mp4"><a href="assets/lab6/radiometer-three-rotors.mp4">Open the comparison</a>.</video>
+        <figcaption id="three-rotor-caption">The letters identify the rear tall rotor (A), the front tall rotor (B) and the spherical rotor (C). <a href="assets/lab6/radiometer-three-rotors.mp4#t=17" data-reversal-time="17">See the rear rotor turning backward</a> · <a href="assets/lab6/radiometer-first-run-speeds.png">Speed measurements</a>.</figcaption>
+      </figure>
+    </details>
+  </section>
+
+  <section aria-labelledby="low-light">
+    <h2 id="low-light">Low-light comparison</h2>
+    <p>These two excerpts show slow vane passages under handheld lights. The speeds are magnitudes for consecutive quarter-turns. A reversal could not be verified in either excerpt.</p>
+    <div class="rotation-figures">
+      <figure>
+        <video id="low-white" controls muted playsinline preload="none" width="368" height="248" poster="assets/lab6/radiometer-low-light-white.jpg" aria-label="Close-up of vanes under the white handheld light" aria-describedby="white-caption"><source src="assets/lab6/radiometer-low-light-white.mp4" type="video/mp4"><a href="assets/lab6/radiometer-low-light-white.mp4">Open the white-light clip</a>.</video>
+        <figcaption id="white-caption"><strong>White light.</strong> Between 22.10 and 33.14 s in the original recording, successive quarter-turns averaged 3.10, 4.45 and 5.30 rpm.</figcaption>
+      </figure>
+      <figure>
+        <video id="low-blue" controls muted playsinline preload="none" width="508" height="332" poster="assets/lab6/radiometer-low-light-blue.jpg" aria-label="Close-up of vanes under the blue-looking handheld light" aria-describedby="blue-caption"><source src="assets/lab6/radiometer-low-light-blue.mp4" type="video/mp4"><a href="assets/lab6/radiometer-low-light-blue.mp4">Open the blue-light clip</a>.</video>
+        <figcaption id="blue-caption"><strong>Blue-looking light.</strong> Between 97.10 and 103.27 s in the original recording, successive quarter-turns averaged 4.55 and 5.23 rpm.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+<footer>Mechanical &amp; Industrial Engineering · UMass Amherst · Fall 2026</footer>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿source,instrument,observation,start_file_s,end_file_s,mid_file_s,mid_since_final_lamp_off_s,signed_rpm,speed_magnitude_rpm,quarter_turn_intervals,method
+IMG_2989.MOV,"Round, blue base",speed,44.008,45.983,44.996,-48.821,303.797,303.797,40,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Tall, clear base",speed,44.083,45.942,45.012,-48.804,80.717,80.717,10,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Tall, clear base",speed,66.042,67.933,66.988,-26.829,142.731,142.731,18,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Round, blue base",speed,66.033,67.967,67.0,-26.817,356.897,356.897,46,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Round, blue base",speed,88.298,90.248,89.273,-4.544,346.154,346.154,45,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Tall, clear base",speed,88.315,90.257,89.286,-4.531,154.286,154.286,18,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,Lamp at right in analysis view,first lamp off,91.55,91.57,91.56,-2.257,,,,First abrupt emitter change. Both switches timed with 60 Hz image samples.
+IMG_2989.MOV,Lamp at left in analysis view,second lamp off,93.8,93.82,93.81,-0.007,,,,Abrupt loss of both-lamp illumination; final-off reference 93.817 s.
+IMG_2989.MOV,"Round, blue base",speed,99.058,100.983,100.021,6.204,233.766,233.766,30,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Tall, clear base",speed,99.092,100.95,100.021,6.204,96.861,96.861,12,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Tall, clear base",speed,113.6,114.3,113.95,20.133,21.429,21.429,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,114.3,115.0,114.65,20.833,21.429,21.429,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,115.0,116.0,115.5,21.683,15.0,15.0,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,116.0,117.25,116.625,22.808,12.0,12.0,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,117.0,118.85,117.925,24.108,8.108,8.108,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,117.042,118.833,117.938,24.121,92.093,92.093,11,"Near-native 120 Hz. Mean of accepted quarter-turn intervals, checked against pixel spectra and motion direction."
+IMG_2989.MOV,"Tall, clear base",reversal,120.0,122.0,121.0,27.183,,,,Two independently tracked image sectors retrace their pre-stop poses. Best local shape extremum about 120.9 s. Bounds describe visual timing resolution.
+IMG_2989.MOV,"Tall, clear base",speed,125.25,127.45,126.35,32.533,-6.818,6.818,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,127.45,129.0,128.225,34.408,-9.677,9.677,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,129.0,130.4,129.7,35.883,-10.714,10.714,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,135.8,136.25,136.025,42.208,33.333,33.333,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,135.65,136.7,136.175,42.358,-14.286,14.286,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,136.25,136.75,136.5,42.683,30.0,30.0,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,136.75,137.25,137.0,43.183,30.0,30.0,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,136.7,137.85,137.275,43.458,-13.043,13.043,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,137.25,137.75,137.5,43.683,30.0,30.0,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,137.75,138.3,138.025,44.208,27.273,27.273,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,137.85,138.95,138.4,44.583,-13.636,13.636,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,138.3,138.85,138.575,44.758,27.273,27.273,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,138.85,139.4,139.125,45.308,27.273,27.273,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,138.95,140.0,139.475,45.658,-14.286,14.286,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,139.4,140.0,139.7,45.883,25.0,25.0,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,140.0,140.65,140.325,46.508,23.077,23.077,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,140.0,140.95,140.475,46.658,-15.789,15.789,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,140.65,141.3,140.975,47.158,23.077,23.077,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,140.95,142.05,141.5,47.683,-13.636,13.636,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,141.3,141.95,141.625,47.808,23.077,23.077,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,141.95,142.65,142.3,48.483,21.429,21.429,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,142.05,143.1,142.575,48.758,-14.286,14.286,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,143.1,144.15,143.625,49.808,-14.286,14.286,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,144.15,145.1,144.625,50.808,-15.789,15.789,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,149.27,150.4,149.835,56.018,-13.274,13.274,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,149.4,150.73,150.065,56.248,11.278,11.278,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,150.4,151.6,151.0,57.183,-12.5,12.5,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,150.73,152.2,151.465,57.648,10.204,10.204,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,151.6,152.8,152.2,58.383,-12.5,12.5,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,152.2,154.0,153.1,59.283,8.333,8.333,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,152.8,154.0,153.4,59.583,-12.5,12.5,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,154.0,155.2,154.6,60.783,-12.5,12.5,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,154.0,156.2,155.1,61.283,6.818,6.818,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,155.2,156.67,155.935,62.118,-10.204,10.204,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,156.67,158.07,157.37,63.553,-10.714,10.714,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Round, blue base",speed,156.2,159.4,157.8,63.983,4.687,4.687,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,158.07,159.47,158.77,64.953,-10.714,10.714,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+IMG_2989.MOV,"Tall, clear base",speed,159.47,160.8,160.135,66.318,-11.278,11.278,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+WhatsApp Video 2026-11-17 at 1.34.57 PM (1).mp4,Home rotor,speed,97.1,100.4,98.75,,,4.545,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+WhatsApp Video 2026-11-17 at 1.34.57 PM (1).mp4,Home rotor,speed,100.4,103.27,101.835,,,5.226,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+WhatsApp Video 2026-11-17 at 1.34.57 PM.mp4,Home rotor,speed,22.1,26.94,24.52,,,3.099,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+WhatsApp Video 2026-11-17 at 1.34.57 PM.mp4,Home rotor,speed,26.94,30.31,28.625,,,4.451,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
+WhatsApp Video 2026-11-17 at 1.34.57 PM.mp4,Home rotor,speed,30.31,33.14,31.725,,,5.3,1,Elapsed time between matching poses of successive vanes; four vanes per revolution.
