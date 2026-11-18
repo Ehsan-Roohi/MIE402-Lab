@@ -2,21 +2,28 @@ LAB 6 - RADIOMETER: ANALYZE SEPARATE CLIPS
 
 Two stages only: common Stage A, then the Stage B task in your group row
 in the laboratory guide. Use the eight A/B rows in the log.
-Two-bulb groups record both rotors in the same 6-8 movies; see guide page 3.
+Each stage includes one continuous phone video. Two-bulb groups keep both
+rotors in view on each camera and use a separate log per bulb (guide page 3).
 Enter distance_m in metres, measured lux and all actual timing values.
 
 1. Unzip the complete MATLAB bundle into a single folder. Keep the original
    acquisition movies and the actual capture fps for each clip. Ignore the
    export playback fps when calculating physical time or rotation speed.
-2. For each stage, label clips on_start, on_late, off_start and off_late.
-   Begin recording before the light switch for on_start and off_start. For
-   on_late and off_late, use a stopwatch to log the actual elapsed seconds from
-   the matching switch to the first saved frame. Wait about 60 s after the
-   previous clip ends, so delay_s is usually about 77 s from the switch.
-   If the rotor has stopped at the delayed off check, record the observation
-   and elapsed time. You can skip that movie.
-3. Run Mark_Lab6_Passage_Frames.m for each movie. Choose one reference line
-   and one repeatable crossing event. Use the same event definition for the
+2. For each stage, keep on_start, on_late, off_start and off_late as the
+   standard Chronos phases (up to 17 seconds per clip). Record the switch
+   frame in on_start and off_start. Take on_late about 60 s after clip 1
+   ends. Check off_late 60 s after lamp OFF. If any rotor moves, record it.
+   Count a clip already spanning the check once as off_late. Log actual
+   switch-to-first-frame delays. If all are still, record the check time.
+   Before switching off, start one fixed phone in normal-speed video mode
+   with flash off. Include a visible lamp-off cue and both rotors in paired
+   tests. Record from at least 5 s before OFF through at least 90 s after OFF,
+   including pauses and Chronos saves. As a rotor slows or starts to reverse,
+   take extra Chronos clips as needed. Save, re-arm and log each start time
+   from OFF. Name these clips A_off_event01, A_off_event02, etc. Use B for
+   Stage B. Retain the actual phone filename, e.g. A_phone_off.mov.
+3. Run Mark_Lab6_Passage_Frames.m for each Chronos clip used for speed. Choose one
+   reference line and one repeatable crossing event. Use the same event definition for the
    series. p is the number of selected events in one full revolution. Follow
    one identifiable vane for p = 1. If you count every vane, verify the number
    of events over a full turn, including their angular spacing. A rotor with
@@ -25,11 +32,14 @@ Enter distance_m in metres, measured lux and all actual timing values.
    The marker tool numbers frames from zero. The script writes a passage CSV.
 4. Open Lab6_Comparison_Log.csv. Match the movie and passage filenames and
    enter actual capture_fps, passages_per_revolution, measured lux and gap.
-   Rows for the same gap and repeat share a run_id. In the start clips enter
+   Keep run_id A for the reference and B for your group task. In start clips enter
    switch_frame (zero-based index of the switch in that saved file). In the
    late clips enter delay_s (seconds from that switch to the first saved
-   frame). Report the measured switch-to-frame delay, not just the wait. Add bulb and
-   temperature information to the log as available.
+   frame). In the off_start notes, list the phone file, initial direction,
+   first visible pause and first clear reversal in seconds since OFF. Use the
+   phone timestamp at OFF as zero. If this bulb shows no reversal, enter "no reversal
+   observed through __ s". Use "unclear" if the view cannot resolve direction.
+   List each extra Chronos filename and its actual start time in the same notes.
 5. Keep status = recorded for valid marked movies. The analysis reports an
    insufficient result if fewer than three qualifying crossings are marked.
    Use stationary for a visually confirmed stationary rotor. For an omitted
@@ -52,9 +62,11 @@ Enter distance_m in metres, measured lux and all actual timing values.
    gives T = -1/slope. Report the clip, fit window and T. If there are too few
    points or no defensible interval, record T unavailable.
 
-Run_Lab6_Radiometer.m is also available for plots for a single marked clip.
-Its time axis is relative to the first retained passage. Enter actual capture
-fps and verified p when prompted. The example passage template is synthetic.
+Use Run_Lab6_Radiometer.m for extra Chronos clips. Save a separate passage CSV
+for each direction before marking the next segment. This script uses time
+relative to the first retained passage. Enter actual Chronos capture fps and
+verified p. Use the phone's real-time timestamps for pause and reversal.
+The example passage template is synthetic.
 Requires base MATLAB R2020b or later. No automatic vane tracking.
 
 TWO BULBS IN ONE MOVIE
