@@ -18,7 +18,7 @@
   <p class="eyebrow"><a href="lab6.html">Lab 6 · Radiometer</a></p>
   <h1>Reverse Rotation</h1>
   <p class="lede">Follow one vane as the rotor slows after lamp-off. At a reversal, the vane stops and then passes back through the same position.</p>
-  <nav class="subnav" aria-label="Recordings"><a href="#two-rotors">Tall and spherical rotors</a><a href="#position-swap">Position swap</a><a href="#rotation-reversal">First bench recording</a><a href="#low-light">Low-light comparison</a></nav>
+  <nav class="subnav" aria-label="Recordings"><a href="#two-rotors">Tall and spherical rotors</a><a href="#why-it-reverses">Why it turns back</a><a href="#position-swap">Position swap</a><a href="#rotation-reversal">First bench recording</a><a href="#low-light">Low-light comparison</a></nav>
 
   <section aria-labelledby="two-rotors">
     <h2 id="two-rotors">A tall rotor reverses and a spherical rotor recoils</h2>
@@ -45,6 +45,14 @@
         <figcaption><a href="assets/lab6/radiometer-round-recoil.png">Spherical rotor displacement</a> · <a href="assets/lab6/radiometer-round-recoil.csv" download>Projected angles (CSV)</a></figcaption>
       </figure>
     </div>
+  </section>
+
+  <section aria-labelledby="why-it-reverses">
+    <h2 id="why-it-reverses">Why can the rotor turn back?</h2>
+    <p>Call the lamp-on direction positive. With only linear drag, angular velocity follows <i>ω</i>(<i>t</i>) = <i>ω</i><sub>0</sub> e<sup>−<i>t</i>/<i>T</i></sup>, where <i>ω</i><sub>0</sub> is the initial angular velocity and <i>T</i> is the decay time. A rotor that starts with positive angular velocity slows toward zero and keeps its direction. To start moving backward, an opposing torque must overcome friction at the pivot.</p>
+    <p>After lamp-off, the vanes and glass can cool at different rates. One possible explanation is that the dark face cools below the shiny face, reversing the torque exerted by the residual gas. Crookes observed a heated metal rotor slow, stop and spin backward when he removed the heat source. <a href="https://en.wikisource.org/wiki/Popular_Science_Monthly/Volume_9/July_1876/The_Mechanical_Action_of_Light">Crookes’s experiment (1876)</a> · <a href="https://lecdem.physics.umd.edu/i/i2/2226-i2-03.html">Maryland cooling demonstration</a>.</p>
+    <p>With thin metal vanes, the two faces can stay nearly at the same temperature. If the surfaces exchange different amounts of energy with gas molecules, the vane temperature relative to the glass also matters. Stokes reported opposite rotation in a metal rotor with one rough face and one smooth face when the rotor was warmer or cooler than its bulb. <a href="https://www.nature.com/articles/017234a0">Stokes’s experiment (1878)</a> · <a href="https://www.jstage.jst.go.jp/article/jvsj2/60/12/60_17-PR-039/_article/-char/en">Denpoh’s gas simulation (2017)</a>.</p>
+    <p><strong>In this lab</strong>, the video gives the direction and timing. The thermal camera reads the outside of the glass. The temperatures of the two vane faces during the turn remain unknown.</p>
   </section>
 
   <section aria-labelledby="position-swap">
