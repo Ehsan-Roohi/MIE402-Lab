@@ -12,9 +12,12 @@ Enter distance_m in metres, measured lux and all actual timing values.
 2. For each stage, keep on_start, on_late, off_start and off_late as the
    standard Chronos phases (up to 17 seconds per clip). Record the switch
    frame in on_start and off_start. Take on_late about 60 s after clip 1
-   ends. Check off_late 60 s after lamp OFF. If any rotor moves, record it.
-   Count a clip already spanning the check once as off_late. Log actual
-   switch-to-first-frame delays. If all are still, record the check time.
+   ends. Check all rotors 60 s after OFF. With a spherical bulb, save one
+   17 s off_late in A and B starting about 65 s after OFF, even if it looks
+   still. A pilot recoil occurred at 74-78 s after OFF. Use a clip already
+   covering this window, or the next available clip if the camera is busy.
+   For other bulbs, record off_late if moving or log the still check time.
+   Count each clip once. Log actual switch-to-first-frame delays.
    Before switching off, start one fixed phone in normal-speed video mode
    with flash off. Include a visible lamp-off cue and both rotors in paired
    tests. Record from at least 5 s before OFF through at least 90 s after OFF,
@@ -61,6 +64,19 @@ Enter distance_m in metres, measured lux and all actual timing values.
    interval under negligible residual drive and linear loss, a negative slope
    gives T = -1/slope. Report the clip, fit window and T. If there are too few
    points or no defensible interval, record T unavailable.
+
+8. After lab, check every rotor, including spherical bulbs, in the original
+   A and B Chronos clips. In the frame marker, use the arrow keys to compare
+   a vane corner against the hub and a fixed glass or base feature. At
+   1000 capture fps, 100-1000 frames span 0.1-1 s. Use smaller steps near a
+   turn. Check a second corner if visible. For suspected motion keep the clip
+   name and three frame numbers (before, at and after the apparent turn).
+   In a late clip, time since OFF = actual start delay + frame / capture fps.
+   Frame 0 is the first saved frame. Record sustained reversal, brief recoil,
+   no recoil resolved in the stated Chronos window, or unclear. For the
+   continuous phone video, state the last observed time. When motion is
+   visible but crossings are insufficient for rpm, keep the observation and
+   use insufficient for speed. A few degrees of recoil may give no crossing.
 
 Use Run_Lab6_Radiometer.m for extra Chronos clips. Save a separate passage CSV
 for each direction before marking the next segment. This script uses time
