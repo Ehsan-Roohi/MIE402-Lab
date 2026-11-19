@@ -4,7 +4,12 @@ Two stages only: common Stage A, then the Stage B task in your group row
 in the laboratory guide. Use the eight A/B rows in the log.
 Each stage includes one continuous phone video. Two-bulb groups keep both
 rotors in view on each camera and use a separate log per bulb (guide page 3).
-Enter distance_m in metres, measured lux and all actual timing values.
+Enter distance_m in metres and all actual timing values. In each lamp stage,
+place the uncapped lux meter at that bulb's rotor centre facing the lamp.
+With the room lights unchanged, read ambient_lux with the test lamp OFF.
+Keep the sensor in place and read lux with the lamp ON, including room light.
+Repeat both readings in all four clip rows for that bulb and stage, including
+the OFF rows. In MIE402_Lab6_Run_Log.csv, enter the pair once per bulb/stage.
 
 IN LAB: Record and save the original A/B movies. Before leaving, replay
 every saved file and confirm the rotor(s) and vane edges are visible after
@@ -49,7 +54,7 @@ second look at any suspected turn on a fixed-camera recording.
    sealed bulb. Keep consecutive marks in a single direction and in one file.
    The marker tool numbers frames from zero. The script writes a passage CSV.
 4. Open Lab6_Comparison_Log.csv. Match the movie and passage filenames and
-   enter actual capture_fps, passages_per_revolution, measured lux and gap.
+   enter actual capture_fps, passages_per_revolution, both lux readings and gap.
    Keep run_id A for the reference and B for your group task. In start clips enter
    switch_frame (zero-based index of the switch in that saved file). In the
    late clips enter delay_s (seconds from that switch to the first saved
@@ -58,6 +63,12 @@ second look at any suspected turn on a fixed-camera recording.
    phone timestamp at OFF as zero. If this bulb shows no reversal, enter "no reversal
    observed through __ s". Use "unclear" if the view cannot resolve direction.
    List each extra Chronos filename and its actual start time in the same notes.
+   R1 thermal photos: only the tall-bulb team takes these if the Fluke is
+   available. In the notes field for the corresponding R1 run, enter each
+   photo filename, event, time in seconds from lamp OFF or dryer OFF, and
+   apparent temperature (degrees C) at the same spot on the outer glass.
+   Use negative times before OFF. Leave unmeasured thermal fields blank.
+   Keep the dryer runs in the bench run log, outside the eight lamp clip rows.
 5. Keep status = recorded for valid marked movies. The analysis reports an
    insufficient result if fewer than three qualifying crossings are marked.
    Use stationary for a visually confirmed stationary rotor. For an omitted
@@ -111,5 +122,5 @@ Mark R1 first and move its generated passage CSV into folder R1 before
 marking R2: the marker otherwise overwrites the same output filename.
 Move the second CSV into folder R2. Keep one A/B comparison log per bulb.
 Use full video and passage CSV paths; share switch frames and clip delays.
-Enter each bulb's own lux, ID and passage marks. Run the comparison script
+Enter each bulb's own light readings, ID and passage marks. Run the comparison script
 once per bulb. Compare each bulb with its own Stage A result.
