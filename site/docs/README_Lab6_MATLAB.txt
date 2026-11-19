@@ -32,10 +32,14 @@ second look at any suspected turn on a fixed-camera recording.
    and Chronos saves. Record at least 90 s after OFF. The tall-bulb reversal
    team records at least 150 s after OFF in both A and B. If either rotor is
    still moving at 150 s, continue until both stop.
-   As a rotor slows or starts to reverse,
-   take extra Chronos clips as needed. Save, re-arm and log each start time
-   from OFF. Name these clips A_off_event01, A_off_event02, etc. Use B for
-   Stage B. Retain the actual phone filename, e.g. A_phone_off.mov.
+   Tall-bulb reversal team, in both A and B: keep both rotors in the shot.
+   Start off_start just before OFF. Record up to 17 s, then save and re-arm.
+   Take three more 17 s clips, each as soon as Chronos is ready. Name them
+   A_off_event01 to A_off_event03 (use B for Stage B). Log each actual start
+   time after OFF. The phone must keep recording during every save gap.
+   Use a clip already covering off_late rather than counting it twice.
+   Other teams take extra Chronos clips near a turn if needed. Retain the
+   actual phone filename, e.g. A_phone_off.mov.
 3. Run Mark_Lab6_Passage_Frames.m for each Chronos clip used for speed. Choose one
    reference line and one repeatable crossing event. Use the same event definition for the
    series. p is the number of selected events in one full revolution. Follow
