@@ -35,7 +35,7 @@ window.addEventListener('hashchange', cueLinkedReplay);
 
 // Keep links to recordings that were previously embedded on the course and lab pages.
 function followArchivedRecording() {
-  const archive = document.querySelector('a[data-reversal-archive]');
+  const archive = document.querySelector('[data-reversal-archive]');
   if (!archive) return;
   const id = location.hash.slice(1);
   const moved = ['rotation-reversal', 'reversal-video', 'reversal-caption',
@@ -47,6 +47,8 @@ function followArchivedRecording() {
       details.open = true;
       target.scrollIntoView({block: 'start', behavior: 'instant'});
     }
+  } else if (['radiometer-videos','reverse-rotation','home-rotation-caption'].includes(id)) {
+    location.replace(archive.href + '#two-rotors');
   } else if (moved.includes(id)) {
     location.replace(archive.href + '#' + id);
   }

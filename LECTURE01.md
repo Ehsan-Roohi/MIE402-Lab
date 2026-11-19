@@ -36,7 +36,7 @@ MIE 402 · Fall 2026 · September 9 · 50 minutes
 
 **Theory.** Monday, 12:20–1:10 PM · Hasbrouck Laboratory 134
 
-**Laboratory / office hours.** Lab sections: Tuesday–Friday, Gunness Laboratory 5. Office hours: Friday, 12:20–1:10 PM, Gunness Laboratory 1.
+**Laboratory / office hours.** Lab sections: Tuesday–Friday, Gunness Laboratory 5. Office hours: Friday, 10:00 AM–noon, Gunness Laboratory 1.
 
 ## 05. Course grading
 

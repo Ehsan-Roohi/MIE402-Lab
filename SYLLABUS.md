@@ -10,7 +10,7 @@ Fall 2026
 | --- | --- |
 | Graduate Teaching Assistants | Yuyuan Zhang; Nazila Emamdoost (emails listed with lab sections below) |
 | Theory Meeting | Mon. 12:20-1:10 PM  /  Hasbrouck Laboratory room 134 |
-| Friday Office Hours | Fri. 12:20-1:10 PM  /  Gunness Laboratory room 1 |
+| Friday Office Hours | Fri. 10:00 AM–noon  /  Gunness Laboratory room 1 |
 
 ## Course information
 
