@@ -6,6 +6,14 @@ Each stage includes one continuous phone video. Two-bulb groups keep both
 rotors in view on each camera and use a separate log per bulb (guide page 3).
 Enter distance_m in metres, measured lux and all actual timing values.
 
+IN LAB: Record and save the original A/B movies. Before leaving, replay
+every saved file and confirm the rotor(s) and vane edges are visible after
+OFF, the lamp-off cue is clear and coverage is complete. Record bulb IDs,
+capture fps, lux and actual clip delays. Re-record unusable footage.
+AT HOME: Do the MATLAB marking, RPM calculations, plots and report. Use
+the optional Lab6_Check_Reversal.py and Lab6_Reversal_Check.md for a
+second look at any suspected turn on a fixed-camera recording.
+
 1. Unzip the complete MATLAB bundle into a single folder. Keep the original
    acquisition movies and the actual capture fps for each clip. Ignore the
    export playback fps when calculating physical time or rotation speed.
