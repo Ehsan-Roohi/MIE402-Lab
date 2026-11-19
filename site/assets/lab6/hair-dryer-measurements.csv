@@ -1,0 +1,5 @@
+source_file,blower_setting,rotor_in_image,window_start_s,window_end_s,blower_sound_midpoint_s,gate_angle_deg_clockwise_from_image_right,complete_passage_intervals,first_passage_s,last_passage_s,passages_per_revolution,mean_rpm_magnitude,spectral_check_rpm_magnitude,direction_from_camera
+IMG_2999(1).MOV,Warm,upper tall,49.0,54.0,55.1,300,21,49.112,53.779,4,67.5,67.65,counterclockwise
+IMG_2999(1).MOV,Warm,lower tall,49.0,54.0,55.1,21,17,49.112,53.645,4,56.25,55.8,counterclockwise
+IMG_3001(1).MOV,Cool,upper tall,143.0,151.0,152.4,119,9,143.293,150.426,4,18.93,18.9,clockwise
+IMG_3001(1).MOV,Cool,lower tall,143.0,151.0,152.4,10,10,143.193,150.56,4,20.36,20.55,clockwise
