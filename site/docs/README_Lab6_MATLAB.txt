@@ -20,8 +20,11 @@ Enter distance_m in metres, measured lux and all actual timing values.
    Count each clip once. Log actual switch-to-first-frame delays.
    Before switching off, start one fixed phone in normal-speed video mode
    with flash off. Include a visible lamp-off cue and both rotors in paired
-   tests. Record from at least 5 s before OFF through at least 90 s after OFF,
-   including pauses and Chronos saves. As a rotor slows or starts to reverse,
+   tests. Start at least 5 s before OFF and keep filming through all pauses
+   and Chronos saves. Record at least 90 s after OFF. The tall-bulb reversal
+   team records at least 150 s after OFF in both A and B. If either rotor is
+   still moving at 150 s, continue until both stop.
+   As a rotor slows or starts to reverse,
    take extra Chronos clips as needed. Save, re-arm and log each start time
    from OFF. Name these clips A_off_event01, A_off_event02, etc. Use B for
    Stage B. Retain the actual phone filename, e.g. A_phone_off.mov.
@@ -59,6 +62,12 @@ Enter distance_m in metres, measured lux and all actual timing values.
    thermal conditions. Review red X marks against the footage. The per-clip
    speed is unsigned. Document the observed direction and any reversal, and
    use only a single direction in a passage file.
+   Tall-bulb reversal team: for each bulb in A and B, report the first
+   sustained reversal time from the phone and the fastest measured reverse
+   interval in rpm. The lamp-on direction is positive. For an interval seen
+   turning backward, give the MATLAB rpm a minus sign. Use the most negative
+   verified interval, with its clip and passage frames. If too few passages
+   are visible, report speed unavailable and keep the video observation.
 7. If you can fit a decay constant, use ln(rpm) and elapsed time from one
    continuous positive-speed clip with a consistent direction. For a straight
    interval under negligible residual drive and linear loss, a negative slope
