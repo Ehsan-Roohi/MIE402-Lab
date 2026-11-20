@@ -73,6 +73,13 @@ if mode==2
     fig=figure('Color','w'); semilogx(w,20*log10(H),'k-',summary(:,2),summary(:,6),'bo'); grid on;
     xlabel('Drive angular frequency (rad/s)'); ylabel('Displacement ratio X/Y (dB)'); legend('Theory','Experiment','Location','best');
     exportgraphics(fig,fullfile(out,'Lab5_Frequency_Response.png'),'Resolution',220);
+    reportFig=figure('Color','w','Name','Report: X/Y vs drive frequency');
+    plot(w/(2*pi),H,'k-','LineWidth',1.5); hold on;
+    plot(summary(:,1),summary(:,5),'bo','LineStyle','none','MarkerSize',7);
+    grid on;
+    xlabel('Measured drive frequency (Hz)'); ylabel('Peak displacement ratio X/Y (dimensionless)');
+    legend('Analytical response','Measured sweep','Location','best');
+    exportgraphics(reportFig,fullfile(out,'Lab5_X_over_Y_vs_Drive_Frequency_Hz.png'),'Resolution',220);
     output='Lab5_Harmonic_Summary.csv';
 else
     labels={'fd_fit_Hz','fn_fit_Hz','fn_theory_Hz','c_est_Ns_m','zeta_fit','RMSE_m'};

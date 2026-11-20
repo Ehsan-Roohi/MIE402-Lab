@@ -39,21 +39,55 @@ amb=[raw raw]; writecell(amb,fullfile(out,'amb.csv'));
 failed=false;try,Lab5_Read_Vernier(fullfile(out,'amb.csv'));catch e,failed=strcmp(e.identifier,'Lab5:Columns');end;assert(failed);
 % Time reset: reject instead of sorting separate runs into one.
 failed=false;try,Lab5_Analyze_Record([t;t], [x;x],P,'harmonic',.65);catch,failed=true;end;assert(failed);
-% Complete student launcher: no figures before interval/unit prompts, output saves.
+% Complete student launcher: a sweep with distinct input travel at each speed.
+% Select high frequency first and verify frequency/ratio pairs after sorting.
+lowData = raw;
+lowData(5:end,3) = num2cell(.19 + .012*cos(2*pi*.40*t + .3));
+writecell(lowData,fullfile(out,'test_low.csv'));
 mock=fullfile(out,'mock');if ~exist(mock,'dir'),mkdir(mock);end
-fid=fopen(fullfile(mock,'uigetfile.m'),'w');fprintf(fid,'function [f,p]=uigetfile(varargin)\nglobal L5_FILE;[p,n,e]=fileparts(L5_FILE);f=[n e];\nend\n');fclose(fid);
+fid=fopen(fullfile(mock,'uigetfile.m'),'w');
+fprintf(fid,'function [f,p]=uigetfile(varargin)\nglobal L5_NAMES L5_FOLDER; f=L5_NAMES; p=L5_FOLDER;\nend\n');
+fclose(fid);
 fid=fopen(fullfile(mock,'input.m'),'w');fprintf(fid,'function x=input(varargin)\nglobal L5_INPUT L5_I;if L5_I<=8, assert(isempty(findall(0,''Type'',''figure'')),''Unexpected preliminary figure'');end;x=L5_INPUT{L5_I};L5_I=L5_I+1;\nend\n');fclose(fid);
-global L5_FILE L5_INPUT L5_I;L5_FILE=csv;L5_INPUT={2,P.m,10,12,P.c,[],[0 35],1,39,.024};L5_I=1;
+global L5_NAMES L5_FOLDER L5_INPUT L5_I;
+L5_NAMES={'test.csv','test_low.csv'}; L5_FOLDER=out;
+L5_INPUT={2,P.m,10,12,P.c,[],[0 35],1,39,.024,[],[0 35],1,24,.010}; L5_I=1;
 addpath(mock,'-begin');rehash;R=Run_Lab5_Forced_Response;
-assert(exist(fullfile(out,'Lab5_Results','Lab5_Harmonic_Summary.csv'),'file')==2);
-assert(exist(fullfile(out,'Lab5_Results','Lab5_Frequency_Response.png'),'file')==2);
-assert(numel(findall(0,'Type','figure'))==2);
-S=readtable(fullfile(out,'Lab5_Results','Lab5_Harmonic_Summary.csv'));assert(abs(S.X_peak_m-.02)<1e-6);
+resultsDir=fullfile(out,'Lab5_Results');
+assert(exist(fullfile(resultsDir,'Lab5_Harmonic_Summary.csv'),'file')==2);
+assert(exist(fullfile(resultsDir,'Lab5_Frequency_Response.png'),'file')==2);
+assert(exist(fullfile(resultsDir,'Lab5_X_over_Y_vs_Drive_Frequency_Hz.png'),'file')==2);
+assert(numel(findall(0,'Type','figure'))==4); % two run figures, report plot, Bode plot
+S=readtable(fullfile(resultsDir,'Lab5_Harmonic_Summary.csv'));
+expected=[.40, .012/.005; .65, .020/.012];
+assert(max(abs(sortrows([S.drive_Hz,S.gain])-expected),[],'all')<1e-6);
 assert(ismember('X_theory_peak_m',S.Properties.VariableNames));
-assert(exist(fullfile(out,'Lab5_Results','test_comparison.txt'),'file')==2);
-F=readtable(fullfile(out,'Lab5_Results','test_fit.csv'));
+assert(exist(fullfile(resultsDir,'test_comparison.txt'),'file')==2);
+F=readtable(fullfile(resultsDir,'test_fit.csv'));
 assert(ismember('theory_m',F.Properties.VariableNames));
-close all;L5_INPUT={1,P.m,10,12,[],[0 35],1};L5_I=1;
+
+reportFig=findall(0,'Type','figure','Name','Report: X/Y vs drive frequency');
+assert(isscalar(reportFig));
+reportAxes=findobj(reportFig,'Type','axes');
+assert(isscalar(reportAxes) && strcmp(reportAxes.XScale,'linear') && strcmp(reportAxes.YScale,'linear'));
+assert(contains(reportAxes.XLabel.String,'Hz') && contains(erase(reportAxes.YLabel.String,' '),'X/Y'));
+points=findobj(reportAxes,'Type','line','LineStyle','none');
+assert(isscalar(points) && ~strcmp(points.Marker,'none'));
+assert(max(abs(sortrows([points.XData(:),points.YData(:)])-expected),[],'all')<1e-6);
+curve=findobj(reportAxes,'Type','line','-not','LineStyle','none');
+assert(isscalar(curve) && numel(curve.XData)>2);
+freq=curve.XData(:);
+assert(all(isfinite(freq)) && all(diff(freq)>0) && freq(1)<=min(expected(:,1)) && freq(end)>=max(expected(:,1)));
+omega=2*pi*freq;
+theory=P.kDrive./hypot(P.kFixed+P.kDrive-P.m*omega.^2,P.c*omega);
+assert(max(abs(curve.YData(:)-theory))<1e-10);
+bodeAxes=findall(0,'Type','axes','XScale','log');
+assert(isscalar(bodeAxes));
+bodePoints=findobj(bodeAxes,'Type','line','LineStyle','none');
+assert(isscalar(bodePoints));
+expectedBode=[2*pi*expected(:,1),20*log10(expected(:,2))];
+assert(max(abs(sortrows([bodePoints.XData(:),bodePoints.YData(:)])-expectedBode),[],'all')<1e-6);
+close all;L5_NAMES='test.csv';L5_INPUT={1,P.m,10,12,[],[0 35],1};L5_I=1;
 % Overwrite input CSV with a transient and retest the other launcher branch.
 x=.2+.04*exp(-a*t).*sin(wd*t);raw(5:end,3)=num2cell(x);writecell(raw,csv);
 R=Run_Lab5_Forced_Response;assert(abs(R{1}.c_est_Ns_m-P.c)<.005);

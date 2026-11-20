@@ -18,7 +18,14 @@ MIE 402 - Lab 5: forced response
 7. Results are saved beside the raw data in Lab5_Results: annotated PNG figures,
    fit CSVs, a summary CSV and a MAT archive. Raw files are unchanged.
 
-Use Lab5_Frequency_Response.png and the run time/spectrum figures for the report.
+For the combined Labs 4 and 5 report, choose 2 (harmonic sweep). Select all
+Lab 5 speeds for one hardware configuration together (at least five measured
+speeds for the report). Enter the motor rpm and the driven spring endpoint's
+full peak-to-peak travel in meters for each run. The script fits the cart
+peak amplitude X and halves the input travel to get Y.
+Use Lab5_X_over_Y_vs_Drive_Frequency_Hz.png for the measured X/Y points and
+analytical curve versus drive frequency (rpm/60, Hz), both axes linear.
+Lab5_Frequency_Response.png gives the same comparison in dB versus rad/s.
 Check that each fit follows the measured dots. Explain departures from theory.
 The harmonic sine fit uses the measured drive frequency; output phase alone
 does not measure input/output phase without a synchronized input record.
